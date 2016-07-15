@@ -1,76 +1,90 @@
 package refraction.core;
-import flash.display.Stage;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.Lib;
+import kha.Framebuffer;
+import kha.Key;
+import kha.Scheduler;
+import kha.System;
+import kha.input.Keyboard;
+import kha.input.Mouse;
 
-/**
- * ...
- * @author worldedit
- */
-
-class Application 
+class Application
 {
-	public static var stage:Stage;
-	public static var currentState:State;
-	public static var mouseIsDown:Bool;
+	public static var width:Int;
+	public static var height:Int;
+	public static var zoom:Int;
 	
+	public static var currentState:State;
+	
+	public static var mouseIsDown:Bool;
 	public static var mouseX:Int;
 	public static var mouseY:Int;
 	
-	public static var keys:IntHash<Bool>;
+	public static var keys:Map<Int, Bool>;
 	
-	public static function init():Void
+	private static var lastTime:Float;
+	
+	public static function init(_title:String, _width:Int = 800, _height:Int = 600, _zoom:Int = 2, __callback:Void->Void):Void
 	{
-		stage = Lib.current.stage;
 		currentState = new State();
-		keys = new IntHash<Bool>();
-		stage.addEventListener(Event.ENTER_FRAME, update);
-		stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-		stage.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
-		stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-		stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
+		keys = new Map<Int, Bool>();
+		
+		width = _width;
+		height = _height;
+		zoom = _zoom;
+		
+		System.init({title: _title, width: _width, height: _height}, function() {
+			Mouse.get().notify(mouseDown, mouseUp, mouseMove, null);
+			Keyboard.get().notify(keyDown, keyUp);
+			
+			Scheduler.addTimeTask(update, 0, 1 / 60);
+			System.notifyOnRender(render);
+			
+			lastTime = Scheduler.time();
+			
+			__callback();
+		});
 	}
 	
-	static private function mouseMove(e:MouseEvent):Void 
+	static private function mouseMove(x:Int, y:Int, dX:Int, dY:Int)
 	{
-		mouseX = cast stage.mouseX;
-		mouseY = cast stage.mouseY;
+		mouseX = x;
+		mouseY = y;
 	}
 	
-	static private function mouseDown(e:MouseEvent):Void 
+	static private function mouseDown(button:Int, x:Int, y:Int)
 	{
 		mouseIsDown = true;
 	}
 	
-	static private function mouseUp(e:MouseEvent):Void 
+	static private function mouseUp(button:Int, x:Int, y:Int)
 	{
 		mouseIsDown = false;
 	}
 	
-	static private function keyDown(e:KeyboardEvent):Void 
+	static private function keyDown(key:Key, char:String)
 	{
-		keys.set(e.keyCode, true);
+		if (char != null)
+		keys.set(char.toUpperCase().charCodeAt(0), true);
 	}
 	
-	static private function keyUp(e:KeyboardEvent):Void 
+	static private function keyUp(key:Key, char:String)
 	{
-		keys.set(e.keyCode, false);
+		if(char != null)
+		keys.set(char.toUpperCase().charCodeAt(0), false);
 	}
 	
-	public static function setState(_state:State):Void
+	public static function setState(_state:State)
 	{
 		currentState.unload();
 		currentState = _state;
 		_state.load();
 	}
 	
-	static private function update(e:Event):Void 
+	private static function update()
 	{
 		currentState.update();
-		currentState.render();
 	}
 	
+	public static function render(frame:Framebuffer){
+		currentState.render(frame);
+	}
 }

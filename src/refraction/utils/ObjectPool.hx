@@ -10,12 +10,12 @@ class ObjectPool<T>
 {
 
 	public var size:UInt;
-	public var pool:Vector<T>;
+	public var pool:Array<T>;
 	public var incremental:Int;
 	
 	public function new(_initialSize:Int, _incremental:Int = 10) 
 	{
-		pool = new Vector<T>(_initialSize);
+		pool = new Array<T>();
 		incremental = _incremental;
 	}
 	
@@ -29,9 +29,7 @@ class ObjectPool<T>
 	
 	public function alloc(_o:T):Void
 	{
-		pool[size++];
-		if (size == pool.length)
-		pool.length += incremental;
+		pool.push(_o);
 	}
 	
 }

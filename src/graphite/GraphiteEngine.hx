@@ -1,6 +1,7 @@
 package graphite;
 
-//import flash.desktop.NativeApplication;
+// Port this file to Kha please !
+
 import flash.filters.GlowFilter;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -16,6 +17,7 @@ class GraphiteEngine
 	public static var configOptions:Dynamic;
 	public static var textFormat:TextFormat;
 	public static var textFormatLeft:TextFormat;
+	
 	public static var glowFilter:GlowFilter;
 	
 	private static var _callback:Void->Void;
@@ -33,7 +35,7 @@ class GraphiteEngine
 		configOptions = GDFParser.parse(binloader.data);
 		textFormat = new TextFormat("verdana", 12, configOptions.text_color,null,null,null,null,null,TextFormatAlign.CENTER);
 		textFormatLeft = new TextFormat("verdana", 12, configOptions.text_color, null, null, null, null, null, TextFormatAlign.LEFT);
-		glowFilter = new GlowFilter(0, 0.7,10, 10, 1,5);
+		glowFilter = new GlowFilter(0, 0.7, 10, 10, 1, 5);
 		_callback();
 	}
 	

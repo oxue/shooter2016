@@ -18,7 +18,7 @@ import flash.Lib;
 import flash.Memory;
 import flash.utils.ByteArray;
 import flash.Vector;
-import format.hxsl.Shader;
+import hxsl.Shader;
 
 /**
  * ...
@@ -97,7 +97,8 @@ class HxBlit
 		context.enableErrorChecking = true;
 		context.configureBackBuffer(width, height, 0, true);		
 		
-		currentShader = new Shader2(context);
+		//currentShader = new Shader2(context);
+		currentShader = new Shader2();
 		HXB_shader2 = cast currentShader;
 		
 		context.setDepthTest(true, Context3DCompareMode.ALWAYS);
@@ -322,64 +323,48 @@ class HxBlit
 	static public function blit(_s2:Surface2, _x:Int, _y:Int):Void
 	{
 		vertices[vCounter] = (_x);
-		//Memory.setFloat(vCounter, _x);
 		
 		vCounter ++;
 		vertices[vCounter] = (_y);
-		//Memory.setFloat(vCounter, _y);
 		
 		vCounter++;
 		vertices[vCounter] = (_s2.vx1);
-		//Memory.setFloat(vCounter, _s2.vx1);
 		
 		vCounter++;
 		vertices[vCounter] = (_s2.vy1);
-		//Memory.setFloat(vCounter, _s2.vy1);
 		
 		vCounter++;
 		vertices[vCounter] = (_x + _s2.width);
-		//Memory.setFloat(vCounter, _x + _s2.width);
 		vCounter++;
 		vertices[vCounter] = (_y);
-		//Memory.setFloat(vCounter, _y);
 		vCounter++;
 		vertices[vCounter] = (_s2.vx2);
-		//Memory.setFloat(vCounter, _s2.vx2);
 		vCounter++;
 		vertices[vCounter] = (_s2.vy2);
-		//Memory.setFloat(vCounter,_s2.vy2);
 		
 		vCounter++;
 		vertices[vCounter] = (_x);
-		//Memory.setFloat(vCounter,_x);
 		
 		vCounter++;
 		vertices[vCounter] = (_y + _s2.height);
-		//Memory.setFloat(vCounter,_y + _s2.height);
 		
 		vCounter++;
 		vertices[vCounter] = (_s2.vx3);
-		//Memory.setFloat(vCounter,_s2.vx3);
 		
 		vCounter ++;
 		vertices[vCounter] = (_s2.vy3);
-		//Memory.setFloat(vCounter,_s2.vy3);
 		
 		vCounter ++;
 		vertices[vCounter] = (_x + _s2.width);
-		//Memory.setFloat(vCounter,_x + _s2.width);
 		
 		vCounter++;
 		vertices[vCounter] = (_y + _s2.height);
-		//Memory.setFloat(vCounter,_y + _s2.height);
 		
 		vCounter++;
 		vertices[vCounter] = (_s2.vx4);
-		//Memory.setFloat(vCounter,_s2.vx4);
 	
 		vCounter++;
 		vertices[vCounter] = (_s2.vy4);
-		//Memory.setFloat(vCounter,_s2.vy4);
 		vCounter ++;
 		
 		indices[numIndices] = iCounter;
@@ -441,8 +426,10 @@ class HxBlit
 			indexBuffer.uploadFromVector(indices, 0, numIndices);
 			
 			//vertexBuffer.
-			
-			currentShader.draw(vertexBuffer, indexBuffer);
+			currentShader.bind(context, vertexBuffer);
+			//currentShader.draw(vertexBuffer, indexBuffer);
+			context.drawTriangles(indexBuffer);
+			currentShader.unbind(context);
 			//context.drawToBitmapData(_targetBitmap);
 		}
 		

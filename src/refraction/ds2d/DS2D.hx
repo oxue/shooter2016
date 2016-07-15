@@ -65,9 +65,9 @@ class DS2D
 		prjList = new Vector<Float2>(32, true);
 		shadowBuffer = HxBlit.context.createTexture(nbpo2(400), nbpo2(200), Context3DTextureFormat.BGRA, true);
 		offBuffer = HxBlit.context.createTexture(nbpo2(400), nbpo2(200), Context3DTextureFormat.BGRA, true);
-		lshader = new LightShader(HxBlit.context);
-		sshader = new ShadowShader(HxBlit.context);
-		s2 = new Shader2(HxBlit.context);
+		lshader = new LightShader();
+		sshader = new ShadowShader();
+		s2 = new Shader2();
 		drawRect = new Rectangle(0,0,nbpo2(400),nbpo2(200));
 		//circles.push(new Circle(100, 100, 5));
 	}
@@ -109,8 +109,8 @@ class DS2D
 										 Context3DCompareMode.ALWAYS,
 										 Context3DStencilAction.DECREMENT_SATURATE);
 		HxBlit.setBlendMode("NOTHING");
-		HxBlit.HXB_shader2.init( { mproj: HxBlit.matrix2 },
-								 { tex:HxBlit.atlas.texture } );
+		HxBlit.HXB_shader2.mproj = HxBlit.matrix2;
+		HxBlit.HXB_shader2.tex = HxBlit.atlas.texture;
 		cast(Application.currentState, GameState).s2tilemaprender.threashold = true;
 		cast(Application.currentState, GameState).s2tilemaprender.mode = 1;
 		cast(Application.currentState, GameState).s2tilemaprender.update();
@@ -135,9 +135,9 @@ class DS2D
 			tempV3.y = l.y - cy;
 			tempV3.z = l.y - cy;
 			tempV3.w = l.y - cy;
-			cast(HxBlit.currentShader, ShadowShader).init( 
-			{ mproj:HxBlit.matrix2, cpos:tempV3}, 
-			{ } );
+			cast(HxBlit.currentShader, ShadowShader).mproj = HxBlit.matrix2;
+			cast(HxBlit.currentShader, ShadowShader).cpos = tempV3;
+			
 			//increment shadow
 			//{
 			HxBlit.setBlendMode("ADD");
@@ -224,9 +224,11 @@ class DS2D
 			tempV3.w = 0;
 			tempV32.x = l.radius;
 			tempV32.z = tempV32.y = tempV32.w;
-			cast(HxBlit.currentShader, LightShader).init( 
-			{ mproj:HxBlit.matrix2, cpos:tempV3, radius:tempV32 }, 
-			{ color: l.v3Color } );
+			cast(HxBlit.currentShader, LightShader).mproj = HxBlit.matrix2;
+			cast(HxBlit.currentShader, LightShader).cpos = tempV3;
+			cast(HxBlit.currentShader, LightShader).radius = tempV32;
+			cast(HxBlit.currentShader, LightShader).color = l.v3Color;
+			
 			HxBlit.pushRect(drawRect);
 			HxBlit.draw();
 			if (l.remove == true)
@@ -248,9 +250,9 @@ class DS2D
 											 Context3DCompareMode.ALWAYS, 
 											 Context3DStencilAction.KEEP);
 		HxBlit.setBlendMode("MULTIPLY");
-		cast(HxBlit.currentShader, Shader2).init( 
-		{ mproj:HxBlit.matrix2}, 
-		{ tex:shadowBuffer } );
+		cast(HxBlit.currentShader, Shader2).mproj = HxBlit.matrix2;
+		cast(HxBlit.currentShader, Shader2).tex = shadowBuffer;
+
 		HxBlit.blit(HxBlit.getSurface(nbpo2(400), nbpo2(200)),-1,1);
 		HxBlit.draw();
 	}

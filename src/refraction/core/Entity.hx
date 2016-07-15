@@ -8,12 +8,12 @@ import flash.Vector;
 
 class Entity 
 {
-	public var components:Hash<Component>;
+	public var components:Map<String, Component>;
 	public var entities:Vector<Entity>;
 	
 	public function new() 
 	{
-		components = new Hash<Component>();
+		components = new Map<String, Component>();
 		entities = new Vector<Entity>();
 	}
 	

@@ -1,4 +1,5 @@
 package refraction.core;
+import kha.Framebuffer;
 
 /**
  * ...
@@ -28,9 +29,8 @@ class State
 		
 	}
 	
-	public function render():Void
+	public function render(frame:Framebuffer)
 	{
 		
 	}
-	
 }

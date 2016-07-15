@@ -312,8 +312,9 @@ class GameState extends State
 		HxBlit.clear(0,0,0,0,1,1);
 		
 		HxBlit.setShader(HxBlit.HXB_shader2, 4);
-		HxBlit.HXB_shader2.init( { mproj: HxBlit.matrix2 },
-								 { tex:HxBlit.atlas.texture } );
+		HxBlit.HXB_shader2.mproj = HxBlit.matrix2;
+		HxBlit.HXB_shader2.tex = HxBlit.atlas.texture;
+
 		HxBlit.setBlendMode("ALPHA");
 		
 		//if (tilemap != null)

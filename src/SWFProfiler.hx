@@ -218,9 +218,9 @@ class ProfilerContent extends Sprite {
     private var infoTxtBx : TextField;
     private var inspectLabel : TextField;
     private var inspectInputTxt : TextField;
-    private static inline var exists_tf : TextFormat = new TextFormat("_sans", 9, 0x99CCFF);
-    private static inline var undefined_tf : TextFormat = new TextFormat("_sans", 9, 0xFF88AA);
-    private static inline var tf : TextFormat = new TextFormat("_sans", 9, 0xCCCCCC);
+    private static var exists_tf : TextFormat = new TextFormat("_sans", 9, 0x99CCFF);
+    private static var undefined_tf : TextFormat = new TextFormat("_sans", 9, 0xFF88AA);
+    private static var tf : TextFormat = new TextFormat("_sans", 9, 0xCCCCCC);
     private var box : Shape;
     private var fps : Shape;
     private var mb : Shape;
@@ -233,7 +233,11 @@ class ProfilerContent extends Sprite {
         mb = new Shape();
         box = new Shape();
         main = _main;
-        
+		
+		exists_tf = new TextFormat("_sans", 9, 0x99CCFF);
+		undefined_tf = new TextFormat("_sans", 9, 0xFF88AA);
+		tf = new TextFormat("_sans", 9, 0xCCCCCC);
+		
         //this.mouseChildren = (main==null)?false:true; // not necessary
         this.mouseEnabled = false;
             

@@ -13,7 +13,7 @@ import refraction.systems.SpacingSystem;
  * @author worldedit
  */
 
-class Main 
+class Mainh
 {
 	static function main() 
 	{

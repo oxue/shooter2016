@@ -6,7 +6,6 @@ import flash.display3D.textures.Texture;
 import flash.geom.Point;
 import flash.Lib;
 import flash.Vector;
-import flash.utils.TypedDictionary;
 
 /**
  * ...
@@ -17,14 +16,14 @@ class TextureAtlas
 {
 	public var bitmaps:Vector<SurfaceData>;
 	public var data:BitmapData;
-	public var assets:TypedDictionary<Int,Surface2>;
+	public var assets:Map<Int,Surface2>;
 	public var texture:Texture;
 	public var numTextures:Int;
 	
 	public function new() 
 	{
 		bitmaps = new Vector<SurfaceData>();
-		assets = new TypedDictionary<Int, Surface2>();
+		assets = new Map<Int, Surface2>();
 		numTextures = 0;
 	}
 	
