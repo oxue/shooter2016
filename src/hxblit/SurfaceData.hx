@@ -1,5 +1,5 @@
 package hxblit;
-import kha.Image;
+import flash.display.BitmapData;
 
 /**
  * ...
@@ -8,10 +8,10 @@ import kha.Image;
 
 class SurfaceData 
 {
-	public var data:Image;
+	public var data:BitmapData;
 	public var id:Int;
 	
-	public function new(_data:Image, _id:Int) 
+	public function new(_data:BitmapData, _id:Int) 
 	{
 		data = _data;
 		id = _id;

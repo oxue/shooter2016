@@ -15,7 +15,6 @@ class Application
 	public static var currentState:State;
 	
 	public static var mouseIsDown:Bool;
-	public static var mouse2IsDown:Bool;
 	public static var mouseX:Int;
 	public static var mouseY:Int;
 	
@@ -31,9 +30,6 @@ class Application
 		width = _width;
 		height = _height;
 		zoom = _zoom;
-		
-		mouseX = mouseY = 0;
-		mouseIsDown = false;
 		
 		System.init({title: _title, width: _width, height: _height}, function() {
 			Mouse.get().notify(mouseDown, mouseUp, mouseMove, null);
@@ -56,18 +52,12 @@ class Application
 	
 	static private function mouseDown(button:Int, x:Int, y:Int)
 	{
-		if (button == 0)
 		mouseIsDown = true;
-		if (button == 1)
-		mouse2IsDown = true;
 	}
 	
 	static private function mouseUp(button:Int, x:Int, y:Int)
 	{
-		if (button == 0)
 		mouseIsDown = false;
-		if (button == 1)
-		mouse2IsDown = false;
 	}
 	
 	static private function keyDown(key:Key, char:String)

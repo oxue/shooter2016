@@ -1,10 +1,11 @@
 package refraction.control;
-/*import flash.geom.Point;
+import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.Vector;*/
+import flash.Vector;
 import refraction.core.ActiveComponent;
 import refraction.core.Application;
-//import refraction.display.EFLA;
+import refraction.display.Canvas;
+import refraction.display.EFLA;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
@@ -67,6 +68,7 @@ class WayPointFollowComponent extends ActiveComponent
 	
 	override public function update():Void 
 	{
+		var c:Canvas = cast(Application.currentState, GameState).canvas;
 		//			c.clear(0);
 		var p:Point = new Point(followTarget.x - position.x,
 								  followTarget.y - position.y);
@@ -93,6 +95,10 @@ class WayPointFollowComponent extends ActiveComponent
 		{
 			timer = 0;
 			queue.push(new PositionComponent(followTarget.x, followTarget.y));
+			if (queue.length > 50)
+			{
+				queue.shift();
+			}
 		}
 		var k:Int = queue.length;
 		while(k-->0){

@@ -1,6 +1,6 @@
 package refraction.display;
-/*import flash.geom.Point;
-import flash.geom.Rectangle;*/
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import refraction.core.ActiveComponent;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;

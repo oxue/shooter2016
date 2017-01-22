@@ -1,6 +1,5 @@
 package refraction.core;
-//import flash.Vector;
-import haxe.ds.Vector;
+import flash.Vector;
 import refraction.utils.ObjectPool;
 
 /**
@@ -10,13 +9,13 @@ import refraction.utils.ObjectPool;
 
 class SubSystem<T:ActiveComponent> 
 {
-	public var components:Array<T>;
+	public var components:Vector<T>;
 	private var l:Int;
 	private var pool:ObjectPool<T>;
 	
 	public function new() 
 	{
-		components = new Array<T>();
+		components = new Vector<T>();
 		pool = new ObjectPool<T>(10);
 	}
 	
@@ -33,11 +32,6 @@ class SubSystem<T:ActiveComponent>
 		components.push(_c);
 	}
 	
-	public function updateComponent(comp:T){
-		// abstract function
-		comp.update();
-	}
-	
 	public function update():Void
 	{
 		l = components.length;
@@ -49,18 +43,17 @@ class SubSystem<T:ActiveComponent>
 			{
 				pool.alloc(components[i]);
 				components[i] = components[--l];
+				//components.length --;
 				continue;
 			}
-			updateComponent(c);
+			c.update();
 			if (components[i].remove)
 			{
 				components[i].removeImmediately = true;
 			}
 			++i;
 		}
-		while (components.length > l){
-			components.pop();
-		}
+		components.length = l;
 	}
 	
 }

@@ -1,5 +1,4 @@
 package refraction.control;
-import hxblit.TextureAtlas.IntRect;
 import refraction.core.ActiveComponent;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
@@ -15,13 +14,9 @@ class RotationControlComponent extends ActiveComponent
 	
 	private var transform:TransformComponent;
 	private var position:PositionComponent;
-	private var targetRotation:Float;
-	private var targetCamera:IntRect;
 
-	public function new(_cam:IntRect) 
+	public function new() 
 	{
-		targetCamera = _cam;
-		targetRotation = 0;
 		super("rot_con_comp");
 	}
 	
@@ -33,16 +28,10 @@ class RotationControlComponent extends ActiveComponent
 	
 	override public function update():Void 
 	{
-		targetRotation = 
+		transform.rotation = 
 			cast (Math.atan2(
-				(Application.mouseY / 2) - position.y - 10 + targetCamera.y,
-				(Application.mouseX / 2) - position.x - 10 + targetCamera.x) * 180 / 3.14);
-				
-		var diff = targetRotation - transform.rotation;
-		if (diff < 0) diff += 360;
-		if (diff >= 360) diff -= 360;
-		if (diff > 180) diff -= 360;
-		transform.rotation += diff / 5;
+				(Application.mouseY / 2) - position.y - 10 + cast(Application.currentState, GameState).canvas.camera.y,
+				(Application.mouseX / 2) - position.x - 10 + cast(Application.currentState, GameState).canvas.camera.x) * 180 / 3.14);
 	}
 	
 }

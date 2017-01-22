@@ -1,6 +1,5 @@
 package refraction.generic;
 import refraction.core.ActiveComponent;
-import refraction.core.Utils;
 
 /**
  * ...
@@ -31,17 +30,6 @@ class VelocityComponent extends ActiveComponent
 		position.oldY = position.y;
 		position.x += velX;
 		position.y += velY;
-	}
-	
-	public function interpolate(speed:Float) 
-	{
-		var len = Math.sqrt(Utils.f2(velX) + Utils.f2(velY));
-		if (len < speed){
-			return;
-		}
-		velX = velX / len * speed; 
-		velY = velY / len * speed;
-		trace(velX);
 	}
 	
 }

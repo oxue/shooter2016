@@ -1,5 +1,6 @@
 package ;
 import refraction.core.ActiveComponent;
+import refraction.display.BlitComponentC;
 import refraction.display.Surface2RenderComponentC;
 import refraction.generic.VelocityComponent;
 
@@ -27,6 +28,16 @@ class AnimationControlComponent extends ActiveComponent
 	
 	override public function update():Void 
 	{
+		if (blc.curAnimaition != 1)
+		{
+			blc.curAnimaition = 1;
+			blc.frame = cast Math.random() * 4;
+			if (blc2.curAnimaition == 0 || blc2.curAnimaition == 1)
+			{
+				blc2.curAnimaition = 0;
+				blc2.frame = blc.frame;
+			}
+		}
 		if (Math.round(velocity.velX) == 0 && Math.round(velocity.velY) == 0)
 		{
 			if (blc.curAnimaition != 0)
@@ -35,19 +46,9 @@ class AnimationControlComponent extends ActiveComponent
 				blc.frame = 0;
 				if (blc2.curAnimaition == 0 || blc2.curAnimaition == 1)
 				{
-					blc2.curAnimaition = 0;
+					blc2.curAnimaition = 1;
 					blc2.frame = 0;
 				}
-			}
-		}
-		else if (blc.curAnimaition != 1)
-		{
-			blc.curAnimaition = 1;
-			blc.frame = Std.int(Math.random() * 4);
-			if (blc2.curAnimaition == 0 || blc2.curAnimaition == 1)
-			{
-				blc2.curAnimaition = 1;
-				blc2.frame = blc.frame;
 			}
 		}
 	}

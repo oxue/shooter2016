@@ -1,205 +1,106 @@
 package refraction.ds2d;
 
-
-import haxe.ds.Vector;
-import hxblit.DecrementPipeline;
-import hxblit.KhaBlit;
-import hxblit.ShadowPipelineState;
-import kha.Color;
-import kha.graphics4.Graphics;
-import kha.math.FastMatrix4;
-
-import hxblit.LightPipelineState;
-import hxblit.TextureAtlas.FloatRect;
-import kha.graphics4.DepthStencilFormat;
-import kha.Image;
-import kha.math.FastMatrix3;
-import kha.math.FastVector2;
-import kha.math.FastVector3;
-
+import flash.display.BitmapData;
+import flash.display.BlendMode;
+import flash.display.Graphics;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.display3D.Context3DClearMask;
+import flash.display3D.Context3DCompareMode;
+import flash.display3D.Context3DStencilAction;
+import flash.display3D.Context3DTriangleFace;
+import flash.filters.BitmapFilterQuality;
+import flash.filters.GlowFilter;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.Vector;
+import flash.Vector;
+import hxblit.HxBlit;
+import hxblit.ShadowShader;
+import hxblit.TextureAtlas;
+import hxblit.Shader2;
 import refraction.core.Application;
-
+import flash.display3D.textures.Texture;
+import flash.display3D.Context3DTextureFormat;
+import hxblit.LightShader;
+import flash.geom.Vector3D;
+import flash.geom.Rectangle;
 /**
  * ...
  * @author werber
  */
 class DS2D 
 {
-	public var lights:Array<LightSource>;
-	public var polygons:Array<Polygon>;
-	public var circles:Array<Circle>;
+	public var lights:Vector<LightSource>;
+	public var polygons:Vector<Polygon>;
+	public var circles:Vector<Circle>;
 	
-	/*public var s:Sprite;*/
+	private var tempMatrix:Matrix;
+	public var s:Sprite;
 	
-	public var shadowBuffer:Image;
-	public var offBuffer:Image;
-	public var lshader:LightPipelineState;
-	public var sshader:ShadowPipelineState;// ShadowShader;
-	public var decShader:DecrementPipeline;
+	private var lList:Vector<Float2>;
+	private var prjList:Vector<Float2>;
+	public var shadowBuffer:Texture;
+	public var offBuffer:Texture;
+	public var lshader:LightShader;
+	public var sshader:ShadowShader;
+	public var s2:Shader2;
 	
-	private var tempV3:FastVector2;
-	private var tempV32:FastVector3;
-	private var tempP:FastVector2;
-	private var drawRect:FloatRect;
-	
-	private var ambientLevel:Float;
-	private var ambientColor:Color;
-	var experimentalCullingEnabled = false;
+	private var tempV3:Vector3D;
+	private var tempV32:Vector3D;
+	private var tempP:Point;
+	private var drawRect:Rectangle;
 	
 	public function new() 
 	{
-		tempV3 = new FastVector2();
-		tempV32 = new FastVector3();
-		tempP = new FastVector2();
-		lights = new Array<LightSource>();
-		polygons = new Array<Polygon>();
-		circles = new Array<Circle>();
-		#if nodejs
-		shadowBuffer = Image.createRenderTarget(400, 200, null, true);
-		offBuffer = Image.createRenderTarget(400, 200, null, true);
-		#else
-		shadowBuffer = Image.createRenderTarget(400, 200, null, DepthStencilFormat.Depth24Stencil8);
-		offBuffer = Image.createRenderTarget(400, 200, null, DepthStencilFormat.Depth24Stencil8);
-		#end
-		lshader = new LightPipelineState();
-		sshader = new ShadowPipelineState();
-		drawRect = new FloatRect(0, 0, 400, 200);
-		decShader = new DecrementPipeline();
+		tempV3 = new Vector3D();
+		tempV32 = new Vector3D();
+		tempP = new Point();
+		lights = new Vector<LightSource>();
+		polygons = new Vector<Polygon>();
+		circles = new Vector<Circle>();
+		tempMatrix = new Matrix();
+		s = new Sprite();
+		lList = new Vector<Float2>(32, true);
+		prjList = new Vector<Float2>(32, true);
+		shadowBuffer = HxBlit.context.createTexture(nbpo2(400), nbpo2(200), Context3DTextureFormat.BGRA, true);
+		offBuffer = HxBlit.context.createTexture(nbpo2(400), nbpo2(200), Context3DTextureFormat.BGRA, true);
+		lshader = new LightShader();
+		sshader = new ShadowShader();
+		s2 = new Shader2();
+		drawRect = new Rectangle(0,0,nbpo2(400),nbpo2(200));
 		//circles.push(new Circle(100, 100, 5));
-		ambientColor = Color.fromValue(0xffffff);
-		ambientLevel = 0.7;
 	}
 	
-	public function setAmbientLevel(_level:Float){ ambientLevel = Math.max(Math.min(1, _level), 0); }
-	public function getAmbientLevel():Float { return ambientLevel; }
-	public function addLightSource(_l:LightSource) { lights.push(_l); }
+	private function nbpo2(_in:Int):Int
+	{
+		_in --;
+		_in = (_in >> 1) | _in;
+		_in = (_in >> 2) | _in;
+		_in = (_in >> 4) | _in;
+		_in = (_in >> 8) | _in;
+		_in = (_in >> 16) | _in;
+		_in++;
+		
+		return _in;
+	}
 	
-	public function renderHXB(gameContext:GameContext)
+	public function addLightSource(_l:LightSource):Void
+	{
+		lights.push(_l);
+	}
+	
+	public function renderHXB()
 	{	
-		shadowBuffer.g4.begin();
-		
-		var backbuffer:Graphics = KhaBlit.contextG4;
-		
-		KhaBlit.setContext(shadowBuffer.g4);
-		KhaBlit.clear(
-			ambientLevel * ambientColor.R,
-			ambientLevel * ambientColor.G, 
-			ambientLevel * ambientColor.B, 1, 1, 1);//ambientLevel * ambientColor.B, 1, 1, 1);
-			
-		KhaBlit.setPipeline(decShader);
-		KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
-		KhaBlit.setUniformTexture("tex", ResourceFormat.atlases.get("all").image);
-		gameContext.currentMap.threashold = true;
-		gameContext.currentMap.mode = 1;
-		gameContext.currentMap.update();
-		
-		KhaBlit.draw();
-
-		var i:Int = lights.length;
-		var rv:Int = 0;
-		while (i-->0){
-			var l:LightSource = lights[i];
-			
-			var camPos:FastVector2 = new FastVector2(gameContext.cameraRect.x, gameContext.cameraRect.y);
-			
-			var lx = l.position.x;
-			var ly = l.position.y;
-			
-			//l.radius = 300;
-			//--
-			sshader.stencilReferenceValue = rv + 1;
-			KhaBlit.setPipeline(sshader);
-			KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
-			KhaBlit.setUniformVec2("cpos", l.position.sub(camPos));
-			
-			var j:Int = polygons.length;
-			while (j-->0)
-			{
-				var p:Polygon = polygons[j];
-				if ((p.x - lx) * (p.x - lx) + (p.y - ly) * (p.y - ly) > l.radius * l.radius)
-				continue;
-				var k:Int = p.faces.length;
-				while (k-->0)
-				{
-					var f:Face = p.faces[k];
-					if(experimentalCullingEnabled){
-						if (f.cullNature == 1)
-						{
-							//trace("CULL 1");
-							if (lx > f.v1._0)
-							continue;
-						}else if (f.cullNature == 2)
-						{
-							//trace("CULL 2");
-							if (lx  <f.v1._0)
-							continue;
-						}else if (f.cullNature == 3)
-						{
-							if (ly > f.v1._1)
-							continue;
-						}else if (f.cullNature == 4)
-						{
-							if (ly < f.v1._1)
-							continue;
-						}
-					}
-					//trace(f.v1._0, f.v1._1, f.v2._0, f.v2._1);
-					KhaBlit.pushQuad3(f.v2._0 - camPos.x,
-									 f.v2._1 - camPos.y, 0,
-									 f.v1._0 - camPos.x,  
-									 f.v1._1 - camPos.y, 0,
-									                
-									 f.v1._0 - camPos.x,  
-									 f.v1._1 - camPos.y, 1,
-									 f.v2._0 - camPos.x,  
-									 f.v2._1 - camPos.y, 1);
-				}
-			}
-			
-			KhaBlit.draw();
-			
-			
-			lshader.stencilReferenceValue = rv + 2;
-			KhaBlit.setPipeline(lshader);
-			KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
-			KhaBlit.setUniformVec2("cpos", l.position.sub(camPos));
-			KhaBlit.setUniformFloat("radius", l.radius);
-			KhaBlit.setUniformVec4("color", l.v3Color);
-			//drawRect.x = drawRect.y = 30;
-			KhaBlit.pushRect(drawRect);
-			KhaBlit.draw();
-			rv++;
-		}
-		shadowBuffer.g4.end();
-		
-		backbuffer.begin();
-		KhaBlit.setContext(backbuffer);
-		KhaBlit.KHBTex2PipelineState.blendMultiply();
-		KhaBlit.setPipeline(KhaBlit.KHBTex2PipelineState);
-		KhaBlit.matrix2 = FastMatrix4.scale(1, -1, 1).multmat(KhaBlit.matrix2);
-
-		KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
-		KhaBlit.setUniformTexture("tex", shadowBuffer);
-		KhaBlit.blit(KhaBlit.getSurface(400, 200), -1, 1);
-		KhaBlit.draw();
-		KhaBlit.matrix2 = FastMatrix4.scale(1, -1,1).multmat(KhaBlit.matrix2);
-
-		backbuffer.end();
-		
-		gameContext.currentMap.threashold = false;
-		KhaBlit.KHBTex2PipelineState.blendAlpha();
-		
-		
-		
 		//remove this later
-		/*var cx:Float = cast(Application.currentState, GameState).canvas.camera.x;
+		var cx:Float = cast(Application.currentState, GameState).canvas.camera.x;
 		var cy:Float = cast(Application.currentState, GameState).canvas.camera.y;
 		var cr:Float = cast(Application.currentState, GameState).canvas.camera.width + cx;
-		var cb:Float = cast(Application.currentState, GameState).canvas.camera.height + cy;*/
+		var cb:Float = cast(Application.currentState, GameState).canvas.camera.height + cy;
 		/*lights[0].x = cast (cast(Application.currentState,GameState).player.components.get("pos_comp")).x + 10;
 		lights[0].y = cast (cast(Application.currentState, GameState).player.components.get("pos_comp")).y + 10;
 		*/
-		/*HxBlit.context.setRenderToTexture(shadowBuffer,true);
+		HxBlit.context.setRenderToTexture(shadowBuffer,true);
 		
 		//decrement solid tiles
 		HxBlit.clear(.05, .05, .05, 1, 1, 1);
@@ -214,11 +115,11 @@ class DS2D
 		cast(Application.currentState, GameState).s2tilemaprender.mode = 1;
 		cast(Application.currentState, GameState).s2tilemaprender.update();
 		HxBlit.draw();
-		cast(Application.currentState, GameState).s2tilemaprender.threashold = false;*/
+		cast(Application.currentState, GameState).s2tilemaprender.threashold = false;
 		
 		//--
 		
-		/*var i:Int = lights.length;
+		var i:Int = lights.length;
 		var rv:Int = 0;
 		while (i-->0)
 		{
@@ -353,13 +254,149 @@ class DS2D
 		cast(HxBlit.currentShader, Shader2).tex = shadowBuffer;
 
 		HxBlit.blit(HxBlit.getSurface(nbpo2(400), nbpo2(200)),-1,1);
-		HxBlit.draw();*/
+		HxBlit.draw();
+	}
+
+	public function render(_data:BitmapData):Void
+	{
+		//lights[0].x = cast (cast(Application.currentState,GameState).player.components.get("pos_comp")).x+10;
+		//lights[0].y = cast (cast(Application.currentState,GameState).player.components.get("pos_comp")).y+10;
+		var i:Int = lights.length;
+		var n:Int = 0;
+		while (i-->0)
+		{
+			var l:LightSource = lights[i];
+			if (l.x == l.lastX && l.y == l.lastY)
+			continue;
+			var j:Int = polygons.length; 
+			l.clear();
+			s.graphics.clear();
+			var n:Int = 0;
+			while (j-->0)
+			{
+				var p:Polygon = polygons[j];
+				if ((p.x - l.x) * (p.x - l.x) + (p.y - l.y) * (p.y - l.y) > l.radius * l.radius)
+				continue;
+				var k:Int = p.faces.length;
+				while (k-->0)
+				{
+					var f:Face = p.faces[k];
+					
+					if (f.cullNature == 1)
+					{
+						if (l.x < f.v1._0)
+						continue;
+					}else if (f.cullNature == 2)
+					{
+						if (l.x  >f.v1._0)
+						continue;
+					}else if (f.cullNature == 3)
+					{
+						if (l.y < f.v1._1)
+						continue;
+					}else if (f.cullNature == 4)
+					{
+						if (l.y > f.v1._1)
+						continue;
+					}
+					
+					n++;
+					var pv:Vector<Float> = new Vector < Float>();
+					var cv:Vector<Int> = new Vector<Int>();
+					s.graphics.beginFill(0xffffff);
+					
+					
+					var dx:Float = f.v1._0 - l.x;
+					var dy:Float = f.v1._1 - l.y;
+					var dx2:Float = f.v2._0 - l.x;
+					var dy2:Float = f.v2._1 - l.y;
+					
+					pv.push(dx);
+					pv.push(dy);
+					cv.push(1);
+					
+					pv.push(dx*10);
+					pv.push(dy*10);
+					cv.push(2);
+					
+					pv.push(dx2*10);
+					pv.push(dy2*10);
+					cv.push(2);
+					
+					pv.push(dx2);
+					pv.push(dy2);
+					cv.push(2);
+					
+					//{
+					//s.graphics.drawPath(cv, pv);
+					//s.graphics.moveTo(dx,
+					//				  dy);
+					//s.graphics.lineTo(dx * 10,
+					//				  dy * 10);
+					//s.graphics.lineTo(dx2 * 10,
+					//				  dy2 * 10);
+					//s.graphics.lineTo(dx2,
+					//				  dy2);
+					//}
+				}
+				//{
+				/*var k:Int = p.vertices.length;
+				while (k-->0)
+				{
+					var lp:Float2 = new Float2
+					(
+					p.vertices[k]._0 - l.x,
+					p.vertices[k]._1 - l.y
+					);
+					var prjp:Float2 = new Float2
+					(
+					lp._0 * 10,
+					lp._1 * 10
+					);
+					lList[k] = lp;
+					prjList[k] = prjp;
+				}
+				
+				k = -1;
+				while (k++ < p.vertices.length - 1)
+				{
+					s.graphics.beginFill(0xffffff);
+					s.graphics.moveTo(lList[k]._0, lList[k]._1);
+					s.graphics.lineTo(prjList[k]._0, prjList[k]._1);
+					s.graphics.lineTo(prjList[(k+1)%p.vertices.length]._0, prjList[(k+1)%p.vertices.length]._1);
+					s.graphics.lineTo(lList[(k + 1) % p.vertices.length]._0, lList[(k + 1) % p.vertices.length]._1);
+				}*/
+				//}
+				tempMatrix.tx = l.radius;
+				tempMatrix.ty = l.radius;
+				l.cache.draw(s, tempMatrix, null, BlendMode.SUBTRACT);
+				
+				l.lastX = l.x;
+				l.lastY = l.y;
+			}
+		}
+		
+		i = lights.length;
+		while (i-->0)
+		{
+			var l:LightSource = lights[i];
+			//tempMatrix.tx = l.x - l.radius + cast(Application.currentState, GameState).canvas.camera.x;
+			//tempMatrix.ty = l.y - l.radius + cast(Application.currentState, GameState).canvas.camera.y;
+			_data.draw(l.cache, tempMatrix, null, BlendMode.ADD);
+			
+			if (l.remove == true)
+			{
+				lights[i] = lights[lights.length - 1];
+				lights.length --;
+			}
+		}
+			
 	}
 	
 	public function wipeout():Void
 	{
-		lights = new Array<LightSource>();
-		polygons = new Array<Polygon>();
+		lights = new Vector<LightSource>();
+		polygons = new Vector<Polygon>();
 	}
 	
 }

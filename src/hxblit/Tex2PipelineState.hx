@@ -1,7 +1,6 @@
 package hxblit;
 
 import kha.Shaders;
-import kha.graphics4.BlendingFactor;
 import kha.graphics4.BlendingOperation;
 import kha.graphics4.CompareMode;
 import kha.graphics4.PipelineState;
@@ -30,20 +29,8 @@ class Tex2PipelineState extends PipelineState
 		
 		depthWrite = true;
 		depthMode = CompareMode.Always;
-		blendSource = BlendingFactor.SourceAlpha;
-		blendDestination = BlendingFactor.InverseSourceAlpha;
-	}
-	
-	public function blendMultiply()
-	{
-		blendSource = BlendingFactor.DestinationColor;
-		blendDestination = BlendingFactor.BlendZero;
-	}
-	
-	public function blendAlpha()
-	{
-		blendSource = BlendingFactor.SourceAlpha;
-		blendDestination = BlendingFactor.InverseSourceAlpha;
+		blendSource = BlendingOperation.SourceAlpha;
+		blendDestination = BlendingOperation.InverseSourceAlpha;
 	}
 	
 }

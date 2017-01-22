@@ -1,5 +1,5 @@
 package refraction.ds2d;
-//port flash.Vector;
+import flash.Vector;
 
 /**
  * ...
@@ -7,16 +7,16 @@ package refraction.ds2d;
  */
 class Polygon 
 {
-	public var vertices:Array<Float2>;
-	public var faces:Array<Face>;
+	public var vertices:Vector<Float2>;
+	public var faces:Vector<Face>;
 	public var x:Int;
 	public var y:Int;
 	public var radius:Int;
 	
 	public function new(_numVertices:Int, _radius:Int, _x:Int, _y:Int) 
 	{
-		vertices = new Array<Float2>();
-		faces = new Array<Face>();
+		vertices = new Vector<Float2>();
+		faces = new Vector<Face>();
 		x = _x;
 		y = _y;
 		radius = _radius;

@@ -1,5 +1,5 @@
 package refraction.control;
-import kha.math.FastVector2;
+import flash.ui.Keyboard;
 import refraction.core.ActiveComponent;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
@@ -31,22 +31,14 @@ class KeyControlComponent extends ActiveComponent
 	
 	override public function update():Void 
 	{
-		var acc:FastVector2 = new FastVector2();
-		
-		if (Application.keys.get("A".charCodeAt(0)))
-		acc.x = -1;
-		if (Application.keys.get("D".charCodeAt(0)))
-		acc.x = 1;
-		if (Application.keys.get("W".charCodeAt(0)))
-		acc.y = -1;
-		if (Application.keys.get("S".charCodeAt(0)))
-		acc.y = 1;
-		
-		acc.normalize();
-		acc = acc.mult(speed);
-		
-		velocity.velX += acc.x;
-		velocity.velY += acc.y;
+		if (Application.keys.get(Keyboard.A))
+		velocity.velX += -speed;
+		if (Application.keys.get(Keyboard.D))
+		velocity.velX += speed;
+		if (Application.keys.get(Keyboard.W))
+		velocity.velY += -speed;
+		if (Application.keys.get(Keyboard.S))
+		velocity.velY += speed;
 	}
 	
 }

@@ -1,5 +1,5 @@
 package refraction.tile;
-//import flash.Vector;
+import flash.Vector;
 import refraction.ds2d.Face;
 import refraction.ds2d.Float2;
 import refraction.ds2d.Polygon;
@@ -39,14 +39,7 @@ class TilemapUtils
 		
 		while (true)
 		{
-			var t:Tile;
-			if (i < 0 || j < 0 || i >= targetTilemap.data[0].length || j >= targetTilemap.data.length){
-				t = new Tile();
-				t.solid = false;
-			}else{
-				t = targetTilemap.data[j][i];
-			}
-			
+			var t:Tile = targetTilemap.data[j][i];
 			
 			if (t.solid)
 			{
@@ -85,9 +78,9 @@ class TilemapUtils
 		return false;
 	}
 
-	public static function computeGeometry(_t:TilemapDataComponent):Array<Polygon>
+	public static function computeGeometry(_t:TilemapDataComponent):Vector<Polygon>
 	{
-		var ret:Array<Polygon> = new Array<Polygon>();
+		var ret:Vector<Polygon> = new Vector<Polygon>();
 		
 		var a = [];
 		var i:Int = _t.height-1;
@@ -97,7 +90,7 @@ class TilemapUtils
 			while (j-->1)
 			{
 				var p:Polygon = new Polygon(3, 1, cast j * _t.tilesize + _t.tilesize / 2, cast i * _t.tilesize + _t.tilesize / 2);
-				p.faces = new Array<Face>();
+				p.faces.length = 0;
 				if (_t.data[i][j].solid)
 				{
 					if (!_t.data[i][j - 1].solid)

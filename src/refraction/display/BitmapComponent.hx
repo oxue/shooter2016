@@ -1,14 +1,14 @@
 package refraction.display;
-/*import flash.display.Bitmap;
+import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.Lib;
-import flash.Vector;*/
-//import hxblit.HxBlit;
+import flash.Vector;
+import hxblit.HxBlit;
 import hxblit.Surface2;
-//import hxblit.TextureAtlas;
+import hxblit.TextureAtlas;
 import refraction.core.Application;
 import refraction.core.Component;
 

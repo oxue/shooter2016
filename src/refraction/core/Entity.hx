@@ -1,5 +1,5 @@
 package refraction.core;
-//import flash.Vector;
+import flash.Vector;
 
 /**
  * ...
@@ -9,12 +9,12 @@ package refraction.core;
 class Entity 
 {
 	public var components:Map<String, Component>;
-	public var entities:Array<Entity>;
+	public var entities:Vector<Entity>;
 	
 	public function new() 
 	{
 		components = new Map<String, Component>();
-		entities = new Array<Entity>();
+		entities = new Vector<Entity>();
 	}
 	
 	public function addEntity(_e:Entity):Void
