@@ -1,7 +1,8 @@
 package ;
 
-import flash.display.Bitmap;
-import flash.Lib;
+import kha.Assets;
+import kha.Color;
+import kha.Framebuffer;
 import refraction.core.Application;
 import refraction.core.State;
 
@@ -13,33 +14,56 @@ import refraction.core.State;
  
 class TitleState extends State
 {
-	private var bmp:Bitmap;
 	private var changing:Bool;
+	private var alpha:Float;
+	
+	private var paused:Bool;
 	
 	public function new() 
 	{
-		bmp = new Bitmap(new SplahG(0, 0));
-		Lib.current.stage.addChild(bmp);
-		bmp.scaleX = bmp.scaleY = 2;
 		
-		changing = false;
 		super();
+	}
+	
+	override public function load():Void 
+	{
+		paused = true;
+		changing = false;
+		alpha = 1;
+		
+		Assets.loadEverything(start);
+	}
+	
+	private function start() 
+	{
+		paused = false;
+	}
+	
+	override public function render(frame:Framebuffer) 
+	{
+		if (paused) return;
+		
+		frame.g2.begin();
+		frame.g2.color = Color.fromFloats(1, 1, 1, alpha);
+		frame.g2.drawScaledImage(Assets.images.splah, 0, 0, 800, 400);
+		frame.g2.end();
 	}
 	
 	override public function update():Void 
 	{
+		if (paused) return;
+		
 		if (Application.mouseIsDown)
 		{
 			changing = true;
 		}
 		if (changing)
 		{
-			bmp.alpha *= 0.9;
+			alpha *= 0.9;
 		}
-		if (bmp.alpha <= 0.05)
+		if (alpha <= 0.05)
 		{
-			Lib.current.stage.removeChild(bmp);
-			Application.setState(new GameState());
+			//Application.setState(new GameState());
 		}
 	}
 	

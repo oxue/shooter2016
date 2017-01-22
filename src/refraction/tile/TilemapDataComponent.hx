@@ -1,5 +1,6 @@
 package refraction.tile;
-import flash.Vector;
+//import flash.Vector;
+import haxe.ds.Vector;
 import refraction.core.Component;
 
 /**
@@ -24,11 +25,11 @@ class TilemapDataComponent extends Component
 		height = _height;
 		tilesize = _tilesize;
 		
-		data = new Vector<Vector<Tile>>(_height, true);
+		data = new Vector<Vector<Tile>>(_height);
 		var i:Int = _height;
 		while (i-->0)
 		{
-			data[i] = new Vector<Tile>(_width, true);
+			data[i] = new Vector<Tile>(_width);
 		}
 		
 		colIndex = _colIndex;

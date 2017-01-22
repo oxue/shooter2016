@@ -1,5 +1,4 @@
 package hxblit;
-import flash.Vector;
 
 /**
  * ...
@@ -8,8 +7,6 @@ import flash.Vector;
 
 class Surface2 
 {
-	public var atlasCoords:Vector<Float>;
-	
 	public var vx1:Float;
 	public var vy1:Float;
 		
@@ -22,8 +19,8 @@ class Surface2
 	public var vx4:Float;
 	public var vy4:Float;
 	
-	public var width:Int;
-	public var height:Int;
+	public var width:Float;
+	public var height:Float;
 	
 	public function new() 
 	{

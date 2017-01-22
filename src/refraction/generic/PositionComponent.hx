@@ -21,4 +21,9 @@ class PositionComponent extends Component
 		super("pos_comp");
 	}
 	
+	public function toString():String
+	{
+		return "<" + x + " " + y + ">/<" + oldX + " " + oldY + ">\n";
+	}
+	
 }

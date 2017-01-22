@@ -1,6 +1,6 @@
 package ;
 //{
-import flash.display.Bitmap;
+/*import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display3D.Context3DCompareMode;
@@ -12,13 +12,14 @@ import flash.geom.Point;
 import flash.Lib;
 import flash.ui.Keyboard;
 import flash.utils.JSON;
-import flash.Vector;
-import graphite.GObjectContainer;
+import flash.Vector;*/
+import kha.Assets;
+/*import graphite.GObjectContainer;
 import graphite.GPane;
 import graphite.GSlider;
-import graphite.io.BinaryLoader;
+import graphite.io.BinaryLoader;*/
 import haxe.PosInfos;
-import hxblit.HxBlit;
+//import hxblit.HxBlit;
 import refraction.control.DampingComponent;
 import refraction.control.KeyControlComponent;
 import refraction.control.RotationControlComponent;
@@ -55,14 +56,10 @@ import refraction.tile.TilemapUtils;
 
 class GameState extends State
 {
-
-	private var TILES:BitmapData;
-	private var binaryLoader:BinaryLoader;
 	private var paused:Bool;
 	
 	public var tilemap:Tilemap;
 	public var canvas:Canvas;
-	public var offScreenBuffer:BitmapData;
 	
 	private var u:Int;
 	private var lastP:Bool;
@@ -78,32 +75,29 @@ class GameState extends State
 	public var rotfollowSystem:SubSystem<RotationFollowComponent>;
 	public var velocitySystem:SubSystem<VelocityComponent>;
 	public var animationControl:AnimationControlComponent;
-	public var projectileSystem:SubSystem<LineProjectileComponent>;
-	public var bulletRenderSystem:SubSystem<BulletRender>;
-	public var enemyCollideSystem:SubSystem<EnemyCollideComponent>;
+	//public var projectileSystem:SubSystem<LineProjectileComponent>;
+	//public var bulletRenderSystem:SubSystem<BulletRender>;
+	//public var enemyCollideSystem:SubSystem<EnemyCollideComponent>;
 	public var warpSystem:SubSystem<WarpComponent>;
 	public var itemSystem:SubSystem<ItemComponent>;
 	public var timeremoverSystem:SubSystem<TimeRemoverComponent>;
 	public var lightControlSystem:SubSystem<LightControlComponent>;
 	public var spacingSystem:SpacingSystem;
 	public var spawnSystem:SubSystem<Spawner>;
-	public var inventory:InventoryComponent;
-	public var inventoryRender:ItemRenderComponent;
+	//public var inventory:InventoryComponent;
+	//public var inventoryRender:ItemRenderComponent;
 	public var shadowSystem:DS2D;
-	public var strength:GSlider;
-	public var ambience:GSlider;
 	public var waypointfollowSystem:SubSystem<WayPointFollowComponent>;
 	public var s2tilemaprender:Surface2TileRenderComponent;
 	public var tilemapdata:TilemapDataComponent;
 	public var fireSystem:SubSystem<FireComponent>;
-	
-	public var debugPane:GPane;
+
 	
 	public var player:Entity;
-	public var healthBar:HealthBar;
-	public var playerCollide:PlayerCollideComponent;
+	//public var healthBar:HealthBar;
+	//public var playerCollide:PlayerCollideComponent;
 	
-	public var menu:GameMenu;
+	//public var menu:GameMenu;
 	
 	public function new() 
 	{
@@ -115,7 +109,6 @@ class GameState extends State
 		TILES = new Tiles(0, 0);
 		
 		canvas = new Canvas(400, 200, 2);
-		offScreenBuffer = new BitmapData(400, 300);
 		
 		paused = true;
 		
@@ -166,8 +159,6 @@ class GameState extends State
 	
 	public function loadLevel(_path:String):Void
 	{
-		binaryLoader = new BinaryLoader();
-		binaryLoader.load(_path, make);
 		paused = true;
 	}
 	
@@ -179,7 +170,7 @@ class GameState extends State
 		Factory.init();
 
 		
-		var obj:Dynamic = JSON.parse(binaryLoader.data);
+		var obj:Dynamic = JSON.parse(Assets.blobs.bloodstrike_zm_json);
 		
 		Factory.createTilemapHXB(obj.data[0].length, obj.data.length, obj.tilesize, 1);
 		tilemapdata.setDataIntArray(obj.data);
@@ -279,7 +270,7 @@ class GameState extends State
 		
 		projectileSystem.update();
 		velocitySystem.update();
-	
+		
 		animationControl.update();
 
 		collisionSystem.update();
@@ -308,6 +299,8 @@ class GameState extends State
 		canvas.camera.y = (cast player.components.get("pos_comp")).y - 100;
 		canvas.camera.width = 400;
 		canvas.camera.height = 200;
+		
+		trace(canvas.camera.x);
 		
 		HxBlit.clear(0,0,0,0,1,1);
 		

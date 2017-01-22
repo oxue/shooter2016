@@ -1,6 +1,7 @@
 package refraction.tile;
-import flash.geom.Rectangle;
-import flash.Vector;
+/*import flash.geom.Rectangle;
+import flash.Vector;*/
+import hxblit.TextureAtlas.FloatRect;
 import refraction.control.KeyControlComponent;
 import refraction.core.ActiveComponent;
 import refraction.generic.DimensionsComponent;
@@ -37,18 +38,18 @@ class TileCollisionComponent extends ActiveComponent
 	{
 		var p:PositionComponent = position;
 		var d:DimensionsComponent = dimensions;
-		var lastRect:Rectangle = new Rectangle(position.oldX, position.oldY, dimensions.width, dimensions.height);
-		var nowRect:Rectangle = lastRect.clone();
+		var lastRect:FloatRect = new FloatRect(position.oldX, position.oldY, dimensions.width, dimensions.height);
+		var nowRect:FloatRect = lastRect.clone();
 		nowRect.x = p.x;
 		nowRect.y = p.y;
-		var boundRect:Rectangle = lastRect.union(nowRect);
+		var boundRect:FloatRect = lastRect.union(nowRect);
 		var velX:Float = velocity.velX;
 		var velY:Float = velocity.velY;
 		var t:TilemapDataComponent = targetTilemap;
-		var bottom:Int = Math.floor(boundRect.bottom / targetTilemap.tilesize);
-		var top:Int = Math.floor(boundRect.top / targetTilemap.tilesize);
-		var right:Int = Math.floor(boundRect.right / targetTilemap.tilesize);
-		var left:Int = Math.floor(boundRect.left / targetTilemap.tilesize);
+		var bottom:Int = Math.floor(boundRect.bottom() / targetTilemap.tilesize);
+		var top:Int = Math.floor(boundRect.top() / targetTilemap.tilesize);
+		var right:Int = Math.floor(boundRect.right() / targetTilemap.tilesize);
+		var left:Int = Math.floor(boundRect.left() / targetTilemap.tilesize);
 		
 		if (bottom > t.height-1)
 		bottom = t.height - 1;
@@ -74,7 +75,7 @@ class TileCollisionComponent extends ActiveComponent
 		if (right < 0)
 		right = 0;
 		
-		var datas:Vector<CollisionData> = new Vector<CollisionData>();
+		var datas:Array<CollisionData> = new Array<CollisionData>();
 		
 		var i:Int;
 		var k:Int;
@@ -159,18 +160,18 @@ class TileCollisionComponent extends ActiveComponent
 			
 		}
 		
-		lastRect = new Rectangle(position.oldX, position.oldY, dimensions.width, dimensions.height);
+		lastRect = new FloatRect(position.oldX, position.oldY, dimensions.width, dimensions.height);
 		nowRect = lastRect.clone();
 		nowRect.x = p.x;
 		nowRect.y = p.y;
 		boundRect = lastRect.union(nowRect);
 		velX = p.x - p.oldX;
 		velY = p.y - p.oldY;
-		bottom = Math.floor(boundRect.bottom / targetTilemap.tilesize);
-		top = Math.floor(boundRect.top / targetTilemap.tilesize);
-		right = Math.floor(boundRect.right / targetTilemap.tilesize);
-		left = Math.floor(boundRect.left / targetTilemap.tilesize);
-		datas = new Vector<CollisionData>();
+		bottom = Math.floor(boundRect.bottom() / targetTilemap.tilesize);
+		top = Math.floor(boundRect.top() / targetTilemap.tilesize);
+		right = Math.floor(boundRect.right() / targetTilemap.tilesize);
+		left = Math.floor(boundRect.left() / targetTilemap.tilesize);
+		datas = new Array<CollisionData>();
 		if (velY > 0)
 		{
 			i = bottom;
@@ -200,7 +201,8 @@ class TileCollisionComponent extends ActiveComponent
 			var j:Int = j0;
 			while (j!=m)
 			{
-				if (t.data[i][j].solid  == true)
+				
+				if (i >= 0 && j >= 0 && i < t.data.length && j < t.data[0].length && t.data[i][j].solid  == true)
 				{
 					var cdata:CollisionData = solveRect(j * t.tilesize, i * t.tilesize, t.tilesize, t.tilesize);
 					if (cdata.collided)
