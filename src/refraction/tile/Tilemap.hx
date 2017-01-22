@@ -1,14 +1,15 @@
 package refraction.tile;
-import flash.display.Bitmap;
+/*import flash.display.Bitmap;
 import flash.Lib;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.Vector;
+import flash.Vector;*/
 import haxe.Timer;
-import hxblit.HxBlit;
+import haxe.ds.Vector;
+//import hxblit.HxBlit;
 import hxblit.Surface2;
-import hxblit.TextureAtlas;
+//import hxblit.TextureAtlas;
 import refraction.display.Canvas;
 
 /**
@@ -46,11 +47,11 @@ class Tilemap
 		tilesize = _tilesize;
 		graphics = _graphics;
 		
-		data = new Vector<Vector<Tile>>(_height, true);
+		data = new Vector<Vector<Tile>>(_height);
 		var i:Int = _height;
 		while (i-->0)
 		{
-			data[i] = new Vector<Tile>(_width, true);
+			data[i] = new Vector<Tile>(_width);
 			var j:Int = _width;
 			while (j-->0)
 			{

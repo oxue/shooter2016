@@ -106,7 +106,7 @@ class Factory
 		cast(Application.currentState, GameState).tilemapdata = td;
 		e.addDataComponent(TILES);
 		var tr:Surface2TileRenderComponent = new Surface2TileRenderComponent();
-		tr.targetCanvas = cast(Application.currentState, GameState).canvas;
+		tr.targetCamera = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).s2tilemaprender = tr;
 		e.addActiveComponent(tr);
 	}
@@ -206,7 +206,7 @@ class Factory
 		
 		var bs2r:Surface2RenderComponentC = new Surface2RenderComponentC();
 		e.addActiveComponent(bs2r);
-		bs2r.targetCanvas = cast(Application.currentState, GameState).canvas;
+		bs2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		
 		bs2r.animations[0] = [0]; 
 		bs2r.animations.push([0, 1, 0, 2]);
@@ -220,7 +220,7 @@ class Factory
 		
 		var s2rw:Surface2RenderComponentC = new Surface2RenderComponentC();
 		we.addActiveComponent(s2rw);
-		s2rw.targetCanvas = cast(Application.currentState, GameState).canvas;
+		s2rw.targetCamera = cast(Application.currentState, GameState).canvas;
 		s2rw.animations[0] = [0, 1, 0, 2];
 
 		s2rw.animations.push([0]);
@@ -307,7 +307,7 @@ class Factory
 		e.addDataComponent(ZOMBIES2);
 		e.addDataComponent(new TransformComponent());
 		var s2r:Surface2RenderComponentC = new Surface2RenderComponentC();
-		s2r.targetCanvas = cast(Application.currentState, GameState).canvas;
+		s2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).s2rendersystem.addComponent(s2r);
 		e.addActiveComponent(s2r);
 		var v:VelocityComponent = new VelocityComponent();
@@ -365,7 +365,7 @@ class Factory
 		s2r.curAnimaition = Std.int(Math.random() * 2);
 		s2r.frame = v;
 		cast(Application.currentState, GameState).s2rendersystem.addComponent(s2r);
-		s2r.targetCanvas = cast(Application.currentState, GameState).canvas;
+		s2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		
 		var tr:TimeRemoverComponent = new TimeRemoverComponent(2 * (8-v) - 1);
 		e.addActiveComponent(tr);

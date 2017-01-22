@@ -67,6 +67,7 @@ class HxBlit
 		_callBack = __callBack;
 		width = _width;
 		height = _height;
+		trace(width, height);
 		stage = Lib.current.stage;
 		stage3 = stage.stage3Ds[0];
 		atlas = new TextureAtlas();
