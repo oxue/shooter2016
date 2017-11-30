@@ -25,30 +25,25 @@ class AnimationControlComponent extends ActiveComponent
 		blc = cast entity.components.get("surface2render_comp_c");
 	}
 	
+	private function notMoving():Bool
+	{
+		return Math.round(velocity.velX) == 0 && Math.round(velocity.velY) == 0;
+	}
+	
 	override public function update():Void 
 	{
-		if (Math.round(velocity.velX) == 0 && Math.round(velocity.velY) == 0)
+		if (notMoving())
 		{
-			if (blc.curAnimaition != 0)
+			if (blc.curAnimaition != 2)
 			{
-				blc.curAnimaition = 0;
+				blc.curAnimaition = 2;
 				blc.frame = 0;
-				if (blc2.curAnimaition == 0 || blc2.curAnimaition == 1)
-				{
-					blc2.curAnimaition = 0;
-					blc2.frame = 0;
-				}
 			}
 		}
-		else if (blc.curAnimaition != 1)
+		else if (blc.curAnimaition != 3)
 		{
-			blc.curAnimaition = 1;
+			blc.curAnimaition = 3;
 			blc.frame = Std.int(Math.random() * 4);
-			if (blc2.curAnimaition == 0 || blc2.curAnimaition == 1)
-			{
-				blc2.curAnimaition = 1;
-				blc2.frame = blc.frame;
-			}
 		}
 	}
 	
