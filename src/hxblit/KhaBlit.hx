@@ -139,7 +139,7 @@ class KhaBlit
 			var indexBuffer:IndexBuffer = new IndexBuffer(numIndices, Usage.DynamicUsage);
 			var vertexBuffer:VertexBuffer = new VertexBuffer(numVertices, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
 			
-			var ibData:Array<Int> = indexBuffer.lock();
+			var ibData:kha.arrays.Uint32Array = indexBuffer.lock();
 			for (i in 0...ibData.length)
 			{
 				ibData[i] = indices[i];

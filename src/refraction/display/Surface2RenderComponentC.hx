@@ -44,8 +44,7 @@ class Surface2RenderComponentC extends ActiveComponent
 		animations.push([0,0, 0,1, 2,1]);
 		frameTime = 4;
 		curAnimaition = 0;
-		//time = cast Math.random() * frameTime;
-		frame = cast Math.random() * 5;
+		frame = 0;
 	}
 	
 	override public function update():Void 

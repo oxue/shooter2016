@@ -13,6 +13,8 @@ class AnimationControlComponent extends ActiveComponent
 	private var velocity:VelocityComponent;
 	private var blc:Surface2RenderComponentC;
 	public var blc2:Surface2RenderComponentC;
+
+	private var inventory:InventoryComponent;
 	
 	public function new() 
 	{
@@ -23,6 +25,7 @@ class AnimationControlComponent extends ActiveComponent
 	{
 		velocity = cast entity.components.get("vel_comp");
 		blc = cast entity.components.get("surface2render_comp_c");
+		inventory = cast entity.components.get("inventory_comp");
 	}
 	
 	private function notMoving():Bool
@@ -32,17 +35,20 @@ class AnimationControlComponent extends ActiveComponent
 	
 	override public function update():Void 
 	{
+		var idle_animation = inventory.wieldingWeapon() ? 2 : 0;
+		var walking_animation = idle_animation + 1;
+
 		if (notMoving())
 		{
-			if (blc.curAnimaition != 2)
+			if (blc.curAnimaition != idle_animation)
 			{
-				blc.curAnimaition = 2;
+				blc.curAnimaition = idle_animation;
 				blc.frame = 0;
 			}
 		}
-		else if (blc.curAnimaition != 3)
+		else if (blc.curAnimaition != walking_animation)
 		{
-			blc.curAnimaition = 3;
+			blc.curAnimaition = walking_animation;
 			blc.frame = Std.int(Math.random() * 4);
 		}
 	}
