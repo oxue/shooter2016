@@ -1,5 +1,6 @@
 package refraction.generic;
 import refraction.core.Component;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -16,6 +17,11 @@ class DimensionsComponent extends Component
 		super(_name_overrides);
 		width = _width;
 		height = _height;
+	}
+
+	public function containsPoint(coords:Vector2):Bool
+	{
+		return coords.x <= width && coords.x >=0 && coords.y <= height && coords.y >= 0;
 	}
 	
 }

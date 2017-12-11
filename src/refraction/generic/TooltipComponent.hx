@@ -1,5 +1,9 @@
 package refraction.generic;
 import refraction.core.Component;
+import hxblit.TextureAtlas.IntRect;
+import refraction.generic.PositionComponent;
+import refraction.generic.DimensionsComponent;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -8,14 +12,27 @@ import refraction.core.Component;
 
 class TooltipComponent extends Component
 {
-	public var width:Int;
-	public var height:Int;
-	
-	public function new(_width:Int = 20, _height:Int = 20)
+	public var message:String;
+	public var camera:IntRect;
+	public var position:PositionComponent;
+	public var mouseBox:DimensionsComponent;
+
+	public function new(_camera: IntRect, _message = "Default")
 	{
-		super("tt_comp");
-		width = _width;
-		height = _height;
+		message = _message;
+		camera = _camera;
+		super("tooltip_comp");
+	}
+
+	override public function load():Void 
+	{
+		position = cast entity.components.get("pos_comp");
+		mouseBox = cast entity.components.get("dim_comp");
 	}
 	
+	public function containsPoint(mouseCoords:Vector2):Bool
+	{
+		var deltaCoords = new Vector2(mouseCoords.x + camera.x - position.x, mouseCoords.y + camera.y - position.y);
+		return mouseBox.containsPoint(deltaCoords);
+	}
 }

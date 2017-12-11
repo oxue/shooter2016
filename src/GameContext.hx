@@ -13,9 +13,11 @@ import refraction.generic.VelocityComponent;
 import refraction.systems.BreadCrumbsSystem;
 import refraction.systems.LightSourceSystem;
 import refraction.systems.SpacingSystem;
+import refraction.systems.TooltipSystem;
 import refraction.tile.Surface2TileRenderComponent;
 import refraction.tile.TileCollisionComponent;
 import refraction.tile.TilemapDataComponent;
+import zui.Zui;
 
 /**
  * ...
@@ -45,14 +47,18 @@ class GameContext
 	
 	public var spacingSystem:SpacingSystem;
 	public var lightingSystem:DS2D;
+	public var tooltipSystem:TooltipSystem;
 	
 	public var worldMouseX:Int;
 	public var worldMouseY:Int;
+
+	public var ui:Zui;
 	
-	public function new(_cameraRect:IntRect) 
+	public function new(_cameraRect:IntRect, _ui:Zui) 
 	{
 		cameraRect = _cameraRect;
 		currentMap = null;
+		ui = _ui;
 		
 		statusText = new StatusText();
 		
@@ -70,7 +76,7 @@ class GameContext
 		spacingSystem = new SpacingSystem();
 		
 		lightingSystem = new DS2D();
-		
+		tooltipSystem = new TooltipSystem(ui);
 	}
 	
 }
