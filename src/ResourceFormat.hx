@@ -19,10 +19,14 @@ class ResourceFormat
 	
 	public static var atlases:Map<String, TextureAtlas>;
 	public static var surfacesets:Map<String, Surface2SetComponent>;
-	
-	
+
 	public static function init(){
 		atlases = new Map<String, TextureAtlas>();
+	}
+
+	public static function getSurfaceSet(_name:String):Surface2SetComponent
+	{
+		return surfacesets.get(_name);
 	}
 	
 	public static function beginAtlas(_name:String){

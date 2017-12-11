@@ -1,6 +1,6 @@
 package refraction.core;
 import kha.Framebuffer;
-import kha.Key;
+import kha.input.KeyCode;
 import kha.Scheduler;
 import kha.System;
 import kha.input.Keyboard;
@@ -70,16 +70,16 @@ class Application
 		mouse2IsDown = false;
 	}
 	
-	static private function keyDown(key:Key, char:String)
+	static private function keyDown(key:KeyCode)
 	{
-		if (char != null)
-		keys.set(char.toUpperCase().charCodeAt(0), true);
+		//if (char != null)
+		keys.set(key, true);
 	}
 	
-	static private function keyUp(key:Key, char:String)
+	static private function keyUp(key:KeyCode)
 	{
-		if(char != null)
-		keys.set(char.toUpperCase().charCodeAt(0), false);
+		//if(char != null)
+		keys.set(key, false);
 	}
 	
 	public static function setState(_state:State)
