@@ -15,6 +15,8 @@ class TooltipSystem
 {
 	private var ui:Zui;
 	private var tooltips:Array<TooltipComponent>;
+	private var margin:Int = 5;
+	private var textSize:Int = 16;
 
 	public function new(_ui:Zui) 
 	{
@@ -34,22 +36,23 @@ class TooltipSystem
 		var hoveredItems = tooltips.filter(function(tooltip) return tooltip.containsPoint(mouseCoords));
 		if(hoveredItems.length != 0){
 			var bestOne = hoveredItems[0];
-			g2.begin(false);
-			g2.color = kha.Color.Black;
-			g2.fillRect(Application.mouseX, Application.mouseY, kha.Assets.fonts.OpenSans.width(16,bestOne.message) + 20,
-				kha.Assets.fonts.OpenSans.height(16) + 10);
-			g2.font = kha.Assets.fonts.OpenSans;
-			g2.fontSize = 16;
-			g2.color = kha.Color.White;
-			g2.drawString(bestOne.message, Application.mouseX +10, Application.mouseY + 5);
-			g2.end();
-			//var tooltipWidth:Float = Assets.fonts.OpenSans.width(ui.g.font)
-			//if (ui.window(Id.handle(), Application.mouseX, Application.mouseY, 100, 100, false)) {
-			//	ui.text(bestOne.message, zui.Align.Left);
-				
-			//}
-			
+			drawTooltip(bestOne, g2);
 		}
+	}
+
+	private function drawTooltip(tooltip:TooltipComponent, g2:kha.graphics2.Graphics):Void
+	{
+		g2.color = kha.Color.Black;
+		var textWidth = kha.Assets.fonts.OpenSans.width(textSize,tooltip.message);
+		g2.fillRect(
+			Application.mouseX,
+			Application.mouseY,
+			textWidth + margin*2,
+			kha.Assets.fonts.OpenSans.height(textSize) + margin*2*0.8);
+		g2.font = kha.Assets.fonts.OpenSans;
+		g2.fontSize = textSize;
+		g2.color = tooltip.color;
+		g2.drawString(tooltip.message, Application.mouseX +margin, Application.mouseY + margin*0.8);
 	}
 	
 }
