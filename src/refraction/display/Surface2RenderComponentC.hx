@@ -3,7 +3,7 @@ package refraction.display;
 import hxblit.KhaBlit;
 import hxblit.TextureAtlas.FloatRect;
 import hxblit.TextureAtlas.IntRect;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
 
@@ -12,7 +12,7 @@ import refraction.generic.TransformComponent;
  * @author worldedit
  */
 
-class Surface2RenderComponentC extends ActiveComponent
+class Surface2RenderComponentC extends Component
 {
 
 	public var frameTime:Int;

@@ -3,7 +3,7 @@ package refraction.tile;
 import flash.Vector;*/
 import hxblit.TextureAtlas.FloatRect;
 import refraction.control.KeyControlComponent;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.DimensionsComponent;
 import refraction.generic.PositionComponent;
 import refraction.generic.VelocityComponent;
@@ -13,7 +13,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class TileCollisionComponent extends ActiveComponent
+class TileCollisionComponent extends Component
 {
 
 	public var targetTilemap:TilemapDataComponent;

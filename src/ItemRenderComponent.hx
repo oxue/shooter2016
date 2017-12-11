@@ -2,7 +2,7 @@ package ;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.display.Canvas;
 
@@ -11,7 +11,7 @@ import refraction.display.Canvas;
  * @author worldedit
  */
 
-class ItemRenderComponent extends ActiveComponent
+class ItemRenderComponent extends Component
 {
 
 	public var targetCanvas:Canvas;

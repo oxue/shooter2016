@@ -1,6 +1,6 @@
 package refraction.display;
 import flash.display.Shape;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
 
@@ -9,7 +9,7 @@ import refraction.generic.PositionComponent;
  * @author worldedit
  */
 
-class VShapeComponent extends ActiveComponent
+class VShapeComponent extends Component
 {
 	public var position:PositionComponent;
 	public var graphic:Shape;

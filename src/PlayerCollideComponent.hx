@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.core.SubSystem;
 
@@ -8,7 +8,7 @@ import refraction.core.SubSystem;
  * @author worldedit
  */
 
-class PlayerCollideComponent extends ActiveComponent
+class PlayerCollideComponent extends Component
 {
 
 	public var radius2:Int;

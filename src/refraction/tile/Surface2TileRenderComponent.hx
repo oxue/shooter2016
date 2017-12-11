@@ -2,7 +2,7 @@ package refraction.tile;
 //import hxblit.HxBlit;
 import hxblit.KhaBlit;
 import hxblit.TextureAtlas.IntRect;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.display.Canvas;
 import refraction.display.Surface2SetComponent;
 
@@ -11,7 +11,7 @@ import refraction.display.Surface2SetComponent;
  * @author qwerber
  */
 
-class Surface2TileRenderComponent extends ActiveComponent
+class Surface2TileRenderComponent extends Component
 {
 	private var surface2set:Surface2SetComponent;
 	private var tilemapData:TilemapDataComponent;

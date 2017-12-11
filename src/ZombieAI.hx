@@ -2,7 +2,7 @@ package;
 
 import kha.math.FastVector2;
 import refraction.control.BreadCrumbsComponent;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.display.Surface2RenderComponentC;
 import refraction.generic.PositionComponent;
 import refraction.generic.VelocityComponent;
@@ -19,7 +19,7 @@ enum ZombieAIState{
 	AGGRESSIVE;
 }
  
-class ZombieAI extends ActiveComponent
+class ZombieAI extends Component
 {
 
 	public var breadcrumbs:BreadCrumbsComponent;

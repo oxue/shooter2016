@@ -1,5 +1,5 @@
 package refraction.control;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.generic.VelocityComponent;
 
@@ -8,7 +8,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class DampingComponent extends ActiveComponent
+class DampingComponent extends Component
 {
 	private var velocity:VelocityComponent;
 	private var factor:Float;

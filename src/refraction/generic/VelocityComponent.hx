@@ -1,5 +1,5 @@
 package refraction.generic;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Utils;
 
 /**
@@ -7,7 +7,7 @@ import refraction.core.Utils;
  * @author worldedit
  */
 
-class VelocityComponent extends ActiveComponent
+class VelocityComponent extends Component
 {
 	
 	private var position:PositionComponent;

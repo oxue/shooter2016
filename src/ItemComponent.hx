@@ -1,13 +1,13 @@
 package ;
 import refraction.generic.PositionComponent;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 
 /**
  * ...
  * @author worldedit
  */
 
-class ItemComponent extends ActiveComponent
+class ItemComponent extends Component
 {
 	
 	public var position:PositionComponent;

@@ -1,6 +1,6 @@
 package refraction.control;
 import flash.geom.Point;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 
 /**
@@ -8,7 +8,7 @@ import refraction.generic.PositionComponent;
  * @author worldedit
  */
 
-class RandomMoveComponent extends ActiveComponent
+class RandomMoveComponent extends Component
 {
 	private var position:PositionComponent;
 	

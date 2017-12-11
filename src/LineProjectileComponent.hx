@@ -1,7 +1,7 @@
 package ;
 import flash.geom.Point;
 import flash.Vector;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.ds2d.LightSource;
 import refraction.generic.PositionComponent;
@@ -16,7 +16,7 @@ import refraction.tile.TilemapDataComponent;
  * @author worldedit
  */
 
-class LineProjectileComponent extends ActiveComponent
+class LineProjectileComponent extends Component
 {
 
 	public var targetTilemap:TilemapDataComponent;

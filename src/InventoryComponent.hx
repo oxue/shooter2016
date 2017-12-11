@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 
 /**
@@ -7,7 +7,7 @@ import refraction.core.Application;
  * @author worldedit
  */
 
-class InventoryComponent extends ActiveComponent
+class InventoryComponent extends Component
 {
 	
 	public function new() 

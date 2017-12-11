@@ -2,7 +2,7 @@ package refraction.display;
 /*import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.Vector;*/
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
@@ -12,7 +12,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class BlitComponentC extends ActiveComponent
+class BlitComponentC extends Component
 {
 
 	public var frameTime:Int;

@@ -1,6 +1,6 @@
 package ;
 import flash.geom.Point;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.LightSource;

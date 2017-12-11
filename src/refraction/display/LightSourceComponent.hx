@@ -1,6 +1,6 @@
 package refraction.display;
 import kha.math.FastVector2;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.ds2d.DS2D;
 import refraction.ds2d.LightSource;
 import refraction.generic.PositionComponent;
@@ -9,7 +9,7 @@ import refraction.generic.PositionComponent;
  * ...
  * @author 
  */
-class LightSourceComponent extends ActiveComponent
+class LightSourceComponent extends Component
 {
 
 	public var light:LightSource;

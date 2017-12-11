@@ -2,7 +2,7 @@ package refraction.control;
 /*import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.Vector;*/
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 //import refraction.display.EFLA;
 import refraction.generic.PositionComponent;
@@ -15,7 +15,7 @@ import refraction.tile.TilemapUtils;
  * @author qwerber
  */
 
-class WayPointFollowComponent extends ActiveComponent
+class WayPointFollowComponent extends Component
 {	
 	//public static var IDLE:Int;
 	public static var WANDER:Int;

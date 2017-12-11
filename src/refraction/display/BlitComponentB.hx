@@ -1,7 +1,7 @@
 package refraction.display;
 /*import flash.geom.Point;
 import flash.geom.Rectangle;*/
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
 
@@ -10,7 +10,7 @@ import refraction.generic.TransformComponent;
  * @author worldedit
  */
 
-class BlitComponentB extends ActiveComponent
+class BlitComponentB extends Component
 {
 
 	private var bitmap:BitmapComponent;

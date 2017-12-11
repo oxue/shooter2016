@@ -1,12 +1,12 @@
 package refraction.generic;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 
 /**
  * ...
  * @author qwerber
  */
 
-class TimeRemoverComponent extends ActiveComponent
+class TimeRemoverComponent extends Component
 {
 	private var t:Int;
 	private var timer:Int;

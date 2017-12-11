@@ -1,5 +1,5 @@
 package refraction.ds2d;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Component;
 import refraction.generic.PositionComponent;
 
@@ -8,7 +8,7 @@ import refraction.generic.PositionComponent;
  * @author qwerber
  */
 
-class Circle extends ActiveComponent
+class Circle extends Component
 {
 
 	public var x:Float;

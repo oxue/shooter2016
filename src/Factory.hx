@@ -102,13 +102,13 @@ class Factory
 	{
 		var e:Entity = new Entity();
 		var td:TilemapDataComponent = new TilemapDataComponent(_width, _height, _tilesize, _colIndex);
-		e.addDataComponent(td);
+		e.addComponent(td);
 		cast(Application.currentState, GameState).tilemapdata = td;
-		e.addDataComponent(TILES);
+		e.addComponent(TILES);
 		var tr:Surface2TileRenderComponent = new Surface2TileRenderComponent();
 		tr.targetCamera = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).s2tilemaprender = tr;
-		e.addActiveComponent(tr);
+		e.addComponent(tr);
 	}
 	
 	public static function createBullet(_x:Float = 0, _y:Float = 0, _x1:Float = 0, _y1:Float = 0, _damage:Int = 50):Void
@@ -117,16 +117,16 @@ class Factory
 		var p:PositionComponent = new PositionComponent(_x1, _y1);
 		p.oldX = cast _x;
 		p.oldY = cast _y;
-		e.addDataComponent(p);
+		e.addComponent(p);
 		
 		var pj:LineProjectileComponent = new LineProjectileComponent();
 		pj.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
 		cast(Application.currentState, GameState).projectileSystem.addComponent(pj);
-		e.addActiveComponent(pj);
+		e.addComponent(pj);
 		var br:BulletRender = new BulletRender();
 		br.targetCanvas = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).bulletRenderSystem.addComponent(br);
-		e.addActiveComponent(br);
+		e.addComponent(br);
 		pj.targetSystem = cast(Application.currentState, GameState).enemyCollideSystem;
 		pj.damage = _damage;
 	}
@@ -143,13 +143,13 @@ class Factory
 		var p:PositionComponent = new PositionComponent();
 		p.x = _x;
 		p.y = _y;
-		e.addDataComponent(p);
+		e.addComponent(p);
 		
 		var wp:WarpComponent = new WarpComponent();
 		wp.level = _level;
 		wp.target = cast cast(Application.currentState, GameState).player.components.get("pos_comp");
 		cast(Application.currentState, GameState).warpSystem.addComponent(wp);
-		e.addActiveComponent(wp);
+		e.addComponent(wp);
 	}
 	
 	public static function createFireball(_x:Int = 0, _y:Int = 0, _px:Float, _py:Float):Void
@@ -164,7 +164,7 @@ class Factory
 		p1.normalize(value + Math.random() * 4);
 		var p2:Point = new Point( -_py, _px);
 		p2.normalize(Math.random() * 1 - 0.5);
-		e.addDataComponent(new DimensionsComponent(10, 10));
+		e.addComponent(new DimensionsComponent(10, 10));
 		var t:TileCollisionComponent = new TileCollisionComponent();
 		t.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
 		
@@ -176,15 +176,15 @@ class Factory
 		var l:LightSource = new LightSource(_x, _y, 0x0000ff, 10);
 		var lc:LightControlComponent = new LightControlComponent();
 		lc.targetLight = l;
-		e.addDataComponent(p);
-		e.addActiveComponent(v);
-		e.addActiveComponent(lc);
-		e.addActiveComponent(d);
-		e.addActiveComponent(t);
+		e.addComponent(p);
+		e.addComponent(v);
+		e.addComponent(lc);
+		e.addComponent(d);
+		e.addComponent(t);
 		var fb:FireComponent = new FireComponent();
 		fb.targetLight = l;
 		fb.targetSystem = cast(Application.currentState, GameState).enemyCollideSystem;
-		e.addActiveComponent(fb);
+		e.addComponent(fb);
 		cast(Application.currentState, GameState).fireSystem.addComponent(fb);
 
 		cast(Application.currentState, GameState).velocitySystem.addComponent(v);
@@ -199,13 +199,13 @@ class Factory
 		var p:PositionComponent = new PositionComponent(_x, _y);
 		var t:TransformComponent = new TransformComponent();
 		
-		e.addDataComponent(p);
-		e.addDataComponent(new DimensionsComponent(20, 20));
-		e.addDataComponent(t);
-		e.addDataComponent(MANS2);
+		e.addComponent(p);
+		e.addComponent(new DimensionsComponent(20, 20));
+		e.addComponent(t);
+		e.addComponent(MANS2);
 		
 		var bs2r:Surface2RenderComponentC = new Surface2RenderComponentC();
-		e.addActiveComponent(bs2r);
+		e.addComponent(bs2r);
 		bs2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		
 		bs2r.animations[0] = [0]; 
@@ -214,12 +214,12 @@ class Factory
 		bs2r.frame = 0;
 		
 		var we:Entity = new Entity();
-		we.addDataComponent(WEAPONSS2);
-		we.addDataComponent(p);
-		we.addDataComponent(t);
+		we.addComponent(WEAPONSS2);
+		we.addComponent(p);
+		we.addComponent(t);
 		
 		var s2rw:Surface2RenderComponentC = new Surface2RenderComponentC();
-		we.addActiveComponent(s2rw);
+		we.addComponent(s2rw);
 		s2rw.targetCamera = cast(Application.currentState, GameState).canvas;
 		s2rw.animations[0] = [0, 1, 0, 2];
 
@@ -233,25 +233,25 @@ class Factory
 		var v:VelocityComponent = new VelocityComponent();
 		cast(Application.currentState, GameState).spacingSystem.add(p,v);
 		cast(Application.currentState, GameState).velocitySystem.addComponent(v);
-		e.addActiveComponent(v);
+		e.addComponent(v);
 		var kC:KeyControlComponent = new KeyControlComponent(1);
 		cast(Application.currentState, GameState).controlComponent = kC;
-		e.addActiveComponent(kC);
+		e.addComponent(kC);
 		var d:DampingComponent = new DampingComponent(0.7);
-		e.addActiveComponent(d);
+		e.addComponent(d);
 		cast(Application.currentState, GameState).dampingSystem.addComponent(d);
-		e.addDataComponent(new DimensionsComponent(20, 20));
+		e.addComponent(new DimensionsComponent(20, 20));
 		var c:TileCollisionComponent = new TileCollisionComponent();
 		c.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
-		e.addActiveComponent(c);
+		e.addComponent(c);
 		cast(Application.currentState, GameState).collisionSystem.addComponent(c);
 		var rc:RotationControlComponent = new RotationControlComponent();
 		cast(Application.currentState, GameState).rotationComponent = rc;
-		e.addActiveComponent(rc);
+		e.addComponent(rc);
 		cast(Application.currentState, GameState).player = e;
 		
 		var a:AnimationControlComponent = new AnimationControlComponent();
-		e.addActiveComponent(a);
+		e.addComponent(a);
 		cast(Application.currentState, GameState).animationControl = a;
 		
 		var flal:LightSource = new LightSource(0, 0, 0xaaaaaa, 100);
@@ -259,13 +259,13 @@ class Factory
 		
 		var lc:LightControlComponent = new LightControlComponent();
 		lc.targetLight = flal;
-		e.addActiveComponent(lc);
+		e.addComponent(lc);
 		lc.displaceX = 10;
 		lc.displaceY = 10;
 		
 		var i:InventoryComponent = new InventoryComponent();
 		i.blitc = s2rw;
-		e.addActiveComponent(i);
+		e.addComponent(i);
 		i.targetSystem = cast(Application.currentState, GameState).itemSystem;
 		cast(Application.currentState, GameState).inventory = i;
 		var ir:ItemRenderComponent = new ItemRenderComponent();
@@ -274,7 +274,7 @@ class Factory
 		
 		i.targetFlashLight = flal;
 		
-		e.addActiveComponent(ir);
+		e.addComponent(ir);
 		
 		
 		
@@ -288,11 +288,11 @@ class Factory
 		e.addEntity(we);
 		
 		var hc:HealthComponent = new HealthComponent();
-		e.addDataComponent(hc);
+		e.addComponent(hc);
 		cast(Application.currentState, GameState).healthBar.hc = hc;
 		var pcc:PlayerCollideComponent = new PlayerCollideComponent();
 		pcc.targetSystem = cast(Application.currentState, GameState).enemyCollideSystem;
-		e.addActiveComponent(pcc);
+		e.addComponent(pcc);
 		cast(Application.currentState, GameState).playerCollide = pcc;
 	}
 	
@@ -300,22 +300,22 @@ class Factory
 	{
 		var e:Entity = new Entity();
 		
-		e.addDataComponent(new DimensionsComponent(20, 20));
+		e.addComponent(new DimensionsComponent(20, 20));
 		var p:PositionComponent = new PositionComponent(_x,_y);
 		
-		e.addDataComponent(p);
-		e.addDataComponent(ZOMBIES2);
-		e.addDataComponent(new TransformComponent());
+		e.addComponent(p);
+		e.addComponent(ZOMBIES2);
+		e.addComponent(new TransformComponent());
 		var s2r:Surface2RenderComponentC = new Surface2RenderComponentC();
 		s2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).s2rendersystem.addComponent(s2r);
-		e.addActiveComponent(s2r);
+		e.addComponent(s2r);
 		var v:VelocityComponent = new VelocityComponent();
 		cast(Application.currentState, GameState).velocitySystem.addComponent(v);
-		e.addActiveComponent(v);
+		e.addComponent(v);
 		var d:DampingComponent = new DampingComponent(0.9);
-		e.addActiveComponent(d);
-		e.addDataComponent(new DimensionsComponent(20, 20));
+		e.addComponent(d);
+		e.addComponent(new DimensionsComponent(20, 20));
 		cast(Application.currentState, GameState).dampingSystem.addComponent(d);
 		cast(Application.currentState, GameState).spacingSystem.add(p,v);
 		var rf:RotationFollowComponent = new RotationFollowComponent();
@@ -324,20 +324,20 @@ class Factory
 		cast(Application.currentState, GameState).waypointfollowSystem.addComponent(wpf);
 		var c:TileCollisionComponent = new TileCollisionComponent();
 		c.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
-		e.addActiveComponent(c);
+		e.addComponent(c);
 		cast(Application.currentState, GameState).collisionSystem.addComponent(c);
 		//rf.followPosition = cast cast(Application.currentState, GameState).player.components.get("pos_comp");
 		wpf.addWaypoint(cast cast(Application.currentState, GameState).player.components.get("pos_comp"));
 		
-		e.addActiveComponent(rf);
-		e.addActiveComponent(wpf);
-		e.addDataComponent(new HealthComponent());
+		e.addComponent(rf);
+		e.addComponent(wpf);
+		e.addComponent(new HealthComponent());
 		var ec:EnemyCollideComponent = new EnemyCollideComponent();
-		e.addActiveComponent(ec);
+		e.addComponent(ec);
 		cast(Application.currentState, GameState).enemyCollideSystem.addComponent(ec);
 		
 		//var cir:Circle = new Circle(0, 0, 10);
-		//e.addActiveComponent(cir);
+		//e.addComponent(cir);
 		//cast(Application.currentState, GameState).shadowSystem.circles.push(cir);
 	}
 	
@@ -348,13 +348,13 @@ class Factory
 		_y += cast Math.random() * 6 - 3;
 		
 		var p:PositionComponent = new PositionComponent(_x, _y);
-		e.addDataComponent(p);
-		e.addDataComponent(SPARKSS2);
+		e.addComponent(p);
+		e.addComponent(SPARKSS2);
 		var t:TransformComponent = new TransformComponent();
 		t.rotation = 90 * _n;// Std.int(Math.random() * 4) * 90;
-		e.addDataComponent(t);
+		e.addComponent(t);
 		var s2r:Surface2RenderComponentC = new Surface2RenderComponentC();
-		e.addActiveComponent(s2r);
+		e.addComponent(s2r);
 		
 		var v:Int = Std.int(Math.random() * 2);
 		
@@ -368,7 +368,7 @@ class Factory
 		s2r.targetCamera = cast(Application.currentState, GameState).canvas;
 		
 		var tr:TimeRemoverComponent = new TimeRemoverComponent(2 * (8-v) - 1);
-		e.addActiveComponent(tr);
+		e.addComponent(tr);
 		cast(Application.currentState, GameState).timeremoverSystem.addComponent(tr);
 	}
 	
@@ -376,20 +376,20 @@ class Factory
 	{
 		var e:Entity = new Entity();
 		var p:PositionComponent = new PositionComponent(_x, _y);
-		e.addDataComponent(p);
+		e.addComponent(p);
 		switch(_id)
 		{
 			case "HKMR5":
-				e.addDataComponent(HKMR5G);
+				e.addComponent(HKMR5G);
 			
 			case "M357":
-				e.addDataComponent(M357G);
+				e.addComponent(M357G);
 				
 			case "FlameThrower":
-				e.addDataComponent(M357G);
+				e.addComponent(M357G);
 		}
 		var bl:BlitComponent = new BlitComponent();
-		e.addActiveComponent(bl);
+		e.addComponent(bl);
 		bl.targetCanvas = cast(Application.currentState, GameState).canvas;
 		cast(Application.currentState, GameState).blitSystemA.addComponent(bl);
 		var c:Weapon = null;
@@ -405,7 +405,7 @@ class Factory
 				c = new FlameThrower();
 		}
 		var i:ItemComponent = new ItemComponent(c);
-		e.addActiveComponent(i);
+		e.addComponent(i);
 		cast(Application.currentState, GameState).itemSystem.addComponent(i);
 	}
 	
@@ -413,9 +413,9 @@ class Factory
 	{
 		var e:Entity = new Entity();
 		var p:PositionComponent = new PositionComponent(_x, _y);
-		e.addDataComponent(p);
+		e.addComponent(p);
 		var sp:Spawner = new Spawner();
-		e.addActiveComponent(sp);
+		e.addComponent(sp);
 		cast(Application.currentState, GameState).spawnSystem.addComponent(sp);
 	}
 }

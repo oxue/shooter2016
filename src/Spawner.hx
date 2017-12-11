@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 
 /**
@@ -7,7 +7,7 @@ import refraction.generic.PositionComponent;
  * @author qwerber
  */
 
-class Spawner extends ActiveComponent
+class Spawner extends Component
 {
 	
 	private var t:Int;

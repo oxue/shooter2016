@@ -8,7 +8,7 @@ import refraction.utils.ObjectPool;
  * @author worldedit
  */
 
-class SubSystem<T:ActiveComponent> 
+class SubSystem<T:Component> 
 {
 	public var components:Array<T>;
 	private var l:Int;

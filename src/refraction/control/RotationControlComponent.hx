@@ -1,6 +1,6 @@
 package refraction.control;
 import hxblit.TextureAtlas.IntRect;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
@@ -10,7 +10,7 @@ import refraction.generic.TransformComponent;
  * @author worldedit
  */
 
-class RotationControlComponent extends ActiveComponent
+class RotationControlComponent extends Component
 {
 	
 	private var transform:TransformComponent;

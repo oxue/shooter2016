@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Utils;
 import refraction.ds2d.LightSource;
 import refraction.core.SubSystem;
@@ -10,7 +10,7 @@ import refraction.generic.PositionComponent;
  * @author qwerber
  */
 
-class FireComponent extends ActiveComponent
+class FireComponent extends Component
 {
 	public var targetLight:LightSource;
 	public var position:PositionComponent;

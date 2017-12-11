@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
 
@@ -8,7 +8,7 @@ import refraction.generic.PositionComponent;
  * @author worldedit
  */
 
-class WarpComponent extends ActiveComponent
+class WarpComponent extends Component
 {
 
 	private var position:PositionComponent;

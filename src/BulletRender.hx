@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.display.Canvas;
 import refraction.display.EFLA;
 import refraction.generic.PositionComponent;
@@ -9,7 +9,7 @@ import refraction.generic.PositionComponent;
  * @author worldedit
  */
 
-class BulletRender extends ActiveComponent
+class BulletRender extends Component
 {
 
 	public var position:PositionComponent;

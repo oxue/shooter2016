@@ -1,6 +1,6 @@
 package refraction.control;
 import flash.events.MouseEvent;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
 
@@ -9,7 +9,7 @@ import refraction.generic.PositionComponent;
  * @author worldedit
  */
 
-class ClickControlComponent extends ActiveComponent
+class ClickControlComponent extends Component
 {
 	private var position:PositionComponent;
 	

@@ -1,6 +1,6 @@
 package refraction.control;
 import kha.math.FastVector2;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
 import refraction.generic.VelocityComponent;
@@ -10,7 +10,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class KeyControlComponent extends ActiveComponent
+class KeyControlComponent extends Component
 {
 	private var position:PositionComponent;
 	private var velocity:VelocityComponent;

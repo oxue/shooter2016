@@ -1,7 +1,7 @@
 package;
 
 import hxblit.TextureAtlas.IntRect;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Application;
 import refraction.core.Utils;
 import refraction.generic.DimensionsComponent;
@@ -12,7 +12,7 @@ import refraction.generic.TransformComponent;
  * ...
  * @author 
  */
-class NPCComponent extends ActiveComponent
+class NPCComponent extends Component
 {
 	private var position:PositionComponent;
 	private var dimensions:DimensionsComponent;

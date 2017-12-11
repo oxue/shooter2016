@@ -1,7 +1,7 @@
 package refraction.control;
 
 import kha.math.FastVector2;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
@@ -10,7 +10,7 @@ import refraction.generic.VelocityComponent;
  * ...
  * @author 
  */
-class BreadCrumbsComponent extends ActiveComponent
+class BreadCrumbsComponent extends Component
 {
 	
 	public var breadcrumbs:Array<FastVector2>;

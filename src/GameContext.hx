@@ -3,7 +3,7 @@ import hxblit.TextureAtlas.IntRect;
 import kha.Assets;
 import kha.graphics2.Graphics;
 import refraction.control.DampingComponent;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.core.Entity;
 import refraction.core.SubSystem;
 import refraction.display.Canvas;
@@ -34,13 +34,13 @@ class GameContext
 	public var statusText:StatusText;
 	
 	public var surface2RenderSystem:SubSystem<Surface2RenderComponentC>;
-	public var controlSystem:SubSystem<ActiveComponent>;
+	public var controlSystem:SubSystem<Component>;
 	public var velocitySystem:SubSystem<VelocityComponent>;
 	public var dampingSystem:SubSystem<DampingComponent>;
 	public var collisionSystem:SubSystem<TileCollisionComponent>;
 	public var npcSystem:SubSystem<NPCComponent>;
 	public var breadCrumbsSystem:BreadCrumbsSystem;
-	public var aiSystem:SubSystem<ActiveComponent>;
+	public var aiSystem:SubSystem<Component>;
 	public var lightSourceSystem:LightSourceSystem;
 	
 	public var spacingSystem:SpacingSystem;
@@ -59,13 +59,13 @@ class GameContext
 		worldMouseX = worldMouseY = 0;
 		
 		surface2RenderSystem = new SubSystem<Surface2RenderComponentC>();
-		controlSystem = new SubSystem<ActiveComponent>();
+		controlSystem = new SubSystem<Component>();
 		velocitySystem = new SubSystem<VelocityComponent>();
 		dampingSystem = new SubSystem<DampingComponent>();
 		collisionSystem = new SubSystem<TileCollisionComponent>();
 		npcSystem = new SubSystem<NPCComponent>();
 		breadCrumbsSystem = new BreadCrumbsSystem();
-		aiSystem = new SubSystem<ActiveComponent>();
+		aiSystem = new SubSystem<Component>();
 		lightSourceSystem = new LightSourceSystem();
 		spacingSystem = new SpacingSystem();
 		

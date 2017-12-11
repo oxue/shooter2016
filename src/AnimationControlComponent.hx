@@ -1,5 +1,5 @@
 package ;
-import refraction.core.ActiveComponent;
+import refraction.core.Component;
 import refraction.display.Surface2RenderComponentC;
 import refraction.generic.VelocityComponent;
 
@@ -8,7 +8,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class AnimationControlComponent extends ActiveComponent
+class AnimationControlComponent extends Component
 {
 	private var velocity:VelocityComponent;
 	private var blc:Surface2RenderComponentC;
