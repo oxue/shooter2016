@@ -26,11 +26,12 @@ class Surface2RenderComponentC extends Component
 	private var position:PositionComponent;
 	public var numRot:Int;
 	public var curAnimaition:Int;
-	public var targetCamera:IntRect;
+	public var camera:IntRect;
 	
-	public function new() 
+	public function new(_camera:IntRect = null) 
 	{
 		super("surface2render_comp_c");
+		camera = _camera;
 		numRot = 32;
 	}
 	
@@ -69,8 +70,8 @@ class Surface2RenderComponentC extends Component
 		}
 		coordX = Math.round(transform.rotation / 360 * numRot) % numRot;
 		KhaBlit.blit(surface2Set.surfaces[cast coordX + coordY * numRot],
-					cast (Math.round(position.x - surface2Set.translateX) - targetCamera.x),
-					cast (Math.round(position.y - surface2Set.translateY) - targetCamera.y));
+					cast (Math.round(position.x - surface2Set.translateX) - camera.x),
+					cast (Math.round(position.y - surface2Set.translateY) - camera.y));
 	}
 	
 }

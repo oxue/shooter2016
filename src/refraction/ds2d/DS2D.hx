@@ -125,12 +125,10 @@ class DS2D
 					if(experimentalCullingEnabled){
 						if (f.cullNature == 1)
 						{
-							//trace("CULL 1");
 							if (lx > f.v1._0)
 							continue;
 						}else if (f.cullNature == 2)
 						{
-							//trace("CULL 2");
 							if (lx  <f.v1._0)
 							continue;
 						}else if (f.cullNature == 3)

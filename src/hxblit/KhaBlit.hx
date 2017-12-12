@@ -51,6 +51,8 @@ class KhaBlit
 	
 	public static var vertexBufferMap:Map<Int,VertexBuffer>;
 	public static var indexBufferMap:Map<Int,IndexBuffer>;
+
+	public static var singletonIndexBuffer:IndexBuffer;
 	
 	public static function init(_width:Int = 800, _height:Int = 600, _zoom:Int = 1){
 		trace("kb init 2");
@@ -67,7 +69,7 @@ class KhaBlit
 		indices = new Array<UInt>();
 		
 		vertices[65536 - 1] = 0;
-		indices[24576 - 1] = 0;
+		singletonIndexBuffer = new IndexBuffer(24576, Usage.DynamicUsage);
 		
 		numVertices = 0;
 		vCounter = 0;
@@ -132,19 +134,14 @@ class KhaBlit
 		numVertices = cast (vCounter / data32PerVertex);	
 		
 		if (numVertices != 0){
-			
-			//trace("numIndices" + numIndices);
-			//trace("numVertices" + numVertices);
-			
-			var indexBuffer:IndexBuffer = new IndexBuffer(numIndices, Usage.DynamicUsage);
 			var vertexBuffer:VertexBuffer = new VertexBuffer(numVertices, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
 			
-			var ibData:kha.arrays.Uint32Array = indexBuffer.lock();
-			for (i in 0...ibData.length)
+			var ibData:kha.arrays.Uint32Array = singletonIndexBuffer.lock();
+			for (i in 0...numIndices)
 			{
 				ibData[i] = indices[i];
 			}
-			indexBuffer.unlock();
+			singletonIndexBuffer.unlock();
 			
 			var vbData:Float32Array = vertexBuffer.lock();
 			for (i in 0...vbData.length)
@@ -152,9 +149,9 @@ class KhaBlit
 				vbData.set(i, vertices[i]);
 			}
 			vertexBuffer.unlock();
-			contextG4.setIndexBuffer(indexBuffer);
+			contextG4.setIndexBuffer(singletonIndexBuffer);
 			contextG4.setVertexBuffer(vertexBuffer);
-			contextG4.drawIndexedVertices();
+			contextG4.drawIndexedVertices(0, numIndices);
 		}
 		
 		numIndices = 0;
