@@ -201,8 +201,6 @@ class TextureAtlas
 	public static function bake(_data:Image, _rot:Int = 32):Image{
 		var diagnol:Int = Math.ceil(Math.sqrt(_data.width * _data.width + _data.height * _data.height));
 		var cache:Image = Image.createRenderTarget(diagnol * _rot, diagnol);
-		trace(diagnol * (_rot + 1));
-		trace(diagnol);
 		cache.g2.begin(true, Color.fromFloats(0, 0, 0, 0));
 		var i:Int = -1;
 		var translateX:Float = (diagnol - _data.width) * 0.5;
@@ -237,7 +235,6 @@ class TextureAtlas
 				brush.g2.drawSubImage(_data, 0, 0, _frame.x, _frame.y, _frame.w, _frame.h);
 				brush.g2.end();
 				var subret = bake(brush, _rot);
-				trace("subret" +subret.width);
 				ret.g2.begin(false);
 				ret.g2.drawImage(subret, 0, diagnol * (i * gWidth + j));
 				ret.g2.end();
@@ -280,15 +277,11 @@ class TextureAtlas
 	public function binpack(){
 		images.sort(sortOnSize);
 		
-		trace("len" + images.length);
-		
-		
 		var size:Int = 32;
 		var root:ANode = null;
 		var packed:Bool = false;
 		while (!packed){
 			root = new ANode();
-			trace("size" + size);
 			root.rc = new ARect(0, 0, size, size);
 			packed = true;
 			var i:Int = images.length;

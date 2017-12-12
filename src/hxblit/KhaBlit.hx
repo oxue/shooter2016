@@ -21,6 +21,8 @@ import kha.graphics4.VertexStructure;
 import kha.math.FastMatrix3;
 import kha.math.FastMatrix4;
 import kha.math.FastVector2;
+import kha.arrays.Uint32Array;
+import kha.arrays.Float32Array;
 import kha.math.FastVector4;
 
 /**
@@ -31,13 +33,14 @@ class KhaBlit
 {
 	public static var contextG4:Graphics;
 	public static var currentPipelineState:PipelineState;
+	public static var vboType:String;
 	public static var KHBTex2PipelineState:Tex2PipelineState;
 	
 	public static var width:Int;
 	public static var height:Int;
 	
-	public static var vertices:Array<Float>;
-	public static var indices:Array<UInt>;
+	public static var vertices:Float32Array;
+	public static var indices:Uint32Array;
 	
 	public static var numVertices:Int;
 	public static var vCounter:Int;
@@ -49,10 +52,11 @@ class KhaBlit
 	
 	public static var data32PerVertex:Int;
 	
-	public static var vertexBufferMap:Map<Int,VertexBuffer>;
+	public static var vertexBufferMap:Map<String,VertexBuffer>;
 	public static var indexBufferMap:Map<Int,IndexBuffer>;
 
-	public static var singletonIndexBuffer:IndexBuffer;
+	public static var indexBuffer:IndexBuffer;
+	public static var vertexBuffer:VertexBuffer;
 	
 	public static function init(_width:Int = 800, _height:Int = 600, _zoom:Int = 1){
 		trace("kb init 2");
@@ -64,19 +68,16 @@ class KhaBlit
 		matrix2 = (FastMatrix4.translation( -_width / (2 * _zoom), -_height / (2 * _zoom), 0).multmat(matrix2));
 		matrix2 = (FastMatrix4.scale((2 * _zoom) / _width, -(2 * _zoom) / _height, -1).multmat(matrix2));
 		matrix2 = (FastMatrix4.translation((2 *_zoom)/_width, (2 *_zoom)/_height, 1).multmat(matrix2));
-		
-		vertices = new Array<Float>();
-		indices = new Array<UInt>();
-		
-		vertices[65536 - 1] = 0;
-		singletonIndexBuffer = new IndexBuffer(24576, Usage.DynamicUsage);
+		indexBuffer = new IndexBuffer(12288, Usage.DynamicUsage);
+
+		indices = indexBuffer.lock();
 		
 		numVertices = 0;
 		vCounter = 0;
 		numIndices = 0;
 		iCounter = 0;
 		
-		vertexBufferMap = new Map<Int,VertexBuffer>();
+		vertexBufferMap = new Map<String,VertexBuffer>();
 		indexBufferMap = new Map<Int,IndexBuffer>();
 		
 		KHBTex2PipelineState = new Tex2PipelineState();
@@ -91,11 +92,26 @@ class KhaBlit
 		contextG4.clear(Color.fromFloats(_r, _g, _b, _a), _d, _s);
 	}
 	
-	static public function setPipeline(_pipeline:PipelineState)
+	static public function setPipeline(_pipeline:PipelineState, ?_vboType:String)
 	{
 		currentPipelineState = _pipeline;
+		vboType = _vboType;
 		data32PerVertex = Std.int(_pipeline.inputLayout[0].byteSize() / 4);
 		contextG4.setPipeline(_pipeline);
+		
+		if(vboType == null) {
+			trace("creating a vbo...");
+			vertexBuffer = new VertexBuffer(8192, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
+		} else {
+			if(!vertexBufferMap.exists(vboType)){
+				trace("creating a vbo...");
+				var vbo = new VertexBuffer(8192, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
+				vertexBufferMap.set(vboType, vbo);
+			}
+			vertexBuffer = vertexBufferMap.get(vboType);
+		}
+
+		vertices = vertexBuffer.lock();
 	}
 	
 	static public function setUniformMatrix4(_name:String, _matrix:FastMatrix4)
@@ -131,25 +147,12 @@ class KhaBlit
 	
 	public static function draw()
 	{
-		numVertices = cast (vCounter / data32PerVertex);	
+		numVertices = cast (vCounter / data32PerVertex);
 		
 		if (numVertices != 0){
-			var vertexBuffer:VertexBuffer = new VertexBuffer(numVertices, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
-			
-			var ibData:kha.arrays.Uint32Array = singletonIndexBuffer.lock();
-			for (i in 0...numIndices)
-			{
-				ibData[i] = indices[i];
-			}
-			singletonIndexBuffer.unlock();
-			
-			var vbData:Float32Array = vertexBuffer.lock();
-			for (i in 0...vbData.length)
-			{
-				vbData.set(i, vertices[i]);
-			}
+			indexBuffer.unlock();
 			vertexBuffer.unlock();
-			contextG4.setIndexBuffer(singletonIndexBuffer);
+			contextG4.setIndexBuffer(indexBuffer);
 			contextG4.setVertexBuffer(vertexBuffer);
 			contextG4.drawIndexedVertices(0, numIndices);
 		}
@@ -162,27 +165,27 @@ class KhaBlit
 	
 	static inline public function pushRect(_rect:FloatRect):Void
 	{
-		vertices[vCounter] = (_rect.x);
+		vertices.set(vCounter, _rect.x);
 		
 		vCounter ++;
-		vertices[vCounter] = (_rect.y);
+		vertices.set(vCounter, _rect.y);
 		
 		vCounter++;
-		vertices[vCounter] = (_rect.x + _rect.w);
+		vertices.set(vCounter, _rect.x + _rect.w);
 		vCounter++;
-		vertices[vCounter] = (_rect.y);
+		vertices.set(vCounter, _rect.y);
 		
 		vCounter++;
-		vertices[vCounter] = (_rect.x);
+		vertices.set(vCounter, _rect.x);
 		
 		vCounter++;
-		vertices[vCounter] = (_rect.y + _rect.h);
+		vertices.set(vCounter, _rect.y + _rect.h);
 		
 		vCounter ++;
-		vertices[vCounter] = (_rect.x + _rect.w);
+		vertices.set(vCounter, _rect.x + _rect.w);
 		
 		vCounter++;
-		vertices[vCounter] = (_rect.y + _rect.h);
+		vertices.set(vCounter, _rect.y + _rect.h);
 		vCounter++;
 		
 		indices[numIndices] = iCounter;
@@ -205,32 +208,32 @@ class KhaBlit
 								   	 x4:Float, y4:Float, z4:Float,
 								   	 x3:Float, y3:Float, z3:Float)
 	{
-		vertices[vCounter] = (x1);
+		vertices.set(vCounter, x1);
 		vCounter ++;
-		vertices[vCounter] = (y1);
+		vertices.set(vCounter, y1);
 		vCounter ++;
-		vertices[vCounter] = (z1);
-		vCounter ++;
-		
-		vertices[vCounter] = (x2);
-		vCounter ++;
-		vertices[vCounter] = (y2);		
-		vCounter ++;
-		vertices[vCounter] = (z2);
+		vertices.set(vCounter, z1);
 		vCounter ++;
 		
-		vertices[vCounter] = (x3);
+		vertices.set(vCounter, x2);
 		vCounter ++;
-		vertices[vCounter] = (y3);		
+		vertices.set(vCounter, y2);		
 		vCounter ++;
-		vertices[vCounter] = (z3);		
+		vertices.set(vCounter, z2);
 		vCounter ++;
 		
-		vertices[vCounter] = (x4);		
+		vertices.set(vCounter, x3);
 		vCounter ++;
-		vertices[vCounter] = (y4);		
+		vertices.set(vCounter, y3);		
 		vCounter ++;
-		vertices[vCounter] = (z4);
+		vertices.set(vCounter, z3);		
+		vCounter ++;
+		
+		vertices.set(vCounter, x4);		
+		vCounter ++;
+		vertices.set(vCounter, y4);		
+		vCounter ++;
+		vertices.set(vCounter, z4);
 		vCounter ++;
 		
 		indices[numIndices] = iCounter;
@@ -253,40 +256,40 @@ class KhaBlit
 											x4:Float, y4:Float, z4:Float, w4:Float,
 											x3:Float, y3:Float, z3:Float, w3:Float)
 	{
-		vertices[vCounter] = (x1);
+		vertices.set(vCounter, x1);
 		vCounter ++;
-		vertices[vCounter] = (y1);
+		vertices.set(vCounter, y1);
 		vCounter ++;
-		vertices[vCounter] = (z1);
+		vertices.set(vCounter, z1);
 		vCounter ++;
-		vertices[vCounter] = (w1);
-		vCounter ++;
-		
-		vertices[vCounter] = (x2);
-		vCounter ++;
-		vertices[vCounter] = (y2);		
-		vCounter ++;
-		vertices[vCounter] = (z2);
-		vCounter ++;
-		vertices[vCounter] = (w2);
+		vertices.set(vCounter, w1);
 		vCounter ++;
 		
-		vertices[vCounter] = (x3);
+		vertices.set(vCounter, x2);
 		vCounter ++;
-		vertices[vCounter] = (y3);		
+		vertices.set(vCounter, y2);		
 		vCounter ++;
-		vertices[vCounter] = (z3);		
+		vertices.set(vCounter, z2);
 		vCounter ++;
-		vertices[vCounter] = (w4);
+		vertices.set(vCounter, w2);
 		vCounter ++;
 		
-		vertices[vCounter] = (x4);		
+		vertices.set(vCounter, x3);
 		vCounter ++;
-		vertices[vCounter] = (y4);		
+		vertices.set(vCounter, y3);		
 		vCounter ++;
-		vertices[vCounter] = (z4);
+		vertices.set(vCounter, z3);		
 		vCounter ++;
-		vertices[vCounter] = (w4);
+		vertices.set(vCounter, w4);
+		vCounter ++;
+		
+		vertices.set(vCounter, x4);		
+		vCounter ++;
+		vertices.set(vCounter, y4);		
+		vCounter ++;
+		vertices.set(vCounter, z4);
+		vCounter ++;
+		vertices.set(vCounter, w4);
 		vCounter ++;
 		
 		indices[numIndices] = iCounter;
@@ -306,49 +309,49 @@ class KhaBlit
 	
 	static public function blit(_s2:Surface2, _x:Float, _y:Float):Void
 	{
-		vertices[vCounter] = (_x);
+		vertices.set(vCounter, _x);
 		
 		vCounter ++;
-		vertices[vCounter] = (_y);
+		vertices.set(vCounter, _y);
 		
 		vCounter++;
-		vertices[vCounter] = (_s2.vx1);
+		vertices.set(vCounter, _s2.vx1);
 		
 		vCounter++;
-		vertices[vCounter] = (_s2.vy1);
+		vertices.set(vCounter, _s2.vy1);
 		
 		vCounter++;
-		vertices[vCounter] = (_x + _s2.width);
+		vertices.set(vCounter, _x + _s2.width);
 		vCounter++;
-		vertices[vCounter] = (_y);
+		vertices.set(vCounter, _y);
 		vCounter++;
-		vertices[vCounter] = (_s2.vx2);
+		vertices.set(vCounter, _s2.vx2);
 		vCounter++;
-		vertices[vCounter] = (_s2.vy2);
+		vertices.set(vCounter, _s2.vy2);
 		
 		vCounter++;
-		vertices[vCounter] = (_x);
+		vertices.set(vCounter, _x);
 		
 		vCounter++;
-		vertices[vCounter] = (_y + _s2.height);
+		vertices.set(vCounter, _y + _s2.height);
 		
 		vCounter++;
-		vertices[vCounter] = (_s2.vx3);
-		
-		vCounter ++;
-		vertices[vCounter] = (_s2.vy3);
+		vertices.set(vCounter, _s2.vx3);
 		
 		vCounter ++;
-		vertices[vCounter] = (_x + _s2.width);
+		vertices.set(vCounter, _s2.vy3);
+		
+		vCounter ++;
+		vertices.set(vCounter, _x + _s2.width);
 		
 		vCounter++;
-		vertices[vCounter] = (_y + _s2.height);
+		vertices.set(vCounter, _y + _s2.height);
 		
 		vCounter++;
-		vertices[vCounter] = (_s2.vx4);
+		vertices.set(vCounter, _s2.vx4);
 	
 		vCounter++;
-		vertices[vCounter] = (_s2.vy4);
+		vertices.set(vCounter, _s2.vy4);
 		vCounter ++;
 		
 		indices[numIndices] = iCounter;
