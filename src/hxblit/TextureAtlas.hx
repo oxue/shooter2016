@@ -12,6 +12,7 @@ import kha.graphics4.Graphics2;
 import kha.graphics4.TextureFormat;
 import kha.graphics4.hxsl.Types.Vec;
 import kha.math.FastVector2;
+import kha.math.Vector2;
 import refraction.display.Surface2SetComponent;
 
 /**
@@ -138,6 +139,11 @@ class IntRect{
 		y = _y;
 		w = _w;
 		h = _h;
+	}
+
+	public function position():Vector2
+	{
+		return new Vector2(x, y);
 	}
 	
 }

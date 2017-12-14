@@ -5,6 +5,7 @@ import kha.Scheduler;
 import kha.System;
 import kha.input.Keyboard;
 import kha.input.Mouse;
+import kha.math.Vector2;
 
 class Application
 {
@@ -48,6 +49,11 @@ class Application
 		});
 	}
 	
+	static public function mouseCoords():Vector2
+	{
+		return new Vector2(mouseX, mouseY);
+	}
+
 	static private function mouseMove(x:Int, y:Int, dX:Int, dY:Int)
 	{
 		mouseX = x;

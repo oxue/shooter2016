@@ -1,5 +1,6 @@
 package refraction.generic;
 import refraction.core.Component;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -19,6 +20,11 @@ class PositionComponent extends Component
 		oldX = x = _x;
 		oldY = y = _y;
 		super("pos_comp");
+	}
+
+	public function vec():Vector2
+	{
+		return new Vector2(x, y);
 	}
 	
 	public function toString():String
