@@ -40,7 +40,7 @@ class GameContext
 	public var velocitySystem:SubSystem<VelocityComponent>;
 	public var dampingSystem:SubSystem<DampingComponent>;
 	public var collisionSystem:SubSystem<TileCollisionComponent>;
-	public var npcSystem:SubSystem<NPCComponent>;
+	public var interactSystem:SubSystem<InteractComponent>;
 	public var breadCrumbsSystem:BreadCrumbsSystem;
 	public var aiSystem:SubSystem<Component>;
 	public var lightSourceSystem:LightSourceSystem;
@@ -69,7 +69,7 @@ class GameContext
 		velocitySystem = new SubSystem<VelocityComponent>();
 		dampingSystem = new SubSystem<DampingComponent>();
 		collisionSystem = new SubSystem<TileCollisionComponent>();
-		npcSystem = new SubSystem<NPCComponent>();
+		interactSystem = new SubSystem<InteractComponent>();
 		breadCrumbsSystem = new BreadCrumbsSystem();
 		aiSystem = new SubSystem<Component>();
 		lightSourceSystem = new LightSourceSystem();

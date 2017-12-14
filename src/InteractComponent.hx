@@ -12,18 +12,18 @@ import refraction.generic.TransformComponent;
  * ...
  * @author 
  */
-class NPCComponent extends Component
+class InteractComponent extends Component
 {
 	private var position:PositionComponent;
 	private var dimensions:DimensionsComponent;
-	private var targetCamera:IntRect;
-	private var statusText:StatusText;
+	private var camera:IntRect;
+	private var interactFunc:Void->Void;
 	
-	public function new(_cam:IntRect, _statusText:StatusText) 
+	public function new(_cam:IntRect, _interactFunc:Void->Void) 
 	{
-		targetCamera = _cam;
-		statusText = _statusText;
-		super("npc_comp");
+		camera = _cam;
+		interactFunc = _interactFunc;
+		super("interact_comp");
 	}
 	
 	override public function load():Void 
@@ -34,17 +34,17 @@ class NPCComponent extends Component
 	
 	public function interact():Void
 	{
-		statusText.text = "interacting";
+		
 	}
 	
 	public function showInteractStatus():Void
 	{
-		statusText.text = "mimi lmb to talk";
+		
 	}
 	
 	override public function update():Void 
 	{
-		var wm:PositionComponent = new PositionComponent(Application.mouseX / 2 + targetCamera.x - dimensions.width/2, Application.mouseY / 2 + targetCamera.y - dimensions.height/2);
+		var wm:PositionComponent = new PositionComponent(Application.mouseX / 2 + camera.x - dimensions.width/2, Application.mouseY / 2 + camera.y - dimensions.height/2);
 		var dist:Float = Utils.posDis2(position, wm);
 		if (dist < dimensions.width / 2 * dimensions.height / 2)
 		{
@@ -59,7 +59,7 @@ class NPCComponent extends Component
 	
 	public function removeInteractStatus() 
 	{
-		statusText.text = "";
+		
 	}
 	
 }

@@ -20,6 +20,8 @@ class MimiAI extends Component
 	public var position:PositionComponent;
 	public var velocity:VelocityComponent;
 	private var blc:Surface2RenderComponentC;
+	public var lastX:Float;
+	public var lastY:Float;
 	
 	public function new(_name:String) 
 	{
@@ -43,18 +45,24 @@ class MimiAI extends Component
 		position = cast entity.components.get("pos_comp");
 		velocity = cast entity.components.get("vel_comp");
 		blc = cast entity.components.get("surface2render_comp_c");
+
+		lastX = position.x;
+		lastY = position.y;
 	}
 	
 	override public function update():Void 
 	{
+		
 		randTargetInterval.tick();
-		if (Math.round(velocity.velX) == 0 && Math.round(velocity.velY) == 0)
+		if (Math.round(position.x - lastX) == 0 && Math.round(position.y - lastY) == 0)
 		{
 			blc.curAnimaition = 0;
 			blc.frame = 0;
 		}else{
 			blc.curAnimaition = 1;
 		}
+		lastX = position.x;
+		lastY = position.y;
 	}
 	
 }

@@ -35,8 +35,7 @@ class TooltipSystem
 
 		var hoveredItems = tooltips.filter(function(tooltip) return tooltip.containsPoint(mouseCoords));
 		if(hoveredItems.length != 0){
-			var bestOne = hoveredItems[0];
-			drawTooltip(bestOne, g2);
+			drawTooltip(hoveredItems[0], g2);
 		}
 	}
 
