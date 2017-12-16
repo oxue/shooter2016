@@ -1,4 +1,4 @@
-package;
+package components;
 
 import hxblit.TextureAtlas.IntRect;
 import refraction.core.Component;
@@ -7,6 +7,7 @@ import refraction.core.Utils;
 import refraction.generic.DimensionsComponent;
 import refraction.generic.PositionComponent;
 import refraction.generic.TransformComponent;
+import refraction.core.Entity;
 
 /**
  * ...
@@ -17,9 +18,9 @@ class InteractComponent extends Component
 	private var position:PositionComponent;
 	private var dimensions:DimensionsComponent;
 	private var camera:IntRect;
-	private var interactFunc:Void->Void;
+	public var interactFunc:Entity->Void;
 	
-	public function new(_cam:IntRect, _interactFunc:Void->Void) 
+	public function new(_cam:IntRect, _interactFunc:Entity->Void) 
 	{
 		camera = _cam;
 		interactFunc = _interactFunc;
@@ -28,22 +29,14 @@ class InteractComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
-		dimensions = cast(entity.components.get("dim_comp"), DimensionsComponent);
+		position = entity.getComponent("pos_comp", PositionComponent);
+		dimensions = entity.getComponent("dim_comp", DimensionsComponent);
 	}
-	
-	public function interact():Void
-	{
-		
-	}
-	
-	override public function update():Void 
+
+	public function containsCursor():Bool
 	{
 		var worldMouseCoords = Application.mouseCoords().mult(0.5).add(camera.position());
-
-		if(dimensions.containsPoint(worldMouseCoords.sub(position.vec()))){
-			trace("...");
-		}
+		return dimensions.containsPoint(worldMouseCoords.sub(position.vec()));
 	}
 	
 }

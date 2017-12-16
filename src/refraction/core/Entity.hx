@@ -34,6 +34,11 @@ class Entity
 		components.get(_name).remove = true;
 		components.remove(_name);
 	}
+
+	@:generic
+	public function getComponent<T>(_name:String, _type:Class<T>):T {
+		return cast components.get(_name);
+	}
 	
 	public function removeImmediately():Void
 	{

@@ -67,7 +67,7 @@ class Application
 		if (button == 1)
 		mouse2IsDown = true;
 	}
-	
+
 	static private function mouseUp(button:Int, x:Int, y:Int)
 	{
 		if (button == 0)

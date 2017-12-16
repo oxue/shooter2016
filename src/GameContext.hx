@@ -18,6 +18,8 @@ import refraction.tile.Surface2TileRenderComponent;
 import refraction.tile.TileCollisionComponent;
 import refraction.tile.TilemapDataComponent;
 import zui.Zui;
+import components.InteractComponent;
+import systems.InteractSystem;
 
 /**
  * ...
@@ -40,7 +42,7 @@ class GameContext
 	public var velocitySystem:SubSystem<VelocityComponent>;
 	public var dampingSystem:SubSystem<DampingComponent>;
 	public var collisionSystem:SubSystem<TileCollisionComponent>;
-	public var interactSystem:SubSystem<InteractComponent>;
+	public var interactSystem:InteractSystem;
 	public var breadCrumbsSystem:BreadCrumbsSystem;
 	public var aiSystem:SubSystem<Component>;
 	public var lightSourceSystem:LightSourceSystem;
@@ -69,7 +71,7 @@ class GameContext
 		velocitySystem = new SubSystem<VelocityComponent>();
 		dampingSystem = new SubSystem<DampingComponent>();
 		collisionSystem = new SubSystem<TileCollisionComponent>();
-		interactSystem = new SubSystem<InteractComponent>();
+		interactSystem = new InteractSystem();
 		breadCrumbsSystem = new BreadCrumbsSystem();
 		aiSystem = new SubSystem<Component>();
 		lightSourceSystem = new LightSourceSystem();
