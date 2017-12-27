@@ -1,5 +1,6 @@
 package refraction.core;
 import refraction.generic.PositionComponent;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -18,6 +19,20 @@ class Utils
 		return dis;
 	}
 	
+	public static inline function rotateVec2(_vec:Vector2, rad:Float):Vector2
+	{
+		var cs = Math.cos(rad);
+		var sn = Math.sin(rad);
+		return new Vector2(
+			_vec.x * cs - _vec.y * sn,
+			_vec.x * sn + _vec.y * cs
+		);
+	}
+
+	public static inline function a2rad(a:Float){
+		return a * 3.14159 / 180;
+	}
+
 	public static inline function f2(_x:Float):Float
 	{
 		return _x * _x;

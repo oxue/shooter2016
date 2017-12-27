@@ -15,17 +15,28 @@ class Surface2SetComponent extends Component
 	public var indexes:Array<Int>;
 	public var translateX:Float;
 	public var translateY:Float;
+	public var registrationX:Float;
+	public var registrationY:Float;
 	public var frame:FloatRect;
 	
-	public function new() 
+	public function new(_name:String = "surface2set_comp")
 	{
-		super("surface2set_comp");
+		super(_name);
+		registrationX = registrationY = 0;
 	}
 	
-	public function addTranslation(x:Float, y:Float):Void
+	public function addTranslation(x:Float, y:Float):Surface2SetComponent
 	{
 		translateX += x;
 		translateY += y;
+		return this;
+	}
+	
+	public function registration(x:Float, y:Float):Surface2SetComponent
+	{
+		registrationX = x;
+		registrationY = y;
+		return this;
 	}
 	
 }

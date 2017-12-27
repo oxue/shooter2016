@@ -1,6 +1,6 @@
 package components;
 
-import hxblit.TextureAtlas.IntRect;
+import hxblit.Camera;
 import refraction.core.Component;
 import refraction.core.Application;
 import refraction.core.Utils;
@@ -17,10 +17,10 @@ class InteractComponent extends Component
 {
 	private var position:PositionComponent;
 	private var dimensions:DimensionsComponent;
-	private var camera:IntRect;
+	private var camera:Camera;
 	public var interactFunc:Entity->Void;
 	
-	public function new(_cam:IntRect, _interactFunc:Entity->Void) 
+	public function new(_cam:Camera, _interactFunc:Entity->Void) 
 	{
 		camera = _cam;
 		interactFunc = _interactFunc;

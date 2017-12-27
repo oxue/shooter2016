@@ -1,7 +1,7 @@
 package refraction.tile;
 //import hxblit.HxBlit;
 import hxblit.KhaBlit;
-import hxblit.TextureAtlas.IntRect;
+import hxblit.Camera;
 import refraction.core.Component;
 import refraction.display.Canvas;
 import refraction.display.Surface2SetComponent;
@@ -18,7 +18,7 @@ class Surface2TileRenderComponent extends Component
 	
 	public var threashold:Bool;
 	public var mode:Int;
-	public var targetCamera:IntRect;
+	public var targetCamera:Camera;
 	
 	public function new() 
 	{
@@ -33,14 +33,14 @@ class Surface2TileRenderComponent extends Component
 	
 	override public function update():Void 
 	{							 
-		var left:Int = Math.floor(targetCamera.x / tilemapData.tilesize);
+		var left:Int = Math.floor(targetCamera.X() / tilemapData.tilesize);
 		left = (left < 0)?0:left;
-		var right:Int = Math.ceil((targetCamera.x + targetCamera.w) / tilemapData.tilesize);
+		var right:Int = Math.ceil((targetCamera.X() + targetCamera.w) / tilemapData.tilesize);
 		right = (right > tilemapData.width)?tilemapData.width:right;
 		
-		var up:Int = Math.floor(targetCamera.y / tilemapData.tilesize);
+		var up:Int = Math.floor(targetCamera.Y() / tilemapData.tilesize);
 		up = (up < 0)?0:up;
-		var down:Int = Math.ceil((targetCamera.y + targetCamera.h) / tilemapData.tilesize);
+		var down:Int = Math.ceil((targetCamera.Y() + targetCamera.h) / tilemapData.tilesize);
 		down = (down > tilemapData.height)?tilemapData.height:down;
 		
 		var i:Int = down;
@@ -68,8 +68,8 @@ class Surface2TileRenderComponent extends Component
 				}
 				
 				KhaBlit.blit(surface2set.surfaces[index],
-							cast j * tilemapData.tilesize - targetCamera.x,
-							cast i * tilemapData.tilesize - targetCamera.y);
+							cast j * tilemapData.tilesize - targetCamera.X(),
+							cast i * tilemapData.tilesize - targetCamera.Y());
 			}
 		}
 		

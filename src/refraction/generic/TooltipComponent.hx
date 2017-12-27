@@ -1,9 +1,9 @@
 package refraction.generic;
 import refraction.core.Component;
-import hxblit.TextureAtlas.IntRect;
 import refraction.generic.PositionComponent;
 import refraction.generic.DimensionsComponent;
 import kha.math.Vector2;
+import hxblit.Camera;
 import kha.Color;
 
 /**
@@ -14,12 +14,12 @@ import kha.Color;
 class TooltipComponent extends Component
 {
 	public var message:String;
-	public var camera:IntRect;
+	public var camera:Camera;
 	public var position:PositionComponent;
 	public var mouseBox:DimensionsComponent;
 	public var color:Color;
 
-	public function new(_camera: IntRect, _message = "Default", _color = Color.White)
+	public function new(_camera: Camera, _message = "Default", _color = Color.White)
 	{
 		message = _message;
 		camera = _camera;

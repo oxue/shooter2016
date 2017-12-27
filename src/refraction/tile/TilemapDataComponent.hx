@@ -1,6 +1,7 @@
 package refraction.tile;
 //import flash.Vector;
 import haxe.ds.Vector;
+import kha.math.Vector2;
 import refraction.core.Component;
 
 /**
@@ -35,6 +36,24 @@ class TilemapDataComponent extends Component
 		colIndex = _colIndex;
 		
 		super("tilemapdata_comp");
+	}
+
+	public function hitTestPoint(p:Vector2):Bool
+	{
+		var tCol = Math.floor(p.x / tilesize);
+		var tRow = Math.floor(p.y / tilesize);
+		var tile = getTileAt(tRow, tCol);
+		return tile!=null && tile.solid;
+	}
+
+	public function getTileAt(row:Int, col:Int):Tile
+	{
+		if(row < 0 || col < 0 || row >= height || col >= width)
+		{
+			return null;
+		}
+
+		return data[row][col];
 	}
 	
 	public function setDataIntArray(_data:Array<Array<Int>>):Void

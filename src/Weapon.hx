@@ -1,7 +1,7 @@
 package ;
-import refraction.display.BlitComponentC;
 import refraction.display.Surface2RenderComponentC;
 import refraction.generic.PositionComponent;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -13,8 +13,9 @@ class Weapon
 	public var type:Int;
 	public var name:String;
 	public var ammo:AmmunitionObject;
+	public var muzzleOffset:Vector2;
 	
-	function new(_type:Int = 0, _name:String = "default"):Void
+	public function new(_type:Int = 0, _name:String = "default"):Void
 	{
 		type = _type;
 		name = _name;

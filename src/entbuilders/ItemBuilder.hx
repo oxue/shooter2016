@@ -27,7 +27,7 @@ class ItemBuilder
 		
 		var surfaceRender:Surface2RenderComponentC = new Surface2RenderComponentC();
 		e.addComponent(surfaceRender);
-		surfaceRender.camera = gameContext.cameraRect;
+		surfaceRender.camera = gameContext.camera;
 
 		surfaceRender.animations[0] = [0];
 		surfaceRender.animations.push([1]);
@@ -38,12 +38,13 @@ class ItemBuilder
 		
 		gameContext.surface2RenderSystem.addComponent(surfaceRender);
 
-		var tt:TooltipComponent = new TooltipComponent(gameContext.cameraRect, "Demon Hunter's Crossbow", kha.Color.Green);
+		var tt:TooltipComponent = new TooltipComponent(gameContext.camera, "Demon Hunter's Crossbow", kha.Color.Green);
 		e.addComponent(tt);
 		gameContext.tooltipSystem.addComponent(tt);
 
-		var ic = new InteractComponent(gameContext.cameraRect, function(e:Entity){
+		var ic = new InteractComponent(gameContext.camera, function(e:Entity){
 			trace(_itemId);
+			gameContext.playerEntity.getComponent("inventory_comp", InventoryComponent).pickup(_itemId);
 			e.remove();
 		});
 		gameContext.interactSystem.addComponent(ic);

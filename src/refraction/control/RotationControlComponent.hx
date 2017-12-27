@@ -1,5 +1,5 @@
 package refraction.control;
-import hxblit.TextureAtlas.IntRect;
+import hxblit.Camera;
 import refraction.core.Component;
 import refraction.core.Application;
 import refraction.generic.PositionComponent;
@@ -16,9 +16,9 @@ class RotationControlComponent extends Component
 	private var transform:TransformComponent;
 	private var position:PositionComponent;
 	private var targetRotation:Float;
-	private var targetCamera:IntRect;
+	private var targetCamera:Camera;
 
-	public function new(_cam:IntRect) 
+	public function new(_cam:Camera) 
 	{
 		targetCamera = _cam;
 		targetRotation = 0;

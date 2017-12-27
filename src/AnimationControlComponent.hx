@@ -12,7 +12,7 @@ class AnimationControlComponent extends Component
 {
 	private var velocity:VelocityComponent;
 	private var blc:Surface2RenderComponentC;
-	public var blc2:Surface2RenderComponentC;
+	public var weapons:Surface2RenderComponentC;
 
 	private var inventory:InventoryComponent;
 	
@@ -23,9 +23,10 @@ class AnimationControlComponent extends Component
 	
 	override public function load():Void 
 	{
-		velocity = cast entity.components.get("vel_comp");
-		blc = cast entity.components.get("surface2render_comp_c");
-		inventory = cast entity.components.get("inventory_comp");
+		velocity = entity.getComponent("vel_comp", VelocityComponent);
+		blc = entity.getComponent("surface2render_comp_c", Surface2RenderComponentC);
+		weapons = entity.getComponent("weapon_render_comp", Surface2RenderComponentC);
+		inventory = entity.getComponent("inventory_comp", InventoryComponent);
 	}
 	
 	private function notMoving():Bool

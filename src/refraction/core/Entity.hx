@@ -22,6 +22,13 @@ class Entity
 		entities.push(_e);
 	}
 	
+	public inline function addComponentAs(_comp:Component, _name:String):Void
+	{
+		components.set(_name, _comp);
+		_comp.entity = this;
+		_comp.load();
+	}
+
 	public inline function addComponent(_comp:Component):Void
 	{
 		components.set(_comp.name, _comp);

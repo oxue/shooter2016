@@ -100,7 +100,7 @@ class DS2D
 		while (i-->0){
 			var l:LightSource = lights[i];
 			
-			var camPos:FastVector2 = new FastVector2(gameContext.cameraRect.x, gameContext.cameraRect.y);
+			var camPos:FastVector2 = new FastVector2(gameContext.camera.X(), gameContext.camera.Y());
 			
 			var lx = l.position.x;
 			var ly = l.position.y;

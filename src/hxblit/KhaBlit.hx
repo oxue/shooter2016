@@ -100,11 +100,9 @@ class KhaBlit
 		contextG4.setPipeline(_pipeline);
 		
 		if(vboType == null) {
-			trace("creating a vbo...");
 			vertexBuffer = new VertexBuffer(8192, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
 		} else {
 			if(!vertexBufferMap.exists(vboType)){
-				trace("creating a vbo...");
 				var vbo = new VertexBuffer(8192, currentPipelineState.inputLayout[0], Usage.DynamicUsage);
 				vertexBufferMap.set(vboType, vbo);
 			}

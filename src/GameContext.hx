@@ -20,6 +20,7 @@ import refraction.tile.TilemapDataComponent;
 import zui.Zui;
 import components.InteractComponent;
 import systems.InteractSystem;
+import hxblit.Camera;
 
 /**
  * ...
@@ -28,8 +29,7 @@ import systems.InteractSystem;
 
 class GameContext
 {
-
-	public var cameraRect:IntRect;
+	public var camera:Camera;
 	public var currentMap:Surface2TileRenderComponent;
 	public var currentTilemapData:TilemapDataComponent;
 	
@@ -38,6 +38,7 @@ class GameContext
 	public var statusText:StatusText;
 	
 	public var surface2RenderSystem:SubSystem<Surface2RenderComponentC>;
+	public var selfLitRenderSystem:SubSystem<Surface2RenderComponentC>;
 	public var controlSystem:SubSystem<Component>;
 	public var velocitySystem:SubSystem<VelocityComponent>;
 	public var dampingSystem:SubSystem<DampingComponent>;
@@ -50,15 +51,18 @@ class GameContext
 	public var spacingSystem:SpacingSystem;
 	public var lightingSystem:DS2D;
 	public var tooltipSystem:TooltipSystem;
+
+	public var hitCheckSystem:SubSystem<Component>;
 	
+	// TODO: Deprecate these ones.
 	public var worldMouseX:Int;
 	public var worldMouseY:Int;
 
 	public var ui:Zui;
 	
-	public function new(_cameraRect:IntRect, _ui:Zui) 
+	public function new(_camera:Camera, _ui:Zui) 
 	{
-		cameraRect = _cameraRect;
+		camera = _camera;
 		currentMap = null;
 		ui = _ui;
 		
@@ -67,6 +71,7 @@ class GameContext
 		worldMouseX = worldMouseY = 0;
 		
 		surface2RenderSystem = new SubSystem<Surface2RenderComponentC>();
+		selfLitRenderSystem = new SubSystem<Surface2RenderComponentC>();
 		controlSystem = new SubSystem<Component>();
 		velocitySystem = new SubSystem<VelocityComponent>();
 		dampingSystem = new SubSystem<DampingComponent>();
@@ -77,6 +82,8 @@ class GameContext
 		lightSourceSystem = new LightSourceSystem();
 		spacingSystem = new SpacingSystem();
 		
+		hitCheckSystem = new SubSystem<Component>();
+
 		lightingSystem = new DS2D();
 		tooltipSystem = new TooltipSystem(ui);
 	}

@@ -7,7 +7,7 @@ import refraction.core.Component;
 import refraction.generic.DimensionsComponent;
 import refraction.generic.PositionComponent;
 import refraction.generic.VelocityComponent;
-import hxblit.TextureAtlas.IntRect;
+import hxblit.Camera;
 
 /**
  * ...
@@ -28,7 +28,7 @@ class TileCollisionComponent extends Component
 		super("tile_col_comp");
 	}
 
-	public function drawHitbox(camera:IntRect, g2:kha.graphics2.Graphics):Void
+	public function drawHitbox(camera:Camera, g2:kha.graphics2.Graphics):Void
 	{
 		g2.color = kha.Color.Green;
 		g2.drawRect(
