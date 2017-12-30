@@ -1,7 +1,7 @@
 package refraction.ds2d;
 import refraction.core.Component;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -14,14 +14,14 @@ class Circle extends Component
 	public var x:Float;
 	public var y:Float;
 	public var radius:Float;
-	public var position:PositionComponent;
+	public var position:Position;
 	
 	public function new(_x:Float, _y:Float, _radius:Float) 
 	{
 		x = _x;
 		y = _y;
 		radius = _radius;
-		super("circle_comp");
+		super();
 	}
 	
 	override public function load():Void 

@@ -7,22 +7,22 @@ import refraction.core.Utils;
  * @author worldedit
  */
 
-class VelocityComponent extends Component
+class Velocity extends Component
 {
 	
-	private var position:PositionComponent;
+	private var position:Position;
 	public var velX:Float;
 	public var velY:Float;
 
 	public function new() 
 	{
 		velX = velY = 0;
-		super("vel_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
+		position = entity.getComponent(Position);
 	}
 	
 	override public function update():Void 

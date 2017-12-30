@@ -1,6 +1,6 @@
 package refraction.control;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
 
@@ -13,10 +13,10 @@ class RotationFollowComponent extends Component
 {
 
 	private var rotation:TransformComponent;
-	private var position:PositionComponent;
+	private var position:Position;
 	private var speed:Float;
 	private var velocity:VelocityComponent;
-	public var followPosition:PositionComponent;
+	public var followPosition:Position;
 	
 	public function new() 
 	{

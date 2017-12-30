@@ -5,8 +5,7 @@ import hxblit.TextureAtlas.FloatRect;
 import hxblit.TextureAtlas.IntRect;
 import hxblit.Camera;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
-import refraction.generic.TransformComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -23,19 +22,16 @@ class Surface2RenderComponentC extends Component
 	private var coordX:Int;
 	private var coordY:Int;
 	private var surface2Set:Surface2SetComponent;
-	private var transform:TransformComponent;
-	private var position:PositionComponent;
+	private var position:Position;
 	public var numRot:Int;
 	public var curAnimaition:Int;
 	public var camera:Camera;
 	
 	private var surfaceName:String;
 	
-	public function new(_camera:Camera = null, 
-		_surfaceName:String = "surface2set_comp", 
-		_name:String = "surface2render_comp_c") 
+	public function new(_camera:Camera = null, _surfaceName:String = null) 
 	{
-		super(_name);
+		super();
 		surfaceName = _surfaceName;
 		camera = _camera;
 		numRot = 32;
@@ -50,10 +46,8 @@ class Surface2RenderComponentC extends Component
 	
 	override public function load():Void 
 	{
-		surface2Set = cast entity.components.get(surfaceName);
-		transform = cast entity.components.get("trans_comp");
-		position = cast entity.components.get("pos_comp");
-
+		surface2Set = entity.getComponent(Surface2SetComponent, surfaceName);
+		position = entity.getComponent(Position);
 	}
 	
 	override public function update():Void 
@@ -69,17 +63,17 @@ class Surface2RenderComponentC extends Component
 			}
 			coordY = animations[curAnimaition][frame];
 		}
-		if (transform.rotation < 0)
+		if (position.rotation < 0)
 		{
-			transform.rotation += 360;
-		}else if (transform.rotation >= 360)
+			position.rotation += 360;
+		}else if (position.rotation >= 360)
 		{
-			transform.rotation -= 360;
+			position.rotation -= 360;
 		}
 		var offsetX = 0.0;
 		var offsetY = 0.0;
 
-		coordX = Math.round(transform.rotation / 360 * numRot) % numRot;
+		coordX = Math.round(position.rotation / 360 * numRot) % numRot;
 
 		if(surface2Set.registrationX != 0 || surface2Set.registrationY != 0){
 			var a = coordX/numRot * 2 * 3.1415;

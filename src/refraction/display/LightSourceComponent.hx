@@ -3,7 +3,7 @@ import kha.math.FastVector2;
 import refraction.core.Component;
 import refraction.ds2d.DS2D;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -14,7 +14,7 @@ class LightSourceComponent extends Component
 
 	public var light:LightSource;
 	public var offset:FastVector2;
-	public var position:PositionComponent;
+	public var position:Position;
 	
 	public function new(lightingSystem:DS2D,_color:Int=0xff0000, _radius:Int = 100, _offsetX:Int, _offsetY:Int) 
 	{
@@ -22,7 +22,7 @@ class LightSourceComponent extends Component
 		lightingSystem.addLightSource(light);
 		offset = new FastVector2(_offsetX, _offsetY);
 		
-		super("LightSourceComponent");
+		super();
 	}
 
 	override public function load():Void 

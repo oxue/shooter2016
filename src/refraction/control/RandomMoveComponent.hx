@@ -1,7 +1,7 @@
 package refraction.control;
 import flash.geom.Point;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -10,7 +10,7 @@ import refraction.generic.PositionComponent;
 
 class RandomMoveComponent extends Component
 {
-	private var position:PositionComponent;
+	private var position:Position;
 	
 	public var velX:Float;
 	public var velY:Float;

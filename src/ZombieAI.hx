@@ -4,9 +4,10 @@ import kha.math.FastVector2;
 import refraction.control.BreadCrumbsComponent;
 import refraction.core.Component;
 import refraction.display.Surface2RenderComponentC;
-import refraction.generic.PositionComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
 import refraction.tile.TilemapDataComponent;
+import refraction.tile.TileCollisionComponent;
 import refraction.tile.TilemapUtils;
 import refraction.utils.Interval;
 
@@ -24,23 +25,23 @@ class ZombieAI extends Component
 
 	public var breadcrumbs:BreadCrumbsComponent;
 	public var randTargetInterval:Interval;
-	public var position:PositionComponent;
-	public var velocity:VelocityComponent;
+	public var position:Position;
+	public var velocity:Velocity;
 	private var blc:Surface2RenderComponentC;
 	
-	public var followTarget:PositionComponent;
+	public var followTarget:Position;
 	public var targetMap:TilemapDataComponent;
 	
 	private var state:ZombieAIState; 
 	private var scentInterval:Interval;
 	private var lastScene:Bool;
 	
-	public function new(_name:String, _followTarget:PositionComponent, _targetMap:TilemapDataComponent) 
+	public function new(_followTarget:Position) 
 	{
-		super(_name);
+		super();
 		
 		followTarget = _followTarget;
-		targetMap = _targetMap;
+		targetMap = entity.getComponent(TileCollisionComponent).targetTilemap;
 		
 		state = IDLE;
 		//randTargetInterval = new Interval(walk, 120);
@@ -70,10 +71,10 @@ class ZombieAI extends Component
 
 	override public function load():Void 
 	{
-		breadcrumbs = cast entity.components.get("BreadCrumbsComponent");
-		position = cast entity.components.get("pos_comp");
-		velocity = cast entity.components.get("vel_comp");
-		blc = cast entity.components.get("surface2render_comp_c");
+		breadcrumbs = entity.getComponent(BreadCrumbsComponent);
+		position = entity.getComponent(Position);
+		velocity = entity.getComponent(Velocity);
+		blc = entity.getComponent(Surface2RenderComponentC);
 	}
 	
 	override public function update():Void 

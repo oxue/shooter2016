@@ -3,7 +3,7 @@ package components;
 import kha.math.Vector2;
 import refraction.tile.TilemapDataComponent;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -11,18 +11,18 @@ import refraction.generic.PositionComponent;
  */
 class ProjectileComponent extends Component
 {
-	private var position:PositionComponent;
+	private var position:Position;
 	private var tilemapData:TilemapDataComponent;
 	
 	public function new(_tilemapData:TilemapDataComponent) 
 	{
 		tilemapData = _tilemapData;
-		super("projectile_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		position = entity.getComponent("pos_comp", PositionComponent);
+		position = entity.getComponent(Position);
 	}
 
 	override public function update():Void

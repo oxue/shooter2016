@@ -37,7 +37,7 @@ import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.DS2D;
 import refraction.ds2d.LightSource;
 import refraction.ds2d.Polygon;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.generic.TimeRemoverComponent;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;

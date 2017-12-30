@@ -1,6 +1,6 @@
 package ;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.core.SubSystem;
 
 /**
@@ -13,7 +13,7 @@ class PlayerCollideComponent extends Component
 
 	public var radius2:Int;
 	public var targetSystem:SubSystem<EnemyCollideComponent>;
-	private var position:PositionComponent;
+	private var position:Position;
 	private var health:HealthComponent;
 	
 	public function new() 
@@ -24,7 +24,7 @@ class PlayerCollideComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast(entity.components.get("pos_comp"), PositionComponent);
+		position = cast(entity.components.get("pos_comp"), Position);
 		health = cast(entity.components.get("health_comp"), HealthComponent);
 	}
 	

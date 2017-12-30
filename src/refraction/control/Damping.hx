@@ -1,27 +1,34 @@
 package refraction.control;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
 
 /**
  * ...
  * @author worldedit
  */
 
-class DampingComponent extends Component
+class Damping extends Component
 {
-	private var velocity:VelocityComponent;
+	private var velocity:Velocity;
 	private var factor:Float;
 	
 	public function new(_factor:Float = 0.9) 
 	{
 		factor = _factor;
-		super("damp_comp");
+		super();
+	}
+
+	override private function setupField(_name:String, _value:Dynamic):Void
+	{
+		if(_name == "factor") {
+			factor = _value;
+		}
 	}
 	
 	override public function load():Void 
 	{
-		velocity = cast entity.components.get("vel_comp");
+		velocity = entity.getComponent(Velocity);
 	}
 	
 	override public function update():Void 

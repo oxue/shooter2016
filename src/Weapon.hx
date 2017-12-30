@@ -1,6 +1,6 @@
 package ;
 import refraction.display.Surface2RenderComponentC;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import kha.math.Vector2;
 
 /**
@@ -21,11 +21,11 @@ class Weapon
 		name = _name;
 	}
 	
-	public function castWeapon(_position:PositionComponent):Void
+	public function castWeapon(_position:Position):Void
 	{
 		
 	}
-	public function persistCast(_positionc:PositionComponent):Void
+	public function persistCast(_positionc:Position):Void
 	{
 		
 	}

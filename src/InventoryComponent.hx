@@ -1,10 +1,9 @@
 package ;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import kha.math.Vector2;
 import refraction.core.Utils;
-import refraction.generic.TransformComponent;
 
 /**
  * ...
@@ -15,18 +14,16 @@ class InventoryComponent extends Component
 {
 	
 	private var currentWeapon:Weapon;
-	private var position:PositionComponent;
-	private var rotation:TransformComponent;
+	private var position:Position;
 
 	public function new() 
 	{
-		super("inventory_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		position = entity.getComponent("pos_comp", PositionComponent);
-		rotation = entity.getComponent("trans_comp", TransformComponent);
+		position = entity.getComponent(Position);
 	}
 	
 	override public function update():Void 
@@ -46,7 +43,7 @@ class InventoryComponent extends Component
 	}
 
 	public function muzzlePositon():Vector2 {
-		return position.vec().add(Utils.rotateVec2(currentWeapon.muzzleOffset, Utils.a2rad(rotation.rotation)));
+		return position.vec().add(Utils.rotateVec2(currentWeapon.muzzleOffset, Utils.a2rad(position.rotation)));
 	}
 
 	public function muzzleDirection():Vector2 {

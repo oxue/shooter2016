@@ -4,9 +4,9 @@ import flash.Vector;*/
 import hxblit.TextureAtlas.FloatRect;
 import refraction.control.KeyControlComponent;
 import refraction.core.Component;
-import refraction.generic.DimensionsComponent;
-import refraction.generic.PositionComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Dimensions;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
 import hxblit.Camera;
 
 /**
@@ -19,13 +19,19 @@ class TileCollisionComponent extends Component
 
 	public var targetTilemap:TilemapDataComponent;
 	
-	private var position:PositionComponent;
-	private var dimensions:DimensionsComponent;
-	private var velocity:VelocityComponent;
+	private var position:Position;
+	private var dimensions:Dimensions;
+	private var velocity:Velocity;
 	
 	public function new() 
 	{
-		super("tile_col_comp");
+		super();
+	}
+
+	override private function setupField(_name:String, _value:Dynamic):Void { 
+		if(_name == "tilemap"){
+			targetTilemap = _value;
+		}
 	}
 
 	public function drawHitbox(camera:Camera, g2:kha.graphics2.Graphics):Void
@@ -41,15 +47,15 @@ class TileCollisionComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
-		dimensions = cast entity.components.get("dim_comp");
-		velocity = cast entity.components.get("vel_comp");
+		position = entity.getComponent(Position);
+		dimensions = entity.getComponent(Dimensions);
+		velocity = entity.getComponent(Velocity);
 	}
 	
 	override public function update():Void 
 	{
-		var p:PositionComponent = position;
-		var d:DimensionsComponent = dimensions;
+		var p:Position = position;
+		var d:Dimensions = dimensions;
 		var lastRect:FloatRect = new FloatRect(position.oldX, position.oldY, dimensions.width, dimensions.height);
 		var nowRect:FloatRect = lastRect.clone();
 		nowRect.x = p.x;
@@ -262,8 +268,8 @@ class TileCollisionComponent extends Component
 	
 	public function solveRect(_tx:Int, _ty:Int, _tw:Int, _th:Int):CollisionData
 	{
-		var p:PositionComponent = position;
-		var d:DimensionsComponent = dimensions;
+		var p:Position = position;
+		var d:Dimensions = dimensions;
 		var velX:Float = p.x - p.oldX;
 		var velY:Float = p.y - p.oldY;
 		var dtxc:Float = 0;

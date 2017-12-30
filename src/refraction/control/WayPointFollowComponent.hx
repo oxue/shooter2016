@@ -5,7 +5,7 @@ import flash.Vector;*/
 import refraction.core.Component;
 import refraction.core.Application;
 //import refraction.display.EFLA;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
 import refraction.tile.TilemapUtils;
@@ -27,10 +27,10 @@ class WayPointFollowComponent extends Component
 	private var IDLE:Int = 0;
 	private var AGGRO:Int = 1;
 	
-	private var followTarget:PositionComponent;
-	private var queue:Vector<PositionComponent>;
+	private var followTarget:Position;
+	private var queue:Vector<Position>;
 	private var velocity:VelocityComponent;
-	private var position:PositionComponent;
+	private var position:Position;
 	private var rotation:TransformComponent;
 	private var maxAccel:Float;
 	
@@ -43,7 +43,7 @@ class WayPointFollowComponent extends Component
 	public function new() 
 	{
 		super("waypoint_follow_comp");
-		queue = new Vector<PositionComponent>();
+		queue = new Vector<Position>();
 
 	}
 	
@@ -60,7 +60,7 @@ class WayPointFollowComponent extends Component
 		state = AGGRO;
 	}
 	
-	public function addWaypoint(_p:PositionComponent):Void
+	public function addWaypoint(_p:Position):Void
 	{
 		queue.push(_p);
 	}
@@ -92,7 +92,7 @@ class WayPointFollowComponent extends Component
 		if (timer >= scentTimer)
 		{
 			timer = 0;
-			queue.push(new PositionComponent(followTarget.x, followTarget.y));
+			queue.push(new Position(followTarget.x, followTarget.y));
 		}
 		var k:Int = queue.length;
 		while(k-->0){

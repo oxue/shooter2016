@@ -1,4 +1,6 @@
 package refraction.core;
+
+import hxblit.Camera;
 import kha.Framebuffer;
 import kha.input.KeyCode;
 import kha.Scheduler;
@@ -19,6 +21,8 @@ class Application
 	public static var mouse2IsDown:Bool;
 	public static var mouseX:Int;
 	public static var mouseY:Int;
+
+	public static var defaultCamera:Camera;
 	
 	public static var keys:Map<Int, Bool>;
 	

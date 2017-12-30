@@ -3,7 +3,7 @@ import flash.geom.Point;
 import refraction.core.Application;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -44,7 +44,7 @@ class FlameThrower extends Weapon
 		}
 	}
 	
-	override public function persistCast(_position:PositionComponent):Void 
+	override public function persistCast(_position:Position):Void 
 	{
 		if (!canCast)
 		return;

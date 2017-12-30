@@ -2,7 +2,7 @@ package refraction.control;
 import flash.events.MouseEvent;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -11,7 +11,7 @@ import refraction.generic.PositionComponent;
 
 class ClickControlComponent extends Component
 {
-	private var position:PositionComponent;
+	private var position:Position;
 	
 	public function new() 
 	{
@@ -20,7 +20,7 @@ class ClickControlComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
+		position = entity.getComponent(Position);
 	}
 	
 	public function move():Void 

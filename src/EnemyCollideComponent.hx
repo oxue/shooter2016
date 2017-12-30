@@ -2,7 +2,7 @@ package ;
 import flash.geom.Point;
 import flash.Vector;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.core.SubSystem;
 import refraction.generic.VelocityComponent;
 
@@ -13,7 +13,7 @@ import refraction.generic.VelocityComponent;
 
 class EnemyCollideComponent extends Component
 {
-	public var position:PositionComponent;
+	public var position:Position;
 	public var radius:Int;
 	public var health:HealthComponent;
 	public var radius2:Int;

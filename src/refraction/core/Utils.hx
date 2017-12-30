@@ -1,5 +1,5 @@
 package refraction.core;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import kha.math.Vector2;
 
 /**
@@ -10,7 +10,7 @@ import kha.math.Vector2;
 class Utils 
 {
 
-	public static inline function posDis2(_pos1:PositionComponent, _pos2:PositionComponent):Float
+	public static inline function posDis2(_pos1:Position, _pos2:Position):Float
 	{
 		var dx:Float = _pos1.x - _pos2.x;
 		var dy:Float = _pos1.y - _pos2.y;

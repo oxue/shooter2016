@@ -2,9 +2,8 @@ package refraction.control;
 
 import kha.math.FastVector2;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
-import refraction.generic.TransformComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
 
 /**
  * ...
@@ -17,17 +16,22 @@ class BreadCrumbsComponent extends Component
 	public var acceptanceRadius:Float;
 	public var maxAcceleration:Float;
 	
-	public var position:PositionComponent;
-	public var velocity:VelocityComponent;
-	public var rotation:TransformComponent;
+	public var position:Position;
+	public var velocity:Velocity;
 
-	public function new(_acceptanceRadius:Float, _maxAcceleration:Float) 
+	public function new() 
 	{
-		acceptanceRadius = _acceptanceRadius;
-		maxAcceleration = _maxAcceleration;
 		breadcrumbs = new Array();
 		
-		super("BreadCrumbsComponent");
+		super();
+	}
+
+	override private function setupField(_name:String, _value:Dynamic):Void {
+		if(_name == "acceptanceRadius"){
+			acceptanceRadius = _value;
+		}else if(_name == "maxAcceleration"){
+			maxAcceleration = _value;
+		}
 	}
 	
 	public function addBreadCrumb(_v:FastVector2){
@@ -36,9 +40,8 @@ class BreadCrumbsComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
-		rotation = cast entity.components.get("trans_comp");
-		velocity = cast entity.components.get("vel_comp");
+		position = entity.getComponent(Position);
+		velocity = entity.getComponent(Velocity);
 	}
 	
 }

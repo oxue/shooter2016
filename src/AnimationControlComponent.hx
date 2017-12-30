@@ -1,7 +1,7 @@
 package ;
 import refraction.core.Component;
 import refraction.display.Surface2RenderComponentC;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Velocity;
 
 /**
  * ...
@@ -10,7 +10,7 @@ import refraction.generic.VelocityComponent;
 
 class AnimationControlComponent extends Component
 {
-	private var velocity:VelocityComponent;
+	private var velocity:Velocity;
 	private var blc:Surface2RenderComponentC;
 	public var weapons:Surface2RenderComponentC;
 
@@ -18,15 +18,15 @@ class AnimationControlComponent extends Component
 	
 	public function new() 
 	{
-		super("anim_control_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		velocity = entity.getComponent("vel_comp", VelocityComponent);
-		blc = entity.getComponent("surface2render_comp_c", Surface2RenderComponentC);
-		weapons = entity.getComponent("weapon_render_comp", Surface2RenderComponentC);
-		inventory = entity.getComponent("inventory_comp", InventoryComponent);
+		velocity = entity.getComponent(Velocity);
+		blc = entity.getComponent(Surface2RenderComponentC);
+		weapons = entity.getComponent(Surface2RenderComponentC, "weapon_render_comp");
+		inventory = entity.getComponent(InventoryComponent);
 	}
 	
 	private function notMoving():Bool

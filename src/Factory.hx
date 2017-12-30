@@ -20,8 +20,8 @@ import refraction.display.BlitComponentC;
 import refraction.display.Surface2SetComponent;
 import refraction.ds2d.Circle;
 import refraction.ds2d.LightSource;
-import refraction.generic.DimensionsComponent;
-import refraction.generic.PositionComponent;
+import refraction.generic.Dimensions;
+import refraction.generic.Position;
 import refraction.generic.TimeRemoverComponent;
 import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
@@ -114,7 +114,7 @@ class Factory
 	public static function createBullet(_x:Float = 0, _y:Float = 0, _x1:Float = 0, _y1:Float = 0, _damage:Int = 50):Void
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent(_x1, _y1);
+		var p:Position = new Position(_x1, _y1);
 		p.oldX = cast _x;
 		p.oldY = cast _y;
 		e.addComponent(p);
@@ -140,7 +140,7 @@ class Factory
 	public static function createWarp(_x:Int = 0, _y:Int = 0, _level:String):Void
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent();
+		var p:Position = new Position();
 		p.x = _x;
 		p.y = _y;
 		e.addComponent(p);
@@ -155,7 +155,7 @@ class Factory
 	public static function createFireball(_x:Int = 0, _y:Int = 0, _px:Float, _py:Float):Void
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent(_x, _y);
+		var p:Position = new Position(_x, _y);
 		var v:VelocityComponent = new VelocityComponent();
 		var d:DampingComponent = new DampingComponent(0.9);
 		var p1:Point = new Point(_px, _py);
@@ -164,7 +164,7 @@ class Factory
 		p1.normalize(value + Math.random() * 4);
 		var p2:Point = new Point( -_py, _px);
 		p2.normalize(Math.random() * 1 - 0.5);
-		e.addComponent(new DimensionsComponent(10, 10));
+		e.addComponent(new Dimensions(10, 10));
 		var t:TileCollisionComponent = new TileCollisionComponent();
 		t.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
 		
@@ -196,11 +196,11 @@ class Factory
 	public static function createPlayer(_x:Int = 0, _y:Int = 0):Void
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent(_x, _y);
+		var p:Position = new Position(_x, _y);
 		var t:TransformComponent = new TransformComponent();
 		
 		e.addComponent(p);
-		e.addComponent(new DimensionsComponent(20, 20));
+		e.addComponent(new Dimensions(20, 20));
 		e.addComponent(t);
 		e.addComponent(MANS2);
 		
@@ -240,7 +240,7 @@ class Factory
 		var d:DampingComponent = new DampingComponent(0.7);
 		e.addComponent(d);
 		cast(Application.currentState, GameState).dampingSystem.addComponent(d);
-		e.addComponent(new DimensionsComponent(20, 20));
+		e.addComponent(new Dimensions(20, 20));
 		var c:TileCollisionComponent = new TileCollisionComponent();
 		c.targetTilemap = cast(Application.currentState, GameState).tilemapdata;
 		e.addComponent(c);
@@ -300,8 +300,8 @@ class Factory
 	{
 		var e:Entity = new Entity();
 		
-		e.addComponent(new DimensionsComponent(20, 20));
-		var p:PositionComponent = new PositionComponent(_x,_y);
+		e.addComponent(new Dimensions(20, 20));
+		var p:Position = new Position(_x,_y);
 		
 		e.addComponent(p);
 		e.addComponent(ZOMBIES2);
@@ -315,7 +315,7 @@ class Factory
 		e.addComponent(v);
 		var d:DampingComponent = new DampingComponent(0.9);
 		e.addComponent(d);
-		e.addComponent(new DimensionsComponent(20, 20));
+		e.addComponent(new Dimensions(20, 20));
 		cast(Application.currentState, GameState).dampingSystem.addComponent(d);
 		cast(Application.currentState, GameState).spacingSystem.add(p,v);
 		var rf:RotationFollowComponent = new RotationFollowComponent();
@@ -347,7 +347,7 @@ class Factory
 		_x += cast Math.random() * 6 - 3;
 		_y += cast Math.random() * 6 - 3;
 		
-		var p:PositionComponent = new PositionComponent(_x, _y);
+		var p:Position = new Position(_x, _y);
 		e.addComponent(p);
 		e.addComponent(SPARKSS2);
 		var t:TransformComponent = new TransformComponent();
@@ -375,7 +375,7 @@ class Factory
 	public static function createItem(_id:String, _x :Int = 0, _y:Int = 0)
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent(_x, _y);
+		var p:Position = new Position(_x, _y);
 		e.addComponent(p);
 		switch(_id)
 		{
@@ -412,7 +412,7 @@ class Factory
 	public static function createSpawn(_x:Int, _y:Int)
 	{
 		var e:Entity = new Entity();
-		var p:PositionComponent = new PositionComponent(_x, _y);
+		var p:Position = new Position(_x, _y);
 		e.addComponent(p);
 		var sp:Spawner = new Spawner();
 		e.addComponent(sp);

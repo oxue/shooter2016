@@ -2,8 +2,8 @@ package refraction.control;
 import kha.math.FastVector2;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.generic.PositionComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
 
 /**
  * ...
@@ -12,21 +12,28 @@ import refraction.generic.VelocityComponent;
 
 class KeyControlComponent extends Component
 {
-	private var position:PositionComponent;
-	private var velocity:VelocityComponent;
+	private var position:Position;
+	private var velocity:Velocity;
 
 	public var speed:Float;
 	
 	public function new(_speed:Float = 5) 
 	{
-		super("key_con_comp");
+		super();
 		speed = _speed;
+	}
+
+	override private function setupField(_name:String, _value:Dynamic):Void 
+	{ 
+		if(_name == "speed") {
+			speed = _value;
+		}
 	}
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
-		velocity = cast entity.components.get("vel_comp");
+		position = entity.getComponent(Position);
+		velocity = entity.getComponent(Velocity);
 	}
 	
 	override public function update():Void 

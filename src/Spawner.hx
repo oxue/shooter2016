@@ -1,6 +1,6 @@
 package ;
 import refraction.core.Component;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -13,7 +13,7 @@ class Spawner extends Component
 	private var t:Int;
 	private var timer:Int;
 	
-	private var position:PositionComponent;
+	private var position:Position;
 
 	public function new() 
 	{

@@ -1,8 +1,10 @@
 package refraction.systems;
 //import flash.Vector;
 import kha.math.FastVector2;
-import refraction.generic.PositionComponent;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Position;
+import refraction.generic.Velocity;
+import refraction.core.SubSystem;
+import refraction.core.Component;
 
 /**
  * ...
@@ -10,60 +12,64 @@ import refraction.generic.VelocityComponent;
  */
 
 
-class Pair
+class Spacing extends Component
 {
-	public var p:PositionComponent;
-	public var v:VelocityComponent;
+	public var p:Position;
+	public var v:Velocity;
 	public var radius:Float;
 	
-	public function new(_a:PositionComponent, _b:VelocityComponent, _radius:Float)
+	public function new()
 	{
-		p = _a;
-		v = _b;
-		radius = _radius;
+		super();
+	}
+
+	override public function setupField(_name:String, _value:Dynamic):Void 
+	{
+		if(_name == "radius") {
+			radius = _value;
+		}
+	}
+
+	override public function load():Void
+	{
+		p = entity.getComponent(Position);
+		v = entity.getComponent(Velocity);
 	}
 }
 
  
-class SpacingSystem 
+class SpacingSystem extends SubSystem<Spacing>
 {
-	
-	private var positions:Array<Pair>;
 	
 	public function new() 
 	{
-		positions = new Array<Pair>();
+		super();
 	}
 	
-	public function add(_p:PositionComponent, _v:VelocityComponent, _r:Float):Void
+	override public function update():Void
 	{
-		positions.push(new Pair(_p,_v, _r));
-	}
-	
-	public function update():Void
-	{
-		
-		var i:Int = positions.length;
+	trace("HI");	
+		var i:Int = components.length;
 		while (i-->0)
 		{
-			if (positions[i].p.remove || positions[i].p.removeImmediately)
+			if (components[i].p.remove || components[i].p.removeImmediately)
 			{
-				positions[i] = positions[positions.length - 1];
-				positions.pop;
+				components[i] = components[components.length - 1];
+				components.pop();
 				//trace("ARRRGE");
 				continue;
 			}
-			var b:PositionComponent = positions[i].p;
-			var j:Int = positions.length;
+			var b:Position = components[i].p;
+			var j:Int = components.length;
 			var cx:Float = 0;
 			var cy:Float = 0;
 			while (j-->0)
 			{
-				var b2:PositionComponent = positions[j].p;
+				var b2:Position = components[j].p;
 				if (b2 == b)
 				continue;
 				
-				var r2 = Math.pow(positions[i].radius + positions[j].radius,2);
+				var r2 = Math.pow(components[i].radius + components[j].radius,2);
 				
 				if ((b2.x - b.x)*(b2.x - b.x)+(b2.y - b.y)*(b2.y - b.y) < r2)
 				{
@@ -74,7 +80,7 @@ class SpacingSystem
 					}else
 					{
 						var diffVec = new FastVector2(b2.x - b.x, b2.y - b.y);
-						var penetrationDepth = positions[i].radius + positions[j].radius - diffVec.length;
+						var penetrationDepth = components[i].radius + components[j].radius - diffVec.length;
 						diffVec.normalize();
 						var displace = diffVec.mult( -penetrationDepth);
 					cx = cx + displace.x; //(b2.x - b.x);
@@ -82,8 +88,8 @@ class SpacingSystem
 					}
 				}
 			}
-			positions[i].v.velX += cx / 8; // 30;
-			positions[i].v.velY += cy / 8; //30;
+			components[i].v.velX += cx / 8; // 30;
+			components[i].v.velY += cy / 8; //30;
 		}
 	}
 	

@@ -7,14 +7,14 @@ import kha.math.Vector2;
  * @author worldedit
  */
 
-class DimensionsComponent extends Component
+class Dimensions extends Component
 {
 	public var width:Int;
 	public var height:Int;
 	
-	public function new(_width:Int = 20, _height:Int = 20, _name_overrides = "dim_comp") 
+	public function new(_width:Int = 20, _height:Int = 20) 
 	{
-		super(_name_overrides);
+		super();
 		width = _width;
 		height = _height;
 	}

@@ -21,17 +21,11 @@ class Entity
 	{
 		entities.push(_e);
 	}
-	
-	public inline function addComponentAs(_comp:Component, _name:String):Void
-	{
-		components.set(_name, _comp);
-		_comp.entity = this;
-		_comp.load();
-	}
 
-	public inline function addComponent(_comp:Component):Void
+	public inline function addComponent(_comp:Component, ?_name:String):Void
 	{
-		components.set(_comp.name, _comp);
+		var compName = (_name == null) ? Type.getClassName(Type.getClass(_comp)) : _name;
+		components.set(compName, _comp);
 		_comp.entity = this;
 		_comp.load();
 	}
@@ -43,8 +37,12 @@ class Entity
 	}
 
 	@:generic
-	public function getComponent<T>(_name:String, _type:Class<T>):T {
-		return cast components.get(_name);
+	public function getComponent<T>(_type:Class<T>, ?_name:String):T {
+		if(_name != null) {
+			return cast components.get(_name);
+		} else {
+			return cast components.get(Type.getClassName(_type));
+		}
 	}
 	
 	public function removeImmediately():Void

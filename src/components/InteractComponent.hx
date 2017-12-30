@@ -4,9 +4,8 @@ import hxblit.Camera;
 import refraction.core.Component;
 import refraction.core.Application;
 import refraction.core.Utils;
-import refraction.generic.DimensionsComponent;
-import refraction.generic.PositionComponent;
-import refraction.generic.TransformComponent;
+import refraction.generic.Dimensions;
+import refraction.generic.Position;
 import refraction.core.Entity;
 
 /**
@@ -15,8 +14,8 @@ import refraction.core.Entity;
  */
 class InteractComponent extends Component
 {
-	private var position:PositionComponent;
-	private var dimensions:DimensionsComponent;
+	private var position:Position;
+	private var dimensions:Dimensions;
 	private var camera:Camera;
 	public var interactFunc:Entity->Void;
 	
@@ -24,13 +23,13 @@ class InteractComponent extends Component
 	{
 		camera = _cam;
 		interactFunc = _interactFunc;
-		super("interact_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		position = entity.getComponent("pos_comp", PositionComponent);
-		dimensions = entity.getComponent("dim_comp", DimensionsComponent);
+		position = entity.getComponent(Position);
+		dimensions = entity.getComponent(Dimensions);
 	}
 
 	public function containsCursor():Bool

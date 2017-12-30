@@ -2,7 +2,7 @@ package refraction.display;
 import flash.display.Shape;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -11,7 +11,7 @@ import refraction.generic.PositionComponent;
 
 class VShapeComponent extends Component
 {
-	public var position:PositionComponent;
+	public var position:Position;
 	public var graphic:Shape;
 	
 	public function new(_graphic:Shape) 

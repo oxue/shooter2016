@@ -2,7 +2,7 @@ package ;
 import refraction.core.Component;
 import refraction.display.Canvas;
 import refraction.display.EFLA;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -12,7 +12,7 @@ import refraction.generic.PositionComponent;
 class BulletRender extends Component
 {
 
-	public var position:PositionComponent;
+	public var position:Position;
 	public var projectile:LineProjectileComponent;
 	
 	public var targetCanvas:Canvas;

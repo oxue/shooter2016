@@ -6,34 +6,30 @@ import zui.Id;
 import refraction.core.Application;
 import refraction.generic.TooltipComponent;
 import kha.math.Vector2;
+import refraction.core.SubSystem;
 
 /**
  * ...
  * @author 
  */
-class TooltipSystem
+class TooltipSystem extends SubSystem<TooltipComponent>
 {
 	private var ui:Zui;
-	private var tooltips:Array<TooltipComponent>;
 	private var margin:Int = 5;
 	private var textSize:Int = 16;
 
 	public function new(_ui:Zui) 
 	{
+		super();
 		ui = _ui;
-		tooltips = new Array<TooltipComponent>();
-	}
-
-	public function addComponent(_tooltip:TooltipComponent):Void
-	{
-		tooltips.push(_tooltip);
+		components = new Array<TooltipComponent>();
 	}
 	
-	public function update(g2:kha.graphics2.Graphics)
+	public function draw(g2:kha.graphics2.Graphics)
 	{
 		var mouseCoords = new Vector2(Application.mouseX / 2, Application.mouseY / 2);
 
-		var hoveredItems = tooltips.filter(function(tooltip) return tooltip.containsPoint(mouseCoords));
+		var hoveredItems = components.filter(function(tooltip) return tooltip.containsPoint(mouseCoords));
 		if(hoveredItems.length != 0){
 			drawTooltip(hoveredItems[0], g2);
 		}

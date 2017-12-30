@@ -19,9 +19,9 @@ class Surface2SetComponent extends Component
 	public var registrationY:Float;
 	public var frame:FloatRect;
 	
-	public function new(_name:String = "surface2set_comp")
+	public function new()
 	{
-		super(_name);
+		super();
 		registrationX = registrationY = 0;
 	}
 	

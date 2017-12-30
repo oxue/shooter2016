@@ -1,5 +1,5 @@
 package ;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.core.Component;
 
 /**
@@ -10,7 +10,7 @@ import refraction.core.Component;
 class ItemComponent extends Component
 {
 	
-	public var position:PositionComponent;
+	public var position:Position;
 	public var content:Weapon;
 
 	public function new(_content:Weapon) 

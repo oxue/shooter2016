@@ -35,7 +35,7 @@ class TilemapDataComponent extends Component
 		
 		colIndex = _colIndex;
 		
-		super("tilemapdata_comp");
+		super();
 	}
 
 	public function hitTestPoint(p:Vector2):Bool

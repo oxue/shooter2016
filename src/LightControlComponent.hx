@@ -1,7 +1,7 @@
 package ;
 import refraction.core.Component;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.generic.VelocityComponent;
 
 /**
@@ -11,7 +11,7 @@ import refraction.generic.VelocityComponent;
 
 class LightControlComponent extends Component
 {
-	public var position:PositionComponent;
+	public var position:Position;
 	public var targetLight:LightSource;
 	
 	public var displaceX:Int;
@@ -24,7 +24,7 @@ class LightControlComponent extends Component
 	
 	override public function load():Void 
 	{
-		position = cast entity.components.get("pos_comp");
+		position = entity.getComponent(Position);
 		displaceX = displaceY = 5;
 	}
 	

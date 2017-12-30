@@ -3,7 +3,7 @@ import refraction.core.Component;
 import refraction.core.Utils;
 import refraction.ds2d.LightSource;
 import refraction.core.SubSystem;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -13,7 +13,7 @@ import refraction.generic.PositionComponent;
 class FireComponent extends Component
 {
 	public var targetLight:LightSource;
-	public var position:PositionComponent;
+	public var position:Position;
 	
 	public var targetSystem:SubSystem<EnemyCollideComponent>;
 	

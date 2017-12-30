@@ -4,7 +4,7 @@ import refraction.core.Component;
 import refraction.core.Application;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.display.BlitComponentC;
 
 /**
@@ -35,7 +35,7 @@ class M357 extends Weapon
 		ammo = _i.secondaryAmmo;
 	}
 
-	override public function castWeapon(_position:PositionComponent):Void
+	override public function castWeapon(_position:Position):Void
 	{
 		if (!canCast)
 		return;
@@ -74,7 +74,7 @@ class M357 extends Weapon
 		}
 	}
 	
-	override public function persistCast(_position:PositionComponent):Void
+	override public function persistCast(_position:Position):Void
 	{
 		
 	}

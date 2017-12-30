@@ -1,7 +1,7 @@
 package ;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -11,9 +11,9 @@ import refraction.generic.PositionComponent;
 class WarpComponent extends Component
 {
 
-	private var position:PositionComponent;
+	private var position:Position;
 	public var level:String;
-	public var target:PositionComponent;
+	public var target:Position;
 	
 	public function new() 
 	{

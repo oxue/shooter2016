@@ -8,19 +8,21 @@ import hxblit.Camera;
  * @author worldedit
  */
 
-class RigidAABBComponent extends Component
+class Position extends Component
 {
 	public var x:Float;
 	public var y:Float;
+	public var rotation:Float;
 	
 	public var oldX:Float;
 	public var oldY:Float;
 	
-	public function new(_x:Float = 0, _y:Float = 0) 
+	public function new(_x:Float = 0, _y:Float = 0, _rotation:Float = 0) 
 	{
 		oldX = x = _x;
 		oldY = y = _y;
-		super("pos_comp");
+		rotation = _rotation;
+		super();
 	}
 
 	public function vec():Vector2

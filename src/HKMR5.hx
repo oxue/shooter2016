@@ -6,7 +6,7 @@ import refraction.core.Application;
 import refraction.display.BlitComponentC;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 
 /**
  * ...
@@ -25,7 +25,7 @@ class HKMR5 extends Weapon
 		super(1, "HKMR5");
 	}
 
-	override public function castWeapon(_position:PositionComponent):Void
+	override public function castWeapon(_position:Position):Void
 	{
 		
 	}
@@ -51,7 +51,7 @@ class HKMR5 extends Weapon
 		}
 	}
 	
-	override public function persistCast(_position:PositionComponent):Void
+	override public function persistCast(_position:Position):Void
 	{
 		if (!canCast)
 		return;

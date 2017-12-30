@@ -2,14 +2,15 @@ package;
 import hxblit.TextureAtlas.IntRect;
 import kha.Assets;
 import kha.graphics2.Graphics;
-import refraction.control.DampingComponent;
+import refraction.control.Damping;
 import refraction.core.Component;
 import refraction.core.Entity;
 import refraction.core.SubSystem;
+import refraction.core.SubSystem.NullSystem;
 import refraction.display.Canvas;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.DS2D;
-import refraction.generic.VelocityComponent;
+import refraction.generic.Velocity;
 import refraction.systems.BreadCrumbsSystem;
 import refraction.systems.LightSourceSystem;
 import refraction.systems.SpacingSystem;
@@ -31,7 +32,7 @@ class GameContext
 {
 	public var camera:Camera;
 	public var currentMap:Surface2TileRenderComponent;
-	public var currentTilemapData:TilemapDataComponent;
+	public var tilemapData:TilemapDataComponent;
 	
 	public var playerEntity:Entity;
 	
@@ -40,8 +41,8 @@ class GameContext
 	public var surface2RenderSystem:SubSystem<Surface2RenderComponentC>;
 	public var selfLitRenderSystem:SubSystem<Surface2RenderComponentC>;
 	public var controlSystem:SubSystem<Component>;
-	public var velocitySystem:SubSystem<VelocityComponent>;
-	public var dampingSystem:SubSystem<DampingComponent>;
+	public var velocitySystem:SubSystem<Velocity>;
+	public var dampingSystem:SubSystem<Damping>;
 	public var collisionSystem:SubSystem<TileCollisionComponent>;
 	public var interactSystem:InteractSystem;
 	public var breadCrumbsSystem:BreadCrumbsSystem;
@@ -53,6 +54,8 @@ class GameContext
 	public var tooltipSystem:TooltipSystem;
 
 	public var hitCheckSystem:SubSystem<Component>;
+
+	public var nullSystem:NullSystem<Component>;
 	
 	// TODO: Deprecate these ones.
 	public var worldMouseX:Int;
@@ -73,8 +76,8 @@ class GameContext
 		surface2RenderSystem = new SubSystem<Surface2RenderComponentC>();
 		selfLitRenderSystem = new SubSystem<Surface2RenderComponentC>();
 		controlSystem = new SubSystem<Component>();
-		velocitySystem = new SubSystem<VelocityComponent>();
-		dampingSystem = new SubSystem<DampingComponent>();
+		velocitySystem = new SubSystem<Velocity>();
+		dampingSystem = new SubSystem<Damping>();
 		collisionSystem = new SubSystem<TileCollisionComponent>();
 		interactSystem = new InteractSystem();
 		breadCrumbsSystem = new BreadCrumbsSystem();

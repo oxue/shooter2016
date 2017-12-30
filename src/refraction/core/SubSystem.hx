@@ -1,7 +1,23 @@
 package refraction.core;
-//import flash.Vector;
-import haxe.ds.Vector;
 import refraction.utils.ObjectPool;
+import refraction.core.Entity;
+import haxe.Constraints.Constructible;
+
+class NullSystem<T:Component>
+{
+	public function new()
+	{
+
+	}
+
+	@:generic
+	public function procure<G:(Constructible<Dynamic>, T)>(e:Entity, _type:Class<G>):G
+	{
+		var ret:G = new G();
+		e.addComponent(ret);
+		return ret;
+	}
+}
 
 /**
  * ...
@@ -18,6 +34,15 @@ class SubSystem<T:Component>
 	{
 		components = new Array<T>();
 		pool = new ObjectPool<T>(10);
+	}
+
+	@:generic
+	public function procure<G:(Constructible<Dynamic>, T)>(e:Entity, _type:Class<G>):G
+	{
+		var ret:G = new G();
+		e.addComponent(ret);
+		addComponent(ret);
+		return ret;
 	}
 	
 	public function get():T

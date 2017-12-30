@@ -4,7 +4,7 @@ import flash.Vector;
 import refraction.core.Component;
 import refraction.core.Application;
 import refraction.ds2d.LightSource;
-import refraction.generic.PositionComponent;
+import refraction.generic.Position;
 import refraction.tile.CollisionData;
 import refraction.tile.Tile;
 import refraction.tile.Tilemap;
@@ -20,7 +20,7 @@ class LineProjectileComponent extends Component
 {
 
 	public var targetTilemap:TilemapDataComponent;
-	public var position:PositionComponent;
+	public var position:Position;
 	public var damage:Int;
 	public var collidePoint:Point;
 	public var targetSystem:SubSystem<EnemyCollideComponent>;
@@ -124,7 +124,7 @@ class LineProjectileComponent extends Component
 		}
 		var i:Int = targetSystem.components.length;
 		var listCol:Vector<EnemyCollideComponent> = new Vector<EnemyCollideComponent>();
-		var ec:EnemyCollideComponent, p:PositionComponent, cp:Point;
+		var ec:EnemyCollideComponent, p:Position, cp:Point;
 		ec = null;
 		p = null;
 		cp = null;

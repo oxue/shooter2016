@@ -22,13 +22,13 @@ class Surface2TileRenderComponent extends Component
 	
 	public function new() 
 	{
-		super("surface2tilerender_comp");
+		super();
 	}
 	
 	override public function load():Void 
 	{
-		surface2set = cast entity.components.get("surface2set_comp");
-		tilemapData = cast entity.components.get("tilemapdata_comp");
+		surface2set = entity.getComponent(Surface2SetComponent);
+		tilemapData = entity.getComponent(TilemapDataComponent);
 	}
 	
 	override public function update():Void 
