@@ -12,7 +12,7 @@ import refraction.generic.Position;
 class ProjectileComponent extends Component
 {
 	private var position:Position;
-	private var tilemapData:TilemapDataComponent;
+	public var tilemapData:TilemapDataComponent;
 	
 	public function new(_tilemapData:TilemapDataComponent) 
 	{

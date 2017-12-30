@@ -41,7 +41,6 @@ class ZombieAI extends Component
 		super();
 		
 		followTarget = _followTarget;
-		targetMap = entity.getComponent(TileCollisionComponent).targetTilemap;
 		
 		state = IDLE;
 		//randTargetInterval = new Interval(walk, 120);
@@ -75,6 +74,8 @@ class ZombieAI extends Component
 		position = entity.getComponent(Position);
 		velocity = entity.getComponent(Velocity);
 		blc = entity.getComponent(Surface2RenderComponentC);
+		targetMap = entity.getComponent(TileCollisionComponent).targetTilemap;
+		
 	}
 	
 	override public function update():Void 
