@@ -24,7 +24,7 @@ class ItemComponent extends Component
 		position = cast entity.components.get("pos_comp");
 	}
 	
-	public function collect(_inv:InventoryComponent):Void
+	public function collect(_inv:Inventory):Void
 	{
 		var m:Weapon = content;
 		TextPrompt.display("picked up " + m.name);

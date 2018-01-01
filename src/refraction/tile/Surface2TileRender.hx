@@ -4,16 +4,16 @@ import hxblit.KhaBlit;
 import hxblit.Camera;
 import refraction.core.Component;
 import refraction.display.Canvas;
-import refraction.display.Surface2SetComponent;
+import refraction.display.SurfaceSet;
 
 /**
  * ...
  * @author qwerber
  */
 
-class Surface2TileRenderComponent extends Component
+class Surface2TileRender extends Component
 {
-	private var surface2set:Surface2SetComponent;
+	private var surface2set:SurfaceSet;
 	private var tilemapData:TilemapData;
 	
 	public var threashold:Bool;
@@ -27,7 +27,7 @@ class Surface2TileRenderComponent extends Component
 	
 	override public function load():Void 
 	{
-		surface2set = entity.getComponent(Surface2SetComponent);
+		surface2set = entity.getComponent(SurfaceSet);
 		tilemapData = entity.getComponent(TilemapData);
 	}
 	

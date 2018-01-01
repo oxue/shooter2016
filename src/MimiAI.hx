@@ -1,9 +1,9 @@
 package;
 
 import kha.math.FastVector2;
-import refraction.control.BreadCrumbsComponent;
+import refraction.control.BreadCrumbs;
 import refraction.core.Component;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.generic.Position;
 import refraction.generic.Velocity;
 import refraction.utils.Interval;
@@ -15,11 +15,11 @@ import refraction.utils.Interval;
 class MimiAI extends Component
 {
 
-	public var breadcrumbs:BreadCrumbsComponent;
+	public var breadcrumbs:BreadCrumbs;
 	public var randTargetInterval:Interval;
 	public var position:Position;
 	public var velocity:Velocity;
-	private var blc:Surface2RenderComponentC;
+	private var blc:AnimatedRender;
 	public var lastX:Float;
 	public var lastY:Float;
 	
@@ -41,10 +41,10 @@ class MimiAI extends Component
 
 	override public function load():Void 
 	{
-		breadcrumbs = entity.getComponent(BreadCrumbsComponent);
+		breadcrumbs = entity.getComponent(BreadCrumbs);
 		position = entity.getComponent(Position);
 		velocity = entity.getComponent(Velocity);
-		blc = entity.getComponent(Surface2RenderComponentC);
+		blc = entity.getComponent(AnimatedRender);
 
 		lastX = position.x;
 		lastY = position.y;

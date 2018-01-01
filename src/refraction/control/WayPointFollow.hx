@@ -15,7 +15,7 @@ import refraction.tile.TilemapUtils;
  * @author qwerber
  */
 
-class WayPointFollowComponent extends Component
+class WayPointFollow extends Component
 {	
 	//public static var IDLE:Int;
 	public static var WANDER:Int;

@@ -4,7 +4,7 @@ import refraction.core.Sys;
 import zui.Zui;
 import zui.Id;
 import refraction.core.Application;
-import refraction.generic.TooltipComponent;
+import refraction.generic.Tooltip;
 import kha.math.Vector2;
 import refraction.core.Sys;
 
@@ -12,7 +12,7 @@ import refraction.core.Sys;
  * ...
  * @author 
  */
-class TooltipSystem extends Sys<TooltipComponent>
+class TooltipSys extends Sys<Tooltip>
 {
 	private var ui:Zui;
 	private var margin:Int = 5;
@@ -22,7 +22,7 @@ class TooltipSystem extends Sys<TooltipComponent>
 	{
 		super();
 		ui = _ui;
-		components = new Array<TooltipComponent>();
+		components = new Array<Tooltip>();
 	}
 	
 	public function draw(g2:kha.graphics2.Graphics)
@@ -35,7 +35,7 @@ class TooltipSystem extends Sys<TooltipComponent>
 		}
 	}
 
-	private function drawTooltip(tooltip:TooltipComponent, g2:kha.graphics2.Graphics):Void
+	private function drawTooltip(tooltip:Tooltip, g2:kha.graphics2.Graphics):Void
 	{
 		g2.color = kha.Color.Black;
 		var textWidth = kha.Assets.fonts.OpenSans.width(textSize,tooltip.message);

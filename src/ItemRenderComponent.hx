@@ -18,7 +18,7 @@ class ItemRenderComponent extends Component
 	public var blankBlock:BitmapData;
 	public var blankBattery:BitmapData;
 	
-	private var inventory:InventoryComponent;
+	private var inventory:Inventory;
 	
 	public function new() 
 	{

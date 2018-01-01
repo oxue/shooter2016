@@ -1,5 +1,5 @@
 package ;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.generic.Position;
 import kha.math.Vector2;
 
@@ -29,11 +29,11 @@ class Weapon
 	{
 		
 	}
-	public function setAnimation(_anim:Surface2RenderComponentC):Void
+	public function setAnimation(_anim:AnimatedRender):Void
 	{
 		
 	}
-	public function getAmmo(_i:InventoryComponent):Void
+	public function getAmmo(_i:Inventory):Void
 	{
 		
 	}

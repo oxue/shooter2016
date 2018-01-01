@@ -38,7 +38,7 @@ class Spacing extends Component
 }
 
  
-class SpacingSystem extends Sys<Spacing>
+class SpacingSys extends Sys<Spacing>
 {
 	
 	public function new() 

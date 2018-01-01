@@ -10,7 +10,7 @@ import refraction.generic.Velocity;
  * @author worldedit
  */
 
-class KeyControlComponent extends Component
+class KeyControl extends Component
 {
 	private var position:Position;
 	private var velocity:Velocity;

@@ -4,7 +4,7 @@ import flash.geom.Point;
 import refraction.core.Component;
 import refraction.core.Application;
 import refraction.display.BlitComponentC;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.ds2d.LightSource;
 import refraction.generic.Position;
 
@@ -30,12 +30,12 @@ class HKMR5 extends Weapon
 		
 	}
 	
-	override public function getAmmo(_i:InventoryComponent):Void 
+	override public function getAmmo(_i:Inventory):Void 
 	{
 		ammo = _i.primaryAmmo;
 	}
 	
-	override public function setAnimation(_anim:Surface2RenderComponentC):Void
+	override public function setAnimation(_anim:AnimatedRender):Void
 	{
 		_anim.curAnimaition = 3;
 		_anim.frame = 0;

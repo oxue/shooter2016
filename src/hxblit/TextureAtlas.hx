@@ -13,7 +13,7 @@ import kha.graphics4.TextureFormat;
 import kha.graphics4.hxsl.Types.Vec;
 import kha.math.FastVector2;
 import kha.math.Vector2;
-import refraction.display.Surface2SetComponent;
+import refraction.display.SurfaceSet;
 
 /**
  * ...
@@ -268,10 +268,10 @@ class TextureAtlas
 		return ret;
 	}
 	
-	public function splitAndIndex(_img:Image, _frame:FloatRect):Surface2SetComponent
+	public function splitAndIndex(_img:Image, _frame:FloatRect):SurfaceSet
 	{
 		var startInd = images.length;
-		var ret:Surface2SetComponent = new Surface2SetComponent();
+		var ret:SurfaceSet = new SurfaceSet();
 		ret.frame = _frame;
 		var gw:Int = cast _img.width / _frame.w;
 		var gh:Int = cast _img.height / _frame.h;

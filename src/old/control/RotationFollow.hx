@@ -9,7 +9,7 @@ import refraction.generic.VelocityComponent;
  * @author worldedit
  */
 
-class RotationFollowComponent extends Component
+class RotationFollow extends Component
 {
 
 	private var rotation:TransformComponent;

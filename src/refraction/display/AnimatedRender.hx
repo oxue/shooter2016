@@ -12,7 +12,7 @@ import refraction.generic.Position;
  * @author worldedit
  */
 
-class Surface2RenderComponentC extends Component
+class AnimatedRender extends Component
 {
 
 	public var frameTime:Int;
@@ -21,7 +21,7 @@ class Surface2RenderComponentC extends Component
 	public var animations:Array<Array<Int>>;
 	private var coordX:Int;
 	private var coordY:Int;
-	private var surface2Set:Surface2SetComponent;
+	private var surface2Set:SurfaceSet;
 	private var position:Position;
 	public var numRot:Int;
 	public var curAnimaition:Int;
@@ -46,7 +46,7 @@ class Surface2RenderComponentC extends Component
 	
 	override public function load():Void 
 	{
-		surface2Set = entity.getComponent(Surface2SetComponent, surfaceName);
+		surface2Set = entity.getComponent(SurfaceSet, surfaceName);
 		position = entity.getComponent(Position);
 	}
 	

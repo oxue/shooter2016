@@ -8,19 +8,19 @@ import refraction.core.Entity;
 import refraction.core.Sys;
 import refraction.core.Sys.NullSystem;
 import refraction.display.Canvas;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.ds2d.DS2D;
 import refraction.generic.Velocity;
-import refraction.systems.BreadCrumbsSystem;
+import refraction.systems.BreadCrumbsSys;
 import refraction.systems.LightSourceSystem;
-import refraction.systems.SpacingSystem;
-import refraction.systems.TooltipSystem;
-import refraction.tile.Surface2TileRenderComponent;
+import refraction.systems.SpacingSys;
+import refraction.systems.TooltipSys;
+import refraction.tile.Surface2TileRender;
 import refraction.tile.TileCollision;
 import refraction.tile.TilemapData;
 import zui.Zui;
-import components.InteractComponent;
-import systems.InteractSystem;
+import components.Interactable;
+import systems.InteractSys;
 import hxblit.Camera;
 import refraction.tile.TileCollisionSys;
 
@@ -32,27 +32,27 @@ import refraction.tile.TileCollisionSys;
 class GameContext
 {
 	public var camera:Camera;
-	public var currentMap:Surface2TileRenderComponent;
+	public var currentMap:Surface2TileRender;
 	public var tilemapData:TilemapData;
 	
 	public var playerEntity:Entity;
 	
 	public var statusText:StatusText;
 	
-	public var surface2RenderSystem:Sys<Surface2RenderComponentC>;
-	public var selfLitRenderSystem:Sys<Surface2RenderComponentC>;
+	public var surface2RenderSystem:Sys<AnimatedRender>;
+	public var selfLitRenderSystem:Sys<AnimatedRender>;
 	public var controlSystem:Sys<Component>;
 	public var velocitySystem:Sys<Velocity>;
 	public var dampingSystem:Sys<Damping>;
 	public var collisionSystem:TileCollisionSys;
-	public var interactSystem:InteractSystem;
-	public var breadCrumbsSystem:BreadCrumbsSystem;
+	public var interactSystem:InteractSys;
+	public var breadCrumbsSystem:BreadCrumbsSys;
 	public var aiSystem:Sys<Component>;
 	public var lightSourceSystem:LightSourceSystem;
 	
-	public var spacingSystem:SpacingSystem;
+	public var spacingSystem:SpacingSys;
 	public var lightingSystem:DS2D;
-	public var tooltipSystem:TooltipSystem;
+	public var tooltipSystem:TooltipSys;
 
 	public var hitCheckSystem:Sys<Component>;
 
@@ -74,22 +74,22 @@ class GameContext
 		
 		worldMouseX = worldMouseY = 0;
 		
-		surface2RenderSystem = new Sys<Surface2RenderComponentC>();
-		selfLitRenderSystem = new Sys<Surface2RenderComponentC>();
+		surface2RenderSystem = new Sys<AnimatedRender>();
+		selfLitRenderSystem = new Sys<AnimatedRender>();
 		controlSystem = new Sys<Component>();
 		velocitySystem = new Sys<Velocity>();
 		dampingSystem = new Sys<Damping>();
 		collisionSystem = new TileCollisionSys();
-		interactSystem = new InteractSystem();
-		breadCrumbsSystem = new BreadCrumbsSystem();
+		interactSystem = new InteractSys();
+		breadCrumbsSystem = new BreadCrumbsSys();
 		aiSystem = new Sys<Component>();
 		lightSourceSystem = new LightSourceSystem();
-		spacingSystem = new SpacingSystem();
+		spacingSystem = new SpacingSys();
 		
 		hitCheckSystem = new Sys<Component>();
 
 		lightingSystem = new DS2D();
-		tooltipSystem = new TooltipSystem(ui);
+		tooltipSystem = new TooltipSys(ui);
 	}
 	
 }

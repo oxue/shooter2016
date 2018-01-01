@@ -9,7 +9,7 @@ import refraction.generic.Velocity;
  * ...
  * @author 
  */
-class BreadCrumbsComponent extends Component
+class BreadCrumbs extends Component
 {
 	
 	public var breadcrumbs:Array<FastVector2>;

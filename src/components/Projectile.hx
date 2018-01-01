@@ -9,7 +9,7 @@ import refraction.generic.Position;
  * ...
  * @author 
  */
-class ProjectileComponent extends Component
+class Projectile extends Component
 {
 	private var position:Position;
 	public var tilemapData:TilemapData;

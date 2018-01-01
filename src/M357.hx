@@ -2,7 +2,7 @@ package ;
 import flash.geom.Point;
 import refraction.core.Component;
 import refraction.core.Application;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.ds2d.LightSource;
 import refraction.generic.Position;
 import refraction.display.BlitComponentC;
@@ -24,13 +24,13 @@ class M357 extends Weapon
 		super(0,"M357");
 	}
 	
-	override public function setAnimation(_anim:Surface2RenderComponentC):Void
+	override public function setAnimation(_anim:AnimatedRender):Void
 	{
 		_anim.curAnimaition = 2;
 		_anim.frame = 0;
 	}
 	
-	override public function getAmmo(_i:InventoryComponent):Void 
+	override public function getAmmo(_i:Inventory):Void 
 	{
 		ammo = _i.secondaryAmmo;
 	}

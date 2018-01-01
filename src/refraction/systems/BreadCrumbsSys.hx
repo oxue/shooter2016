@@ -2,14 +2,14 @@ package refraction.systems;
 
 import haxe.macro.Compiler;
 import kha.math.FastVector2;
-import refraction.control.BreadCrumbsComponent;
+import refraction.control.BreadCrumbs;
 import refraction.core.Sys;
 
 /**
  * ...
  * @author 
  */
-class BreadCrumbsSystem extends Sys<BreadCrumbsComponent>
+class BreadCrumbsSys extends Sys<BreadCrumbs>
 {
 	
 	public function new() 
@@ -17,7 +17,7 @@ class BreadCrumbsSystem extends Sys<BreadCrumbsComponent>
 		super();
 	}
 	
-	override public function updateComponent(comp:BreadCrumbsComponent) 
+	override public function updateComponent(comp:BreadCrumbs) 
 	{
 		if (comp.breadcrumbs.length != 0 && comp.breadcrumbs[0] != null)
 		{

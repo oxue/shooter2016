@@ -2,9 +2,9 @@ package entbuilders;
 import refraction.core.Entity;
 import refraction.generic.Position;
 import refraction.generic.Dimensions;
-import refraction.display.Surface2RenderComponentC;
-import refraction.generic.TooltipComponent;
-import components.InteractComponent;
+import refraction.display.AnimatedRender;
+import refraction.generic.Tooltip;
+import components.Interactable;
 
 /**
  * ...
@@ -23,7 +23,7 @@ class ItemBuilder
 		e.addComponent(new Dimensions(32,32));
 		e.addComponent(ResourceFormat.getSurfaceSet("items"));
 		
-		var surfaceRender:Surface2RenderComponentC = new Surface2RenderComponentC();
+		var surfaceRender:AnimatedRender = new AnimatedRender();
 		e.addComponent(surfaceRender);
 		surfaceRender.camera = gameContext.camera;
 
@@ -36,13 +36,13 @@ class ItemBuilder
 		
 		gameContext.surface2RenderSystem.addComponent(surfaceRender);
 
-		var tt:TooltipComponent = new TooltipComponent("Demon Hunter's Crossbow", kha.Color.Green);
+		var tt:Tooltip = new Tooltip("Demon Hunter's Crossbow", kha.Color.Green);
 		e.addComponent(tt);
 		gameContext.tooltipSystem.addComponent(tt);
 
-		var ic = new InteractComponent(gameContext.camera, function(e:Entity){
+		var ic = new Interactable(gameContext.camera, function(e:Entity){
 			trace(_itemId);
-			gameContext.playerEntity.getComponent(InventoryComponent).pickup(_itemId);
+			gameContext.playerEntity.getComponent(Inventory).pickup(_itemId);
 			e.remove();
 		});
 		gameContext.interactSystem.addComponent(ic);

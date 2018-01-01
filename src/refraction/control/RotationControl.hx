@@ -9,7 +9,7 @@ import refraction.generic.Position;
  * @author worldedit
  */
 
-class RotationControlComponent extends Component
+class RotationControl extends Component
 {
 	
 	private var position:Position;

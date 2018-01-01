@@ -12,7 +12,7 @@ import kha.Color;
  * @author worldedit
  */
 
-class TooltipComponent extends Component
+class Tooltip extends Component
 {
 	public var message:String;
 	public var camera:Camera;

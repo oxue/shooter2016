@@ -10,7 +10,7 @@ import refraction.core.Utils;
  * @author worldedit
  */
 
-class InventoryComponent extends Component
+class Inventory extends Component
 {
 	
 	private var currentWeapon:Weapon;

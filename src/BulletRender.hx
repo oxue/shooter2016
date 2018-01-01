@@ -13,7 +13,7 @@ class BulletRender extends Component
 {
 
 	public var position:Position;
-	public var projectile:LineProjectileComponent;
+	public var projectile:LineProjectile;
 	
 	public var targetCanvas:Canvas;
 	

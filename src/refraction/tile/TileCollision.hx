@@ -2,7 +2,7 @@ package refraction.tile;
 /*import flash.geom.Rectangle;
 import flash.Vector;*/
 import hxblit.TextureAtlas.FloatRect;
-import refraction.control.KeyControlComponent;
+import refraction.control.KeyControl;
 import refraction.core.Component;
 import refraction.generic.Dimensions;
 import refraction.generic.Position;

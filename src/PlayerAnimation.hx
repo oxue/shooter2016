@@ -1,6 +1,6 @@
 package ;
 import refraction.core.Component;
-import refraction.display.Surface2RenderComponentC;
+import refraction.display.AnimatedRender;
 import refraction.generic.Velocity;
 
 /**
@@ -8,13 +8,13 @@ import refraction.generic.Velocity;
  * @author worldedit
  */
 
-class AnimationControlComponent extends Component
+class PlayerAnimation extends Component
 {
 	private var velocity:Velocity;
-	private var blc:Surface2RenderComponentC;
-	public var weapons:Surface2RenderComponentC;
+	private var blc:AnimatedRender;
+	public var weapons:AnimatedRender;
 
-	private var inventory:InventoryComponent;
+	private var inventory:Inventory;
 	
 	public function new() 
 	{
@@ -24,9 +24,9 @@ class AnimationControlComponent extends Component
 	override public function load():Void 
 	{
 		velocity = entity.getComponent(Velocity);
-		blc = entity.getComponent(Surface2RenderComponentC);
-		weapons = entity.getComponent(Surface2RenderComponentC, "weapon_render_comp");
-		inventory = entity.getComponent(InventoryComponent);
+		blc = entity.getComponent(AnimatedRender);
+		weapons = entity.getComponent(AnimatedRender, "weapon_render_comp");
+		inventory = entity.getComponent(Inventory);
 	}
 	
 	private function notMoving():Bool

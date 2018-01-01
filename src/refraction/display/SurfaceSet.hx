@@ -9,7 +9,7 @@ import refraction.core.Component;
  * @author qwerber
  */
 
-class Surface2SetComponent extends Component
+class SurfaceSet extends Component
 {
 	public var surfaces:Array<Surface2>;
 	public var indexes:Array<Int>;
@@ -25,14 +25,14 @@ class Surface2SetComponent extends Component
 		registrationX = registrationY = 0;
 	}
 	
-	public function addTranslation(x:Float, y:Float):Surface2SetComponent
+	public function addTranslation(x:Float, y:Float):SurfaceSet
 	{
 		translateX += x;
 		translateY += y;
 		return this;
 	}
 	
-	public function registration(x:Float, y:Float):Surface2SetComponent
+	public function registration(x:Float, y:Float):SurfaceSet
 	{
 		registrationX = x;
 		registrationY = y;

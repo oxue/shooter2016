@@ -16,7 +16,7 @@ import refraction.tile.TilemapData;
  * @author worldedit
  */
 
-class LineProjectileComponent extends Component
+class LineProjectile extends Component
 {
 
 	public var targetTilemap:TilemapData;

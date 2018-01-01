@@ -12,7 +12,7 @@ import refraction.core.Entity;
  * ...
  * @author 
  */
-class InteractComponent extends Component
+class Interactable extends Component
 {
 	private var position:Position;
 	private var dimensions:Dimensions;
