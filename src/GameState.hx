@@ -43,10 +43,10 @@ import refraction.generic.TransformComponent;
 import refraction.generic.VelocityComponent;
 import refraction.systems.SpacingSystem;
 import refraction.tile.Surface2TileRenderComponent;
-import refraction.tile.TileCollisionComponent;
+import refraction.tile.TileCollision;
 import refraction.tile.Tilemap;
-import refraction.core.SubSystem;
-import refraction.tile.TilemapDataComponent;
+import refraction.core.Sys;
+import refraction.tile.TilemapData;
 import refraction.tile.TilemapUtils;
 //}
 /**
@@ -64,33 +64,33 @@ class GameState extends State
 	private var u:Int;
 	private var lastP:Bool;
 	
-	public var blitSystemA:SubSystem<BlitComponent>;
-	public var blitSystem:SubSystem<BlitComponentB>;
-	public var blitSystemC:SubSystem<BlitComponentC>;
-	public var s2rendersystem:SubSystem<Surface2RenderComponentC>;
-	public var dampingSystem:SubSystem<DampingComponent>;
+	public var blitSystemA:Sys<BlitComponent>;
+	public var blitSystem:Sys<BlitComponentB>;
+	public var blitSystemC:Sys<BlitComponentC>;
+	public var s2rendersystem:Sys<Surface2RenderComponentC>;
+	public var dampingSystem:Sys<DampingComponent>;
 	public var controlComponent:KeyControlComponent;
-	public var collisionSystem:SubSystem<TileCollisionComponent>;
+	public var collisionSystem:Sys<TileCollision>;
 	public var rotationComponent:RotationControlComponent;
-	public var rotfollowSystem:SubSystem<RotationFollowComponent>;
-	public var velocitySystem:SubSystem<VelocityComponent>;
+	public var rotfollowSystem:Sys<RotationFollowComponent>;
+	public var velocitySystem:Sys<VelocityComponent>;
 	public var animationControl:AnimationControlComponent;
-	//public var projectileSystem:SubSystem<LineProjectileComponent>;
-	//public var bulletRenderSystem:SubSystem<BulletRender>;
-	//public var enemyCollideSystem:SubSystem<EnemyCollideComponent>;
-	public var warpSystem:SubSystem<WarpComponent>;
-	public var itemSystem:SubSystem<ItemComponent>;
-	public var timeremoverSystem:SubSystem<TimeRemoverComponent>;
-	public var lightControlSystem:SubSystem<LightControlComponent>;
+	//public var projectileSystem:Sys<LineProjectileComponent>;
+	//public var bulletRenderSystem:Sys<BulletRender>;
+	//public var enemyCollideSystem:Sys<EnemyCollideComponent>;
+	public var warpSystem:Sys<WarpComponent>;
+	public var itemSystem:Sys<ItemComponent>;
+	public var timeremoverSystem:Sys<TimeRemoverComponent>;
+	public var lightControlSystem:Sys<LightControlComponent>;
 	public var spacingSystem:SpacingSystem;
-	public var spawnSystem:SubSystem<Spawner>;
+	public var spawnSystem:Sys<Spawner>;
 	//public var inventory:InventoryComponent;
 	//public var inventoryRender:ItemRenderComponent;
 	public var shadowSystem:DS2D;
-	public var waypointfollowSystem:SubSystem<WayPointFollowComponent>;
+	public var waypointfollowSystem:Sys<WayPointFollowComponent>;
 	public var s2tilemaprender:Surface2TileRenderComponent;
-	public var tilemapdata:TilemapDataComponent;
-	public var fireSystem:SubSystem<FireComponent>;
+	public var tilemapdata:TilemapData;
+	public var fireSystem:Sys<FireComponent>;
 
 	
 	public var player:Entity;
@@ -135,26 +135,26 @@ class GameState extends State
 	
 	private function initSystems():Void
 	{
-		blitSystem = new SubSystem<BlitComponentB>();
-		dampingSystem = new SubSystem<DampingComponent>();
-		collisionSystem = new SubSystem<TileCollisionComponent>();
-		rotfollowSystem = new SubSystem<RotationFollowComponent>();
-		velocitySystem = new SubSystem<VelocityComponent>();
+		blitSystem = new Sys<BlitComponentB>();
+		dampingSystem = new Sys<DampingComponent>();
+		collisionSystem = new Sys<TileCollision>();
+		rotfollowSystem = new Sys<RotationFollowComponent>();
+		velocitySystem = new Sys<VelocityComponent>();
 		spacingSystem = new SpacingSystem();
-		blitSystemC = new SubSystem<BlitComponentC>();
+		blitSystemC = new Sys<BlitComponentC>();
 		shadowSystem = new DS2D();
-		fireSystem = new SubSystem<FireComponent>();
-		projectileSystem = new SubSystem<LineProjectileComponent>();
-		bulletRenderSystem = new SubSystem<BulletRender>();
-		enemyCollideSystem = new SubSystem<EnemyCollideComponent>();
-		itemSystem = new SubSystem<ItemComponent>();
-		blitSystemA = new SubSystem<BlitComponent>();
-		warpSystem = new SubSystem<WarpComponent>();
-		s2rendersystem = new SubSystem<Surface2RenderComponentC>();
-		timeremoverSystem = new SubSystem<TimeRemoverComponent>();
-		spawnSystem = new SubSystem<Spawner>();
-		waypointfollowSystem = new SubSystem<WayPointFollowComponent>();
-		lightControlSystem = new SubSystem<LightControlComponent>();
+		fireSystem = new Sys<FireComponent>();
+		projectileSystem = new Sys<LineProjectileComponent>();
+		bulletRenderSystem = new Sys<BulletRender>();
+		enemyCollideSystem = new Sys<EnemyCollideComponent>();
+		itemSystem = new Sys<ItemComponent>();
+		blitSystemA = new Sys<BlitComponent>();
+		warpSystem = new Sys<WarpComponent>();
+		s2rendersystem = new Sys<Surface2RenderComponentC>();
+		timeremoverSystem = new Sys<TimeRemoverComponent>();
+		spawnSystem = new Sys<Spawner>();
+		waypointfollowSystem = new Sys<WayPointFollowComponent>();
+		lightControlSystem = new Sys<LightControlComponent>();
 	}
 	
 	public function loadLevel(_path:String):Void

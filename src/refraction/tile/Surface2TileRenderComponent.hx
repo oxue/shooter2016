@@ -14,7 +14,7 @@ import refraction.display.Surface2SetComponent;
 class Surface2TileRenderComponent extends Component
 {
 	private var surface2set:Surface2SetComponent;
-	private var tilemapData:TilemapDataComponent;
+	private var tilemapData:TilemapData;
 	
 	public var threashold:Bool;
 	public var mode:Int;
@@ -28,7 +28,7 @@ class Surface2TileRenderComponent extends Component
 	override public function load():Void 
 	{
 		surface2set = entity.getComponent(Surface2SetComponent);
-		tilemapData = entity.getComponent(TilemapDataComponent);
+		tilemapData = entity.getComponent(TilemapData);
 	}
 	
 	override public function update():Void 

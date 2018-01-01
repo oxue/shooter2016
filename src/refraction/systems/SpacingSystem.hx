@@ -3,7 +3,7 @@ package refraction.systems;
 import kha.math.FastVector2;
 import refraction.generic.Position;
 import refraction.generic.Velocity;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import refraction.core.Component;
 
 /**
@@ -38,7 +38,7 @@ class Spacing extends Component
 }
 
  
-class SpacingSystem extends SubSystem<Spacing>
+class SpacingSystem extends Sys<Spacing>
 {
 	
 	public function new() 
@@ -48,7 +48,6 @@ class SpacingSystem extends SubSystem<Spacing>
 	
 	override public function update():Void
 	{
-	trace("HI");	
 		var i:Int = components.length;
 		while (i-->0)
 		{
@@ -56,7 +55,6 @@ class SpacingSystem extends SubSystem<Spacing>
 			{
 				components[i] = components[components.length - 1];
 				components.pop();
-				//trace("ARRRGE");
 				continue;
 			}
 			var b:Position = components[i].p;

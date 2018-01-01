@@ -11,7 +11,7 @@ import refraction.ds2d.Polygon;
 
 class TilemapUtils 
 {
-	public static function raycast(targetTilemap:TilemapDataComponent, x1:Float, y1:Float, x2:Float, y2:Float):Bool
+	public static function raycast(targetTilemap:TilemapData, x1:Float, y1:Float, x2:Float, y2:Float):Bool
 	{
 		var i:Int = Math.floor(x1 / targetTilemap.tilesize);
 		var j:Int = Math.floor(y1 / targetTilemap.tilesize);
@@ -85,7 +85,7 @@ class TilemapUtils
 		return false;
 	}
 
-	public static function computeGeometry(_t:TilemapDataComponent):Array<Polygon>
+	public static function computeGeometry(_t:TilemapData):Array<Polygon>
 	{
 		var ret:Array<Polygon> = new Array<Polygon>();
 		

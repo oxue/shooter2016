@@ -6,7 +6,7 @@ import refraction.core.Entity;
 import refraction.display.Canvas;
 import refraction.display.Surface2SetComponent;
 import refraction.tile.Surface2TileRenderComponent;
-import refraction.tile.TilemapDataComponent;
+import refraction.tile.TilemapData;
 
 /**
  * ...

@@ -5,8 +5,8 @@ import kha.graphics2.Graphics;
 import refraction.control.Damping;
 import refraction.core.Component;
 import refraction.core.Entity;
-import refraction.core.SubSystem;
-import refraction.core.SubSystem.NullSystem;
+import refraction.core.Sys;
+import refraction.core.Sys.NullSystem;
 import refraction.display.Canvas;
 import refraction.display.Surface2RenderComponentC;
 import refraction.ds2d.DS2D;
@@ -16,12 +16,13 @@ import refraction.systems.LightSourceSystem;
 import refraction.systems.SpacingSystem;
 import refraction.systems.TooltipSystem;
 import refraction.tile.Surface2TileRenderComponent;
-import refraction.tile.TileCollisionComponent;
-import refraction.tile.TilemapDataComponent;
+import refraction.tile.TileCollision;
+import refraction.tile.TilemapData;
 import zui.Zui;
 import components.InteractComponent;
 import systems.InteractSystem;
 import hxblit.Camera;
+import refraction.tile.TileCollisionSys;
 
 /**
  * ...
@@ -32,28 +33,28 @@ class GameContext
 {
 	public var camera:Camera;
 	public var currentMap:Surface2TileRenderComponent;
-	public var tilemapData:TilemapDataComponent;
+	public var tilemapData:TilemapData;
 	
 	public var playerEntity:Entity;
 	
 	public var statusText:StatusText;
 	
-	public var surface2RenderSystem:SubSystem<Surface2RenderComponentC>;
-	public var selfLitRenderSystem:SubSystem<Surface2RenderComponentC>;
-	public var controlSystem:SubSystem<Component>;
-	public var velocitySystem:SubSystem<Velocity>;
-	public var dampingSystem:SubSystem<Damping>;
-	public var collisionSystem:SubSystem<TileCollisionComponent>;
+	public var surface2RenderSystem:Sys<Surface2RenderComponentC>;
+	public var selfLitRenderSystem:Sys<Surface2RenderComponentC>;
+	public var controlSystem:Sys<Component>;
+	public var velocitySystem:Sys<Velocity>;
+	public var dampingSystem:Sys<Damping>;
+	public var collisionSystem:TileCollisionSys;
 	public var interactSystem:InteractSystem;
 	public var breadCrumbsSystem:BreadCrumbsSystem;
-	public var aiSystem:SubSystem<Component>;
+	public var aiSystem:Sys<Component>;
 	public var lightSourceSystem:LightSourceSystem;
 	
 	public var spacingSystem:SpacingSystem;
 	public var lightingSystem:DS2D;
 	public var tooltipSystem:TooltipSystem;
 
-	public var hitCheckSystem:SubSystem<Component>;
+	public var hitCheckSystem:Sys<Component>;
 
 	public var nullSystem:NullSystem<Component>;
 	
@@ -73,19 +74,19 @@ class GameContext
 		
 		worldMouseX = worldMouseY = 0;
 		
-		surface2RenderSystem = new SubSystem<Surface2RenderComponentC>();
-		selfLitRenderSystem = new SubSystem<Surface2RenderComponentC>();
-		controlSystem = new SubSystem<Component>();
-		velocitySystem = new SubSystem<Velocity>();
-		dampingSystem = new SubSystem<Damping>();
-		collisionSystem = new SubSystem<TileCollisionComponent>();
+		surface2RenderSystem = new Sys<Surface2RenderComponentC>();
+		selfLitRenderSystem = new Sys<Surface2RenderComponentC>();
+		controlSystem = new Sys<Component>();
+		velocitySystem = new Sys<Velocity>();
+		dampingSystem = new Sys<Damping>();
+		collisionSystem = new TileCollisionSys();
 		interactSystem = new InteractSystem();
 		breadCrumbsSystem = new BreadCrumbsSystem();
-		aiSystem = new SubSystem<Component>();
+		aiSystem = new Sys<Component>();
 		lightSourceSystem = new LightSourceSystem();
 		spacingSystem = new SpacingSystem();
 		
-		hitCheckSystem = new SubSystem<Component>();
+		hitCheckSystem = new Sys<Component>();
 
 		lightingSystem = new DS2D();
 		tooltipSystem = new TooltipSystem(ui);

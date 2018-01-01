@@ -3,13 +3,13 @@ package refraction.systems;
 import haxe.macro.Compiler;
 import kha.math.FastVector2;
 import refraction.control.BreadCrumbsComponent;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 
 /**
  * ...
  * @author 
  */
-class BreadCrumbsSystem extends SubSystem<BreadCrumbsComponent>
+class BreadCrumbsSystem extends Sys<BreadCrumbsComponent>
 {
 	
 	public function new() 

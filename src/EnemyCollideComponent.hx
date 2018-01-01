@@ -3,7 +3,7 @@ import flash.geom.Point;
 import flash.Vector;
 import refraction.core.Component;
 import refraction.generic.Position;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import refraction.generic.VelocityComponent;
 
 /**

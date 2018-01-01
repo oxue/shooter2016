@@ -24,7 +24,7 @@ class NullSystem<T:Component>
  * @author worldedit
  */
 
-class SubSystem<T:Component> 
+class Sys<T:Component> 
 {
 	public var components:Array<T>;
 	private var l:Int;

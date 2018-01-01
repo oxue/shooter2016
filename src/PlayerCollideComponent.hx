@@ -1,7 +1,7 @@
 package ;
 import refraction.core.Component;
 import refraction.generic.Position;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 
 /**
  * ...
@@ -12,7 +12,7 @@ class PlayerCollideComponent extends Component
 {
 
 	public var radius2:Int;
-	public var targetSystem:SubSystem<EnemyCollideComponent>;
+	public var targetSystem:Sys<EnemyCollideComponent>;
 	private var position:Position;
 	private var health:HealthComponent;
 	

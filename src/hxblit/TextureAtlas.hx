@@ -125,8 +125,24 @@ class ANode{
 		return child[0].insert(img);
 	}
 }
- 
-class IntRect{
+
+class IntBounds 
+{
+	public var t:Int;
+	public var b:Int;
+	public var l:Int;
+	public var r:Int;
+	
+	public function new (_l:Int, _r:Int, _t:Int, _b:Int)
+	{
+		l = _l;
+		r = _r;
+		t = _t;
+		b = _b;
+	}
+}
+
+class IntRect {
 	
 	public var x:Int;
 	public var y:Int;

@@ -2,7 +2,7 @@ package ;
 import refraction.core.Component;
 import refraction.core.Utils;
 import refraction.ds2d.LightSource;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import refraction.generic.Position;
 
 /**
@@ -15,7 +15,7 @@ class FireComponent extends Component
 	public var targetLight:LightSource;
 	public var position:Position;
 	
-	public var targetSystem:SubSystem<EnemyCollideComponent>;
+	public var targetSystem:Sys<EnemyCollideComponent>;
 	
 	private var t:Int;
 	private var timer:Int;

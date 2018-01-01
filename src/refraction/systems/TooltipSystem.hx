@@ -1,18 +1,18 @@
 package refraction.systems;
 
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import zui.Zui;
 import zui.Id;
 import refraction.core.Application;
 import refraction.generic.TooltipComponent;
 import kha.math.Vector2;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 
 /**
  * ...
  * @author 
  */
-class TooltipSystem extends SubSystem<TooltipComponent>
+class TooltipSystem extends Sys<TooltipComponent>
 {
 	private var ui:Zui;
 	private var margin:Int = 5;

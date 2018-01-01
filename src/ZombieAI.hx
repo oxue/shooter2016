@@ -6,8 +6,8 @@ import refraction.core.Component;
 import refraction.display.Surface2RenderComponentC;
 import refraction.generic.Position;
 import refraction.generic.Velocity;
-import refraction.tile.TilemapDataComponent;
-import refraction.tile.TileCollisionComponent;
+import refraction.tile.TilemapData;
+import refraction.tile.TileCollision;
 import refraction.tile.TilemapUtils;
 import refraction.utils.Interval;
 
@@ -30,7 +30,7 @@ class ZombieAI extends Component
 	private var blc:Surface2RenderComponentC;
 	
 	public var followTarget:Position;
-	public var targetMap:TilemapDataComponent;
+	public var targetMap:TilemapData;
 	
 	private var state:ZombieAIState; 
 	private var scentInterval:Interval;
@@ -74,7 +74,7 @@ class ZombieAI extends Component
 		position = entity.getComponent(Position);
 		velocity = entity.getComponent(Velocity);
 		blc = entity.getComponent(Surface2RenderComponentC);
-		targetMap = entity.getComponent(TileCollisionComponent).targetTilemap;
+		targetMap = entity.getComponent(TileCollision).targetTilemap;
 		
 	}
 	

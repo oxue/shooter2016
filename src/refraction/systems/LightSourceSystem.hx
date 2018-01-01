@@ -1,13 +1,13 @@
 package refraction.systems;
 
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import refraction.display.LightSourceComponent;
 
 /**
  * ...
  * @author 
  */
-class LightSourceSystem extends SubSystem<LightSourceComponent>
+class LightSourceSystem extends Sys<LightSourceComponent>
 {
 
 	public function new() 

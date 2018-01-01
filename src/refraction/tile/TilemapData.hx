@@ -9,7 +9,7 @@ import refraction.core.Component;
  * @author qwerber
  */
 
-class TilemapDataComponent extends Component
+class TilemapData extends Component
 {
 	public var data:Vector<Vector<Tile>>;
 	

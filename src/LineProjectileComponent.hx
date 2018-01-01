@@ -8,8 +8,8 @@ import refraction.generic.Position;
 import refraction.tile.CollisionData;
 import refraction.tile.Tile;
 import refraction.tile.Tilemap;
-import refraction.core.SubSystem;
-import refraction.tile.TilemapDataComponent;
+import refraction.core.Sys;
+import refraction.tile.TilemapData;
 
 /**
  * ...
@@ -19,11 +19,11 @@ import refraction.tile.TilemapDataComponent;
 class LineProjectileComponent extends Component
 {
 
-	public var targetTilemap:TilemapDataComponent;
+	public var targetTilemap:TilemapData;
 	public var position:Position;
 	public var damage:Int;
 	public var collidePoint:Point;
-	public var targetSystem:SubSystem<EnemyCollideComponent>;
+	public var targetSystem:Sys<EnemyCollideComponent>;
 	
 	public function new() 
 	{

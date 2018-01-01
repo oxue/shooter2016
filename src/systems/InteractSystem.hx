@@ -1,10 +1,10 @@
 package systems;
 
 import components.InteractComponent;
-import refraction.core.SubSystem;
+import refraction.core.Sys;
 import refraction.core.Application;
 
-class InteractSystem extends SubSystem<InteractComponent> {
+class InteractSystem extends Sys<InteractComponent> {
 
 	override public function update() {
 		var hoveredItems = components.filter( function(ic) return ic.containsCursor() );
