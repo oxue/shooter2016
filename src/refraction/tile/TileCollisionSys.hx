@@ -49,15 +49,15 @@ class TileCollisionSys extends Sys<TileCollision>
 
 	private function getCollisionBounds(_bound:FloatRect):IntBounds
 	{
-		var bottom:Int = Math.floor(_bound.bottom() / tilemapData.tilesize);
-		var top:Int = Math.floor(_bound.top() / tilemapData.tilesize);
-		var right:Int = Math.floor(_bound.right() / tilemapData.tilesize);
-		var left:Int = Math.floor(_bound.left() / tilemapData.tilesize);
+		var bottom = Math.floor(_bound.bottom() / tilemapData.tilesize);
+		var top = Math.floor(_bound.top() / tilemapData.tilesize);
+		var right = Math.floor(_bound.right() / tilemapData.tilesize);
+		var left = Math.floor(_bound.left() / tilemapData.tilesize);
 		
-		top = clamp(top, 0, tilemapData.height-1);
-		left = clamp(left, 0, tilemapData.width-1);
-		bottom = clamp(bottom, 0, tilemapData.height-1);
-		right = clamp(right, 0, tilemapData.width-1);
+		top = clamp(top, 0, tilemapData.height - 1);
+		left = clamp(left, 0, tilemapData.width - 1);
+		bottom = clamp(bottom, 0, tilemapData.height - 1);
+		right = clamp(right, 0, tilemapData.width - 1);
 		
 		return new IntBounds(left, right, top, bottom);
 	}
@@ -184,7 +184,7 @@ class TileCollisionSys extends Sys<TileCollision>
 		
 		if (t0 < t1)
 		{
-			return new CollisionData(true, t0,timeX>=timeY?0:1);
+			return new CollisionData(true, t0, timeX >= timeY ? 0 : 1);
 		}
 		
 		return new CollisionData(false);
