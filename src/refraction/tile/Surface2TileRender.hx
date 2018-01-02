@@ -3,7 +3,6 @@ package refraction.tile;
 import hxblit.KhaBlit;
 import hxblit.Camera;
 import refraction.core.Component;
-import refraction.display.Canvas;
 import refraction.display.SurfaceSet;
 
 /**

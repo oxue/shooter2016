@@ -4,6 +4,8 @@ import kha.math.Vector2;
 import refraction.tile.TilemapData;
 import refraction.core.Component;
 import refraction.generic.Position;
+import refraction.generic.Velocity;
+
 
 /**
  * ...
@@ -27,8 +29,10 @@ class Projectile extends Component
 
 	override public function update():Void
 	{
-		if(tilemapData.hitTestPoint(new Vector2(position.x + 15, position.y + 15))){
-			entity.remove();
+		//position.x = position.y = 0;
+		if(tilemapData.hitTestPoint(new Vector2(position.x, position.y))){
+			entity.getComponent(Velocity).removeImmediately = true;
+			this.removeImmediately = true;
 		}
 	}
 	

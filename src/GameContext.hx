@@ -7,7 +7,6 @@ import refraction.core.Component;
 import refraction.core.Entity;
 import refraction.core.Sys;
 import refraction.core.Sys.NullSystem;
-import refraction.display.Canvas;
 import refraction.display.AnimatedRender;
 import refraction.ds2d.DS2D;
 import refraction.generic.Velocity;

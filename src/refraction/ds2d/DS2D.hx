@@ -55,15 +55,15 @@ class DS2D
 		polygons = new Array<Polygon>();
 		circles = new Array<Circle>();
 		#if nodejs
-		shadowBuffer = Image.createRenderTarget(400, 200, null, true);
-		offBuffer = Image.createRenderTarget(400, 200, null, true);
+		shadowBuffer = Image.createRenderTarget(400, 300, null, true);
+		offBuffer = Image.createRenderTarget(400, 300, null, true);
 		#else
-		shadowBuffer = Image.createRenderTarget(400, 200, null, DepthStencilFormat.Depth24Stencil8);
-		offBuffer = Image.createRenderTarget(400, 200, null, DepthStencilFormat.Depth24Stencil8);
+		shadowBuffer = Image.createRenderTarget(400, 300, null, DepthStencilFormat.Depth24Stencil8);
+		offBuffer = Image.createRenderTarget(400, 300, null, DepthStencilFormat.Depth24Stencil8);
 		#end
 		lshader = new LightPipelineState();
 		sshader = new ShadowPipelineState();
-		drawRect = new FloatRect(0, 0, 400, 200);
+		drawRect = new FloatRect(0, 0, 400, 300);
 		decShader = new DecrementPipeline();
 		//circles.push(new Circle(100, 100, 5));
 		ambientColor = Color.fromValue(0xffffff);
@@ -178,7 +178,7 @@ class DS2D
 
 		KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
 		KhaBlit.setUniformTexture("tex", shadowBuffer);
-		KhaBlit.blit(KhaBlit.getSurface(400, 200), -1, 1);
+		KhaBlit.blit(KhaBlit.getSurface(400, 300), -1, 1);
 		KhaBlit.draw();
 		KhaBlit.matrix2 = FastMatrix4.scale(1, -1,1).multmat(KhaBlit.matrix2);
 

@@ -18,6 +18,10 @@ class Utils
 		var dis:Float = dx * dx + dy * dy;
 		return dis;
 	}
+
+	public static inline function floatEq(f1:Float, f2:Float, precision:Float = 1e-12){
+		return Math.abs(f1 - f2) <= precision;
+	}
 	
 	public static inline function rotateVec2(_vec:Vector2, rad:Float):Vector2
 	{

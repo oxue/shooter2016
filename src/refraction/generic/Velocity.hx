@@ -27,8 +27,6 @@ class Velocity extends Component
 	
 	override public function update():Void 
 	{
-		position.oldX = position.x;
-		position.oldY = position.y;
 		position.x += velX;
 		position.y += velY;
 	}

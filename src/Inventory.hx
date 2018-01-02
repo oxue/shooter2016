@@ -34,7 +34,7 @@ class Inventory extends Component
 	public function pickup(_itemId:Int):Void
 	{
 		currentWeapon = new Weapon();
-		currentWeapon.muzzleOffset = new Vector2(24,17);
+		currentWeapon.muzzleOffset = new Vector2(14,7);
 	}
 	
 	public function wieldingWeapon():Bool
@@ -47,7 +47,7 @@ class Inventory extends Component
 	}
 
 	public function muzzleDirection():Vector2 {
-		return EntFactory.instance().worldMouse().sub(position.vec().add(new Vector2(10,10)));
+		return Utils.rotateVec2(EntFactory.instance().worldMouse().sub(position.vec().add(new Vector2(0,0))), Math.random() * 0.1);
 	}
 
 	public function primary():Void

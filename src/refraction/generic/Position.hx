@@ -12,15 +12,13 @@ class Position extends Component
 {
 	public var x:Float;
 	public var y:Float;
-	public var rotation:Float;
 	
-	public var oldX:Float;
-	public var oldY:Float;
+	public var rotation:Float;
 	
 	public function new(_x:Float = 0, _y:Float = 0, _rotation:Float = 0) 
 	{
-		oldX = x = _x;
-		oldY = y = _y;
+		x = _x;
+		y = _y;
 		rotation = _rotation;
 		super();
 	}
@@ -32,7 +30,7 @@ class Position extends Component
 	
 	public function toString():String
 	{
-		return "<" + x + " " + y + ">/<" + oldX + " " + oldY + ">\n";
+		return "<" + x + " " + y + ">\n";
 	}
 	
 	public function drawPoint(camera:Camera, g2:kha.graphics2.Graphics):Void

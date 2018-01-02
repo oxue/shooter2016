@@ -6,6 +6,7 @@ import hxblit.TextureAtlas.IntRect;
 import hxblit.Camera;
 import refraction.core.Component;
 import refraction.generic.Position;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -76,16 +77,25 @@ class AnimatedRender extends Component
 		coordX = Math.round(position.rotation / 360 * numRot) % numRot;
 
 		if(surface2Set.registrationX != 0 || surface2Set.registrationY != 0){
+
+			var halfs = new Vector2(surface2Set.surfaces[0].width / 2, surface2Set.surfaces[0].height / 2);
+			var translation = new Vector2(surface2Set.translateX, surface2Set.translateY);
+			var center = halfs.sub(translation);
+			var reg = center.sub(new Vector2(surface2Set.registrationX, surface2Set.registrationY));
+
 			var a = coordX/numRot * 2 * 3.1415;
 			var cs = Math.cos(a);
 			var sn = Math.sin(a);
-			offsetX = surface2Set.registrationX * cs - surface2Set.registrationY * sn;
-			offsetY = surface2Set.registrationX * sn + surface2Set.registrationY * cs;
+			offsetX = reg.x * cs - reg.y * sn;
+			offsetY = reg.x * sn + reg.y * cs;
+
+			offsetX -= center.x;
+			offsetY -= center.y;
 		}
 
-		KhaBlit.blit(surface2Set.surfaces[cast coordX + coordY * numRot],
-					cast (Math.round(position.x - surface2Set.translateX) - camera.X() - offsetX),
-					cast (Math.round(position.y - surface2Set.translateY) - camera.Y() - offsetY));
+		KhaBlit.blit(surface2Set.surfaces[cast coordX + coordY * numRot], 
+					cast (Math.round(position.x - surface2Set.translateX) - camera.X() + offsetX),
+					cast (Math.round(position.y - surface2Set.translateY) - camera.Y() + offsetY));
 	}
 	
 }

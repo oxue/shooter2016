@@ -8,7 +8,7 @@ import refraction.tile.TilemapData;
 import refraction.tile.TileCollision;
 import hxblit.TextureAtlas.FloatRect;
 import hxblit.TextureAtlas.IntBounds;
-
+import refraction.core.Utils;
 
 class TileCollisionSys extends Sys<TileCollision>
 {
@@ -64,8 +64,11 @@ class TileCollisionSys extends Sys<TileCollision>
 
 	private function sweptRect(tc:TileCollision):FloatRect
 	{
-		var lastRect = new FloatRect(tc.position.oldX, tc.position.oldY, tc.dimensions.width, tc.dimensions.height);
-		var nowRect = new FloatRect(tc.position.x, tc.position.y, tc.dimensions.width, tc.dimensions.height);
+		var previousX = tc.position.x - tc.velocity.velX;
+		var previousY = tc.position.y - tc.velocity.velY;
+
+		var lastRect = new FloatRect(previousX - 10, previousY - 10, tc.dimensions.width, tc.dimensions.height);
+		var nowRect = new FloatRect(tc.position.x - 10, tc.position.y - 10, tc.dimensions.width, tc.dimensions.height);
 		return lastRect.union(nowRect);
 	}
 
@@ -81,16 +84,15 @@ class TileCollisionSys extends Sys<TileCollision>
 		var xFlag = 1 - data.nature;
 		var yFlag = data.nature;
 		
+		var pushbackX = -tc.velocity.velX * (1 - data.time);
+		var pushbackY = -tc.velocity.velY * (1 - data.time);
+
 		// pushback
-		tc.position.x -= tc.velocity.velX * (1 - data.time) * xFlag;
-		tc.position.y -= tc.velocity.velY * (1 - data.time) * yFlag;
+		tc.position.x += pushbackX * xFlag;
+		tc.position.y += pushbackY * yFlag;
 
-		// remaining part
-		tc.position.oldX = tc.position.x - tc.velocity.velX * (1 - data.time) * yFlag;
-		tc.position.oldY = tc.position.y - tc.velocity.velY * (1 - data.time) * xFlag;
-
-		tc.velocity.velX = tc.position.x - tc.position.oldX;
-		tc.velocity.velY = tc.position.y - tc.position.oldY;
+		tc.velocity.velX = -pushbackX * yFlag;
+		tc.velocity.velY = -pushbackY * xFlag;
 	}
 
 	private function getCollisionsInBound(tc:TileCollision, bounds:IntBounds):Array<CollisionData>
@@ -139,33 +141,36 @@ class TileCollisionSys extends Sys<TileCollision>
 	
 	public function solveRect(_tc:TileCollision, _tx:Int, _ty:Int, _tw:Int, _th:Int):CollisionData
 	{
-		var position:Position = _tc.position;
+		var position = new Position(_tc.position.x - 10, _tc.position.y - 10, 0);
+
+		var previousX = _tc.position.x - _tc.velocity.velX - 10;
+		var previousY = _tc.position.y - _tc.velocity.velY - 10;
 		var dimensions:Dimensions = _tc.dimensions;
-		var velX:Float = position.x - position.oldX;
-		var velY:Float = position.y - position.oldY;
+		var velX:Float = position.x - previousX;
+		var velY:Float = position.y - previousY;
 		var dtxc:Float = 0;
 		var dtyc:Float = 0;
 		var dtxd:Float = 0;
 		var dtyd:Float = 0;
 		if (velX < 0)
 		{
-			dtxc = _tx + _tw - position.oldX;
-			dtxd = _tx - position.oldX - dimensions.width;
+			dtxc = _tx + _tw - previousX;
+			dtxd = _tx - previousX - dimensions.width;
 		}
 		else
 		{
-			dtxc = _tx - position.oldX - dimensions.width;
-			dtxd = _tx + _tw - position.oldX;
+			dtxc = _tx - previousX - dimensions.width;
+			dtxd = _tx + _tw - previousX;
 		}
 		if (velY < 0)
 		{
-			dtyc = _ty + _th - position.oldY;
-			dtyd = _ty - position.oldY - dimensions.height;
+			dtyc = _ty + _th - previousY;
+			dtyd = _ty - previousY - dimensions.height;
 		}
 		else
 		{
-			dtyc = _ty - position.oldY - dimensions.height;
-			dtyd = _ty + _th - position.oldY;
+			dtyc = _ty - previousY - dimensions.height;
+			dtyd = _ty + _th - previousY;
 		}
 		var timeX:Float = dtxc / velX;
 		var timeY:Float = dtyc / velY;

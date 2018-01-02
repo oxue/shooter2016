@@ -3,7 +3,6 @@ import hxblit.Surface2;
 import hxblit.TextureAtlas;
 import kha.Image;
 import refraction.core.Entity;
-import refraction.display.Canvas;
 import refraction.display.SurfaceSet;
 import refraction.tile.Surface2TileRender;
 import refraction.tile.TilemapData;
