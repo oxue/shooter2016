@@ -52,7 +52,9 @@ class Inventory extends Component
 
 	public function primary():Void
 	{
-		return;
+		if(currentWeapon == null) {
+			return;
+		}
 		EntFactory.instance().createProjectile(muzzlePositon(), muzzleDirection());
 	}
 }

@@ -111,10 +111,10 @@ class ZombieAI extends Component
 		//ANIMATION
 		if (Math.round(velocity.velX) == 0 && Math.round(velocity.velY) == 0)
 		{
-			blc.curAnimaition = 0;
+			blc.curAnimaition = "idle";
 			blc.frame = 0;
 		}else{
-			blc.curAnimaition = 1;
+			blc.curAnimaition = "running";
 		}
 	}
 	

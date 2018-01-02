@@ -36,8 +36,8 @@ class PlayerAnimation extends Component
 	
 	override public function update():Void 
 	{
-		var idle_animation = inventory.wieldingWeapon() ? 2 : 0;
-		var walking_animation = idle_animation + 1;
+		var idle_animation = inventory.wieldingWeapon() ? "idle with weapon" : "idle";
+		var walking_animation = inventory.wieldingWeapon() ? "running with weapon" : "running";
 
 		if (notMoving())
 		{

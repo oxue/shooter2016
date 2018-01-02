@@ -23,11 +23,9 @@ class Spacing extends Component
 		super();
 	}
 
-	override public function setupField(_name:String, _value:Dynamic):Void 
+	override public function autoParams(_args:Dynamic):Void
 	{
-		if(_name == "radius") {
-			radius = _value;
-		}
+		radius = _args.radius;
 	}
 
 	override public function load():Void

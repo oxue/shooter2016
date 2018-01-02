@@ -28,10 +28,9 @@ class TileCollision extends Component
 		super();
 	}
 
-	override private function setupField(_name:String, _value:Dynamic):Void { 
-		if(_name == "tilemap"){
-			targetTilemap = _value;
-		}
+	override public function autoParams(_args:Dynamic):Void
+	{
+		targetTilemap = _args.tilemap;
 	}
 
 	public function drawHitbox(camera:Camera, g2:kha.graphics2.Graphics):Void

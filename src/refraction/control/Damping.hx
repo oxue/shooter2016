@@ -19,11 +19,9 @@ class Damping extends Component
 		super();
 	}
 
-	override private function setupField(_name:String, _value:Dynamic):Void
+	override public function autoParams(_args:Dynamic):Void
 	{
-		if(_name == "factor") {
-			factor = _value;
-		}
+		factor = _args.factor;
 	}
 	
 	override public function load():Void 

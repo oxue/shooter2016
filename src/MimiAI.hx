@@ -56,10 +56,10 @@ class MimiAI extends Component
 		randTargetInterval.tick();
 		if (Math.round(position.x - lastX) == 0 && Math.round(position.y - lastY) == 0)
 		{
-			blc.curAnimaition = 0;
+			blc.curAnimaition = "idle";
 			blc.frame = 0;
 		}else{
-			blc.curAnimaition = 1;
+			blc.curAnimaition = "running";
 		}
 		lastX = position.x;
 		lastY = position.y;

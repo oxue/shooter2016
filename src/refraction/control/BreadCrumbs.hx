@@ -26,14 +26,12 @@ class BreadCrumbs extends Component
 		super();
 	}
 
-	override private function setupField(_name:String, _value:Dynamic):Void {
-		if(_name == "acceptanceRadius"){
-			acceptanceRadius = _value;
-		}else if(_name == "maxAcceleration"){
-			maxAcceleration = _value;
-		}
+	override public function autoParams(_args:Dynamic):Void
+	{
+		acceptanceRadius = _args.acceptanceRadius;
+		maxAcceleration = _args.maxAcceleration;
 	}
-	
+
 	public function addBreadCrumb(_v:FastVector2){
 		breadcrumbs.push(_v);
 	}

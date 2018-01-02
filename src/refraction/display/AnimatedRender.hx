@@ -7,6 +7,7 @@ import hxblit.Camera;
 import refraction.core.Component;
 import refraction.generic.Position;
 import kha.math.Vector2;
+import haxe.ds.StringMap;
 
 /**
  * ...
@@ -19,13 +20,13 @@ class AnimatedRender extends Component
 	public var frameTime:Int;
 	private var time:Int;
 	public var frame:Int;
-	public var animations:Array<Array<Int>>;
+	public var animations:StringMap<Array<Int>>;
 	private var coordX:Int;
 	private var coordY:Int;
 	private var surface2Set:SurfaceSet;
 	private var position:Position;
 	public var numRot:Int;
-	public var curAnimaition:Int;
+	public var curAnimaition:String;
 	public var camera:Camera;
 	
 	private var surfaceName:String;
@@ -38,13 +39,23 @@ class AnimatedRender extends Component
 		numRot = 32;
 
 		coordX = coordY = 0;
-		animations = new Array<Array<Int>>();
-		animations.push([0,0, 0,1, 2,1]);
+		animations = new StringMap<Array<Int>>();
 		frameTime = 4;
-		curAnimaition = 0;
+		curAnimaition = "";
 		frame = 0;
 	}
 	
+	override public function autoParams(_args:Dynamic):Void
+	{
+		var i:Int = _args.animations.length;
+		while(i-->0){
+			var item = _args.animations[i];
+			animations.set(item.name, item.frames);
+		}
+		curAnimaition = _args.initialAnimation;
+		frameTime = _args.frameTime;
+	}
+
 	override public function load():Void 
 	{
 		surface2Set = entity.getComponent(SurfaceSet, surfaceName);
@@ -58,11 +69,11 @@ class AnimatedRender extends Component
 		{
 			time = 0;
 			frame ++;
-			if (frame == animations[curAnimaition].length)
+			if (frame == animations.get(curAnimaition).length)
 			{
 				frame = 0;
 			}
-			coordY = animations[curAnimaition][frame];
+			coordY = animations.get(curAnimaition)[frame];
 		}
 		if (position.rotation < 0)
 		{

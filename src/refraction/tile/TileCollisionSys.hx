@@ -173,7 +173,7 @@ class TileCollisionSys extends Sys<TileCollision>
 			dtyc = _ty - previous.y - dimensions.height;
 			dtyd = _ty + _th - previous.y;
 		}
-		var timeX:Float = dtxc / _tc.velocity.velX;
+		var timeX:Float = dtxc / velX;
 		var timeY:Float = dtyc / velY;
 		var t0:Float = Math.max(timeX, timeY);
 		

@@ -31,12 +31,10 @@ class Tooltip extends Component
 		super();
 	}
 
-	override private function setupField(_name:String, _value:Dynamic):Void{
-		if(_name == "message"){
-			message = _value;
-		} else if (_name == "color") {
-			color = _value;
-		}
+	override public function autoParams(_args:Dynamic):Void
+	{
+		message = _args.message;
+		color = _args.color;
 	}
 
 	override public function load():Void 

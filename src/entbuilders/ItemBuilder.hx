@@ -27,11 +27,11 @@ class ItemBuilder
 		e.addComponent(surfaceRender);
 		surfaceRender.camera = gameContext.camera;
 
-		surfaceRender.animations[0] = [0];
-		surfaceRender.animations.push([1]);
-		surfaceRender.animations.push([2]);
-		surfaceRender.animations.push([3]);
-		surfaceRender.curAnimaition = 0;
+		surfaceRender.animations.set("crossbow",[0]);
+		//surfaceRender.animations.push([1]);
+		//surfaceRender.animations.push([2]);
+		//surfaceRender.animations.push([3]);
+		surfaceRender.curAnimaition = "crossbow";
 		surfaceRender.frame = 0;
 		
 		gameContext.surface2RenderSystem.addComponent(surfaceRender);

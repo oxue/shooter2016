@@ -23,13 +23,11 @@ class KeyControl extends Component
 		speed = _speed;
 	}
 
-	override private function setupField(_name:String, _value:Dynamic):Void 
-	{ 
-		if(_name == "speed") {
-			speed = _value;
-		}
+	override public function autoParams(_args:Dynamic):Void
+	{
+		speed = _args.speed;	
 	}
-	
+
 	override public function load():Void 
 	{
 		position = entity.getComponent(Position);

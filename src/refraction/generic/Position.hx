@@ -25,6 +25,12 @@ class Position extends Component
 		super();
 	}
 
+	override public function autoParams(_args:Dynamic):Void
+	{
+		x = _args.x;
+		x = _args.y;
+	}
+
 	public function vec():Vector2
 	{
 		return new Vector2(x, y);

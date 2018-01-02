@@ -16,15 +16,10 @@ class Component
 	{
 		
 	}
-	
-	private function setupField(_name:String, _value:Dynamic):Void { }
-	
-	public function autoSetup(_args:Any):Void
+		
+	public function autoParams(_args:Dynamic):Void
 	{
-		for(prop in Reflect.fields(_args))
-        {
-            setupField(prop, Reflect.field(_args, prop));
-        }
+
 	}
 	
 	public function load():Void
