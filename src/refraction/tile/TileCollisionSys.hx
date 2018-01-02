@@ -139,42 +139,42 @@ class TileCollisionSys extends Sys<TileCollision>
 		collideOneAxis(tc);
 	}
 	
+
+	// WARNING DELICATE FLOATING POINT MATH
 	public function solveRect(_tc:TileCollision, _tx:Int, _ty:Int, _tw:Int, _th:Int):CollisionData
 	{
-		var position = new Position(_tc.position.x - 10, _tc.position.y - 10, 0);
-
-		var previousX = _tc.position.x - _tc.velocity.velX - 10;
-		var previousY = _tc.position.y - _tc.velocity.velY - 10;
+		var position = _tc.position.vec().sub(_tc.position.registration);
+		var previous = _tc.position.vec().sub(_tc.velocity.vec()).sub(_tc.position.registration);
 		var dimensions:Dimensions = _tc.dimensions;
-		var velX:Float = position.x - previousX;
-		var velY:Float = position.y - previousY;
-		var dtxc:Float = 0;
-		var dtyc:Float = 0;
-		var dtxd:Float = 0;
-		var dtyd:Float = 0;
-		if (velX < 0)
+		var velX = position.x - previous.x;
+		var velY = position.y - previous.y;
+		var dtxc = 0.0;
+		var dtyc = 0.0;
+		var dtxd = 0.0;
+		var dtyd = 0.0;
+		
+		if (_tc.velocity.velX < 0)
 		{
-			dtxc = _tx + _tw - previousX;
-			dtxd = _tx - previousX - dimensions.width;
+			dtxc = _tx + _tw - previous.x;
+			dtxd = _tx - previous.x - dimensions.width;
 		}
 		else
 		{
-			dtxc = _tx - previousX - dimensions.width;
-			dtxd = _tx + _tw - previousX;
+			dtxc = _tx - previous.x - dimensions.width;
+			dtxd = _tx + _tw - previous.x;
 		}
 		if (velY < 0)
 		{
-			dtyc = _ty + _th - previousY;
-			dtyd = _ty - previousY - dimensions.height;
+			dtyc = _ty + _th - previous.y;
+			dtyd = _ty - previous.y - dimensions.height;
 		}
 		else
 		{
-			dtyc = _ty - previousY - dimensions.height;
-			dtyd = _ty + _th - previousY;
+			dtyc = _ty - previous.y - dimensions.height;
+			dtyd = _ty + _th - previous.y;
 		}
-		var timeX:Float = dtxc / velX;
+		var timeX:Float = dtxc / _tc.velocity.velX;
 		var timeY:Float = dtyc / velY;
-		
 		var t0:Float = Math.max(timeX, timeY);
 		
 		var disjointTimeX:Float = (dtxd / velX);

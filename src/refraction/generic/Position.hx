@@ -14,12 +14,14 @@ class Position extends Component
 	public var y:Float;
 	
 	public var rotation:Float;
+	public var registration:Vector2;
 	
-	public function new(_x:Float = 0, _y:Float = 0, _rotation:Float = 0) 
+	public function new(_x:Float = 0, _y:Float = 0, _rx:Float = 0, _ry:Float = 0, _rotation:Float = 0) 
 	{
 		x = _x;
 		y = _y;
 		rotation = _rotation;
+		registration = new Vector2(_rx, _ry);
 		super();
 	}
 

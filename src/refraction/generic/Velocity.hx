@@ -1,6 +1,7 @@
 package refraction.generic;
 import refraction.core.Component;
 import refraction.core.Utils;
+import kha.math.Vector2;
 
 /**
  * ...
@@ -25,6 +26,11 @@ class Velocity extends Component
 		position = entity.getComponent(Position);
 	}
 	
+	public function vec():Vector2
+	{
+		return new Vector2(velX, velY);
+	}
+
 	override public function update():Void 
 	{
 		position.x += velX;
