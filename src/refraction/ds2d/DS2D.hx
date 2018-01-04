@@ -44,9 +44,12 @@ class DS2D
 	
 	private var ambientLevel:Float;
 	private var ambientColor:Color;
-	var experimentalCullingEnabled = false;
+	private var experimentalCullingEnabled = false;
+
+	public var screenWidth:Int;
+	public var screenHeight:Int;
 	
-	public function new() 
+	public function new(_screenWidth:Int, _screenHeight:Int) 
 	{
 		tempV3 = new FastVector2();
 		tempV32 = new FastVector3();
@@ -54,16 +57,19 @@ class DS2D
 		lights = new Array<LightSource>();
 		polygons = new Array<Polygon>();
 		circles = new Array<Circle>();
+		screenWidth = _screenWidth;
+		screenHeight = _screenHeight;
+
 		#if nodejs
-		shadowBuffer = Image.createRenderTarget(400, 300, null, true);
-		offBuffer = Image.createRenderTarget(400, 300, null, true);
+		shadowBuffer = Image.createRenderTarget(screenWidth, screenHeight, null, true);
+		offBuffer = Image.createRenderTarget(screenWidth, screenHeight, null, true);
 		#else
-		shadowBuffer = Image.createRenderTarget(400, 300, null, DepthStencilFormat.Depth24Stencil8);
-		offBuffer = Image.createRenderTarget(400, 300, null, DepthStencilFormat.Depth24Stencil8);
+		shadowBuffer = Image.createRenderTarget(screenWidth, screenHeight, null, DepthStencilFormat.Depth24Stencil8);
+		offBuffer = Image.createRenderTarget(screenWidth, screenHeight, null, DepthStencilFormat.Depth24Stencil8);
 		#end
 		lshader = new LightPipelineState();
 		sshader = new ShadowPipelineState();
-		drawRect = new FloatRect(0, 0, 400, 300);
+		drawRect = new FloatRect(0, 0, screenWidth, screenHeight);
 		decShader = new DecrementPipeline();
 		//circles.push(new Circle(100, 100, 5));
 		ambientColor = Color.fromValue(0xffffff);
@@ -105,7 +111,7 @@ class DS2D
 			var lx = l.position.x;
 			var ly = l.position.y;
 			
-			//l.radius = 300;
+			//l.radius = screenHeight;
 			//--
 			sshader.stencilReferenceValue = rv + 1;
 			KhaBlit.setPipeline(sshader, "ShadowPipelineState");
@@ -178,7 +184,7 @@ class DS2D
 
 		KhaBlit.setUniformMatrix4("mproj", KhaBlit.matrix2);
 		KhaBlit.setUniformTexture("tex", shadowBuffer);
-		KhaBlit.blit(KhaBlit.getSurface(400, 300), -1, 1);
+		KhaBlit.blit(KhaBlit.getSurface(screenWidth, screenHeight), -1, 1);
 		KhaBlit.draw();
 		KhaBlit.matrix2 = FastMatrix4.scale(1, -1,1).multmat(KhaBlit.matrix2);
 

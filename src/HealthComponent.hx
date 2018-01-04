@@ -25,7 +25,7 @@ class HealthComponent extends Component
 	
 	private function defaultCallback():Void
 	{
-		entity.removeImmediately();
+		entity.remove();
 	}
 
 	public function applyHealth(_value:Int):Void

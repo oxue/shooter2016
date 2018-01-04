@@ -16,9 +16,12 @@ class RotationControl extends Component
 	private var targetRotation:Float;
 	private var targetCamera:Camera;
 
-	public function new(_cam:Camera) 
+	public function new(_cam:Camera=null) 
 	{
 		targetCamera = _cam;
+		if(targetCamera == null) {
+			targetCamera = Application.defaultCamera;
+		}
 		targetRotation = 0;
 		super();
 	}

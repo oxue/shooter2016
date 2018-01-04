@@ -8,6 +8,8 @@ import refraction.generic.Dimensions;
 import refraction.generic.Position;
 import refraction.generic.Velocity;
 import hxblit.Camera;
+import kha.math.Vector2;
+import kha.graphics2.Graphics;
 
 /**
  * ...
@@ -18,7 +20,8 @@ class TileCollision extends Component
 {
 
 	public var targetTilemap:TilemapData;
-	
+	public var hitboxPosition:Vector2;
+
 	public var position:Position;
 	public var dimensions:Dimensions;
 	public var velocity:Velocity;
@@ -31,9 +34,10 @@ class TileCollision extends Component
 	override public function autoParams(_args:Dynamic):Void
 	{
 		targetTilemap = _args.tilemap;
+		hitboxPosition = new Vector2(_args.hitboxX, _args.hitboxY);
 	}
 
-	public function drawHitbox(camera:Camera, g2:kha.graphics2.Graphics):Void
+	public function drawHitbox(camera:Camera, g2:Graphics):Void
 	{
 		g2.color = kha.Color.Green;
 		g2.drawRect(

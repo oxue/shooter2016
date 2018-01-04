@@ -279,7 +279,7 @@ class GameState extends State
 		lightControlSystem.update();
 		fireSystem.update();
 		
-		if (playerCollide.remove != true && playerCollide.removeImmediately != true)
+		if (playerCollide.remove != true && playerCollide.remove != true)
 		{
 			playerCollide.update();
 		}
@@ -326,7 +326,7 @@ class GameState extends State
 		bulletRenderSystem.update();
 		
 		healthBar.render();
-		//if (playerCollide.remove != true && playerCollide.removeImmediately != true)
+		//if (playerCollide.remove != true && playerCollide.remove != true)
 		{
 			inventoryRender.update();
 		}

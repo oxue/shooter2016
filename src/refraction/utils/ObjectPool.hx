@@ -11,12 +11,11 @@ class ObjectPool<T>
 
 	public var size:UInt;
 	public var pool:Array<T>;
-	public var incremental:Int;
 	
-	public function new(_initialSize:Int, _incremental:Int = 10) 
+	public function new() 
 	{
 		pool = new Array<T>();
-		incremental = _incremental;
+		size = 0;
 	}
 	
 	public function get():T
@@ -24,12 +23,16 @@ class ObjectPool<T>
 		if (size == 0)
 		return null;
 		else
-		return pool[--size];
+		{
+			trace("pool get");
+			return pool[--size];
+		}
 	}
 	
 	public function alloc(_o:T):Void
 	{
 		pool.push(_o);
+		size++;
 	}
 	
 }

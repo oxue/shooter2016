@@ -31,8 +31,9 @@ class Projectile extends Component
 	{
 		//position.x = position.y = 0;
 		if(tilemapData.hitTestPoint(new Vector2(position.x, position.y))){
-			entity.getComponent(Velocity).removeImmediately = true;
-			this.removeImmediately = true;
+			entity.remove();
+			//entity.getComponent(Velocity).remove = true;
+			//this.remove = true;
 		}
 	}
 	

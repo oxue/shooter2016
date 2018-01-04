@@ -25,7 +25,6 @@ class ItemBuilder
 		
 		var surfaceRender:AnimatedRender = new AnimatedRender();
 		e.addComponent(surfaceRender);
-		surfaceRender.camera = gameContext.camera;
 
 		surfaceRender.animations.set("crossbow",[0]);
 		//surfaceRender.animations.push([1]);
@@ -34,7 +33,7 @@ class ItemBuilder
 		surfaceRender.curAnimaition = "crossbow";
 		surfaceRender.frame = 0;
 		
-		gameContext.surface2RenderSystem.addComponent(surfaceRender);
+		gameContext.renderSystem.addComponent(surfaceRender);
 
 		var tt:Tooltip = new Tooltip("Demon Hunter's Crossbow", kha.Color.Green);
 		e.addComponent(tt);

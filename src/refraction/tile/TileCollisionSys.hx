@@ -13,10 +13,20 @@ import refraction.core.Utils;
 class TileCollisionSys extends Sys<TileCollision>
 {
 	private var tilemapData:TilemapData;
+	private var pool:Array<TileCollision>;
 
 	public function new()
 	{
+		pool = new Array<TileCollision>();
 		super();
+	}
+
+	override public function produce():TileCollision
+	{
+		if(pool.length != 0){
+			return pool.pop();
+		}
+		return null;
 	}
 
 	public function setTilemap(_tilemapData:TilemapData):Void
@@ -25,10 +35,17 @@ class TileCollisionSys extends Sys<TileCollision>
 	}
 
 	override public function update():Void{
-		var i = components.length;
-		while(i-->0) {
+		var i = 0;
+		while (i < components.length)
+		{
 			var tc = components[i];
+			if (tc.remove)
+			{
+				removeIndex(i, pool);
+				continue;
+			}
 			collide(tc);
+			++i;
 		}
 	}
 
@@ -67,8 +84,11 @@ class TileCollisionSys extends Sys<TileCollision>
 		var previousX = tc.position.x - tc.velocity.velX;
 		var previousY = tc.position.y - tc.velocity.velY;
 
-		var lastRect = new FloatRect(previousX - 10, previousY - 10, tc.dimensions.width, tc.dimensions.height);
-		var nowRect = new FloatRect(tc.position.x - 10, tc.position.y - 10, tc.dimensions.width, tc.dimensions.height);
+		var hx = tc.hitboxPosition.x;
+		var hy = tc.hitboxPosition.y;
+
+		var lastRect = new FloatRect(previousX + hx, previousY + hy, tc.dimensions.width, tc.dimensions.height);
+		var nowRect = new FloatRect(tc.position.x + hx, tc.position.y + hy, tc.dimensions.width, tc.dimensions.height);
 		return lastRect.union(nowRect);
 	}
 
@@ -143,8 +163,8 @@ class TileCollisionSys extends Sys<TileCollision>
 	// WARNING DELICATE FLOATING POINT MATH
 	public function solveRect(_tc:TileCollision, _tx:Int, _ty:Int, _tw:Int, _th:Int):CollisionData
 	{
-		var position = _tc.position.vec().sub(_tc.position.registration);
-		var previous = _tc.position.vec().sub(_tc.velocity.vec()).sub(_tc.position.registration);
+		var position = _tc.position.vec().add(_tc.hitboxPosition);
+		var previous = _tc.position.vec().sub(_tc.velocity.vec()).add(_tc.hitboxPosition);
 		var dimensions:Dimensions = _tc.dimensions;
 		var velX = position.x - previous.x;
 		var velY = position.y - previous.y;

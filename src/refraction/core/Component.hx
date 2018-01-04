@@ -9,7 +9,6 @@ class Component
 {
 	
 	public var remove:Bool;
-	public var removeImmediately:Bool;
 	public var entity:Entity;
 
 	public function new() 
@@ -17,6 +16,11 @@ class Component
 		
 	}
 		
+	public function reset():Void
+	{
+		remove = false;
+	}
+
 	public function autoParams(_args:Dynamic):Void
 	{
 

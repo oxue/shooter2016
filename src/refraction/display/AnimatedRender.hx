@@ -27,15 +27,13 @@ class AnimatedRender extends Component
 	private var position:Position;
 	public var numRot:Int;
 	public var curAnimaition:String;
-	public var camera:Camera;
 	
-	private var surfaceName:String;
+	private var surface:String;
 	
-	public function new(_camera:Camera = null, _surfaceName:String = null) 
+	public function new(_surface:String = null) 
 	{
 		super();
-		surfaceName = _surfaceName;
-		camera = _camera;
+		surface = _surface;
 		numRot = 32;
 
 		coordX = coordY = 0;
@@ -54,15 +52,17 @@ class AnimatedRender extends Component
 		}
 		curAnimaition = _args.initialAnimation;
 		frameTime = _args.frameTime;
+		surface = _args.surface;
+		surface2Set = entity.getComponent(SurfaceSet, surface);
 	}
 
 	override public function load():Void 
 	{
-		surface2Set = entity.getComponent(SurfaceSet, surfaceName);
+		surface2Set = entity.getComponent(SurfaceSet, surface);
 		position = entity.getComponent(Position);
 	}
 	
-	override public function update():Void 
+	 public function draw(camera:Camera):Void 
 	{
 		time++;
 		if (time == frameTime)

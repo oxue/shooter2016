@@ -19,6 +19,12 @@ class Dimensions extends Component
 		height = _height;
 	}
 
+	override public function autoParams(_args:Dynamic):Void
+	{
+		width = _args.w;
+		height = _args.h;
+	}
+
 	public function containsPoint(coords:Vector2):Bool
 	{
 		return coords.x <= width && coords.x >=0 && coords.y <= height && coords.y >= 0;

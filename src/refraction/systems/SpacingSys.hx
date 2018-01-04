@@ -49,7 +49,7 @@ class SpacingSys extends Sys<Spacing>
 		var i:Int = components.length;
 		while (i-->0)
 		{
-			if (components[i].p.remove || components[i].p.removeImmediately)
+			if (components[i].p.remove)
 			{
 				components[i] = components[components.length - 1];
 				components.pop();

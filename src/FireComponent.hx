@@ -36,7 +36,7 @@ class FireComponent extends Component
 		t++;
 		if (t >= timer)
 		{
-			entity.removeImmediately();
+			entity.remove();
 			targetLight.remove = true;
 		}
 			if (t < 20)

@@ -27,8 +27,9 @@ class TooltipSys extends Sys<Tooltip>
 	
 	public function draw(g2:kha.graphics2.Graphics)
 	{
-		var mouseCoords = new Vector2(Application.mouseX / 2, Application.mouseY / 2);
+		sweepRemoved();
 
+		var mouseCoords = new Vector2(Application.mouseX / 2, Application.mouseY / 2);
 		var hoveredItems = components.filter(function(tooltip) return tooltip.containsPoint(mouseCoords));
 		if(hoveredItems.length != 0){
 			drawTooltip(hoveredItems[0], g2);

@@ -22,12 +22,13 @@ class Entity
 		entities.push(_e);
 	}
 
-	public inline function addComponent(_comp:Component, ?_name:String):Void
+	public inline function addComponent(_comp:Component, ?_name:String):Component
 	{
 		var compName = (_name == null) ? Type.getClassName(Type.getClass(_comp)) : _name;
 		components.set(compName, _comp);
 		_comp.entity = this;
 		_comp.load();
+		return _comp;
 	}
 	
 	public inline function removeComponent(_name:String):Void
@@ -42,18 +43,6 @@ class Entity
 			return cast components.get(_name);
 		} else {
 			return cast components.get(Type.getClassName(_type));
-		}
-	}
-	
-	public function removeImmediately():Void
-	{
-		for (comp in components)
-		{
-			comp.removeImmediately = true;
-		}
-		for (e in entities)
-		{
-			e.removeImmediately();
 		}
 	}
 	

@@ -1,27 +1,29 @@
 package;
+import components.Interactable;
+import hxblit.Camera;
 import hxblit.TextureAtlas.IntRect;
 import kha.Assets;
 import kha.graphics2.Graphics;
 import refraction.control.Damping;
+import refraction.core.Application;
 import refraction.core.Component;
 import refraction.core.Entity;
-import refraction.core.Sys;
 import refraction.core.Sys.NullSystem;
+import refraction.core.Sys;
 import refraction.display.AnimatedRender;
 import refraction.ds2d.DS2D;
 import refraction.generic.Velocity;
 import refraction.systems.BreadCrumbsSys;
 import refraction.systems.LightSourceSystem;
+import refraction.systems.RenderSys;
 import refraction.systems.SpacingSys;
 import refraction.systems.TooltipSys;
 import refraction.tile.Surface2TileRender;
 import refraction.tile.TileCollision;
-import refraction.tile.TilemapData;
-import zui.Zui;
-import components.Interactable;
-import systems.InteractSys;
-import hxblit.Camera;
 import refraction.tile.TileCollisionSys;
+import refraction.tile.TilemapData;
+import systems.InteractSys;
+import zui.Zui;
 
 /**
  * ...
@@ -38,8 +40,8 @@ class GameContext
 	
 	public var statusText:StatusText;
 	
-	public var surface2RenderSystem:Sys<AnimatedRender>;
-	public var selfLitRenderSystem:Sys<AnimatedRender>;
+	public var renderSystem:RenderSys;
+	public var selfLitRenderSystem:RenderSys;
 	public var controlSystem:Sys<Component>;
 	public var velocitySystem:Sys<Velocity>;
 	public var dampingSystem:Sys<Damping>;
@@ -50,8 +52,8 @@ class GameContext
 	public var lightSourceSystem:LightSourceSystem;
 	
 	public var spacingSystem:SpacingSys;
-	public var lightingSystem:DS2D;
 	public var tooltipSystem:TooltipSys;
+	public var lightingSystem:DS2D;
 
 	public var hitCheckSystem:Sys<Component>;
 
@@ -73,8 +75,8 @@ class GameContext
 		
 		worldMouseX = worldMouseY = 0;
 		
-		surface2RenderSystem = new Sys<AnimatedRender>();
-		selfLitRenderSystem = new Sys<AnimatedRender>();
+		renderSystem = new RenderSys(camera);
+		selfLitRenderSystem = new RenderSys(camera);
 		controlSystem = new Sys<Component>();
 		velocitySystem = new Sys<Velocity>();
 		dampingSystem = new Sys<Damping>();
@@ -87,7 +89,7 @@ class GameContext
 		
 		hitCheckSystem = new Sys<Component>();
 
-		lightingSystem = new DS2D();
+		lightingSystem = new DS2D(Std.int(Application.width / Application.zoom), Std.int(Application.height / Application.zoom));
 		tooltipSystem = new TooltipSys(ui);
 	}
 	

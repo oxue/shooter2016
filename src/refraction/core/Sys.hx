@@ -28,29 +28,43 @@ class Sys<T:Component>
 {
 	public var components:Array<T>;
 	private var l:Int;
-	private var pool:ObjectPool<T>;
 	
 	public function new() 
 	{
 		components = new Array<T>();
-		pool = new ObjectPool<T>(10);
 	}
 
 	@:generic
-	public function procure<G:(Constructible<Dynamic>, T)>(e:Entity, _type:Class<G>):G
+	public function procure<G:(Constructible<Dynamic>, T, Component)>(e:Entity, _type:Class<G>, _name:String = null):G
 	{
-		var ret:G = new G();
-		e.addComponent(ret);
+		var ret:G = cast produce();
+		if(ret == null)
+		{
+			ret = new G();
+		}
+		e.addComponent(ret, _name);
 		addComponent(ret);
 		return ret;
 	}
-	
-	public function get():T
+
+	public function sweepRemoved(){
+		components = components.filter(function(c) return !c.remove);
+	}
+
+	public function removeIndex(_i:Int, _pool:Array<T> = null):Void
 	{
-		var ret:T = pool.get();
-		if(ret!=null)
-		addComponent(ret);
-		return ret;
+		if(_pool != null)
+		{
+			components[_i].reset();
+			_pool.push(components[_i]);
+		}
+		components[_i] = components[components.length - 1];
+		components.pop();
+	}
+
+	public function produce():T
+	{
+		return null;
 	}
 	
 	public inline function addComponent(_c:T):Void
@@ -70,17 +84,12 @@ class Sys<T:Component>
 		while (i<l)
 		{
 			var c:T = components[i];
-			if (components[i].removeImmediately)
+			if (components[i].remove)
 			{
-				pool.alloc(components[i]);
 				components[i] = components[--l];
 				continue;
 			}
 			updateComponent(c);
-			if (components[i].remove)
-			{
-				components[i].removeImmediately = true;
-			}
 			++i;
 		}
 		while (components.length > l){
