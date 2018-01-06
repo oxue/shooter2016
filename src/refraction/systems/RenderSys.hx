@@ -20,7 +20,7 @@ class RenderSys extends Sys<AnimatedRender>
 	override public function produce():AnimatedRender
 	{
 		if(pool.length != 0){
-			return pool.pop();
+			//return pool.pop();
 		}
 		return null;
 	}
@@ -32,7 +32,7 @@ class RenderSys extends Sys<AnimatedRender>
 			var c = components[i];
 			if (c.remove)
 			{
-				removeIndex(i, pool);
+				removeIndex(i);//, pool);
 				continue;
 			}
 			c.draw(camera);

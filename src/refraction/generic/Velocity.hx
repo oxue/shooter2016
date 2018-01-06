@@ -39,7 +39,7 @@ class Velocity extends Component
 	
 	public function interpolate(speed:Float) 
 	{
-		var len = Math.sqrt(Utils.f2(velX) + Utils.f2(velY));
+		var len = Math.sqrt(Utils.sq(velX) + Utils.sq(velY));
 		if (len < speed){
 			return;
 		}

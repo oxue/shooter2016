@@ -9,19 +9,12 @@ package refraction.core;
 class Entity 
 {
 	public var components:Map<String, Component>;
-	public var entities:Array<Entity>;
 	
 	public function new() 
 	{
 		components = new Map<String, Component>();
-		entities = new Array<Entity>();
 	}
 	
-	public function addEntity(_e:Entity):Void
-	{
-		entities.push(_e);
-	}
-
 	public inline function addComponent(_comp:Component, ?_name:String):Component
 	{
 		var compName = (_name == null) ? Type.getClassName(Type.getClass(_comp)) : _name;
@@ -29,6 +22,14 @@ class Entity
 		_comp.entity = this;
 		_comp.load();
 		return _comp;
+	}
+
+	public function notify(_msgType:String, _msgData:Dynamic = null):Void
+	{
+		for (comp in components)
+		{
+			comp.notify(_msgType, _msgData);
+		}
 	}
 	
 	public inline function removeComponent(_name:String):Void
@@ -51,10 +52,6 @@ class Entity
 		for (comp in components)
 		{
 			comp.remove = true;
-		}
-		for (e in entities)
-		{
-			e.remove();
 		}
 	}
 	

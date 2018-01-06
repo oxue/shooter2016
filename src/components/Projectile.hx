@@ -25,6 +25,9 @@ class Projectile extends Component
 	override public function load():Void 
 	{
 		position = entity.getComponent(Position);
+		this.on("collided", function(data){
+			entity.remove();
+		});
 	}
 
 	override public function update():Void

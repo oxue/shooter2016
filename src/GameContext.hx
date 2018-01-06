@@ -23,6 +23,7 @@ import refraction.tile.TileCollision;
 import refraction.tile.TileCollisionSys;
 import refraction.tile.TilemapData;
 import systems.InteractSys;
+import systems.HitTestSys;
 import zui.Zui;
 
 /**
@@ -56,8 +57,9 @@ class GameContext
 	public var lightingSystem:DS2D;
 
 	public var hitCheckSystem:Sys<Component>;
+	public var hitTestSystem:HitTestSys;
 
-	public var nullSystem:NullSystem<Component>;
+	public var nullSystem:Sys<Component>;
 	
 	// TODO: Deprecate these ones.
 	public var worldMouseX:Int;
@@ -88,6 +90,7 @@ class GameContext
 		spacingSystem = new SpacingSys();
 		
 		hitCheckSystem = new Sys<Component>();
+		hitTestSystem = new HitTestSys();
 
 		lightingSystem = new DS2D(Std.int(Application.width / Application.zoom), Std.int(Application.height / Application.zoom));
 		tooltipSystem = new TooltipSys(ui);

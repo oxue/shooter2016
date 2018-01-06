@@ -33,11 +33,17 @@ class Utils
 		);
 	}
 
+	public static inline function quickRemoveIndex(_array:Array<Dynamic>, _i:Int):Void
+	{
+		_array[_i] = _array[_array.length-1];
+		_array.pop();
+	}
+
 	public static inline function a2rad(a:Float){
 		return a * 3.14159 / 180;
 	}
 
-	public static inline function f2(_x:Float):Float
+	public static inline function sq(_x:Float):Float
 	{
 		return _x * _x;
 	}

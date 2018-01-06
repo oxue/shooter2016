@@ -36,7 +36,7 @@ class ZombieAI extends Component
 	private var scentInterval:Interval;
 	private var lastScene:Bool;
 	
-	public function new(_followTarget:Position) 
+	public function new(_followTarget:Position, _tilemap:TilemapData) 
 	{
 		super();
 		
@@ -47,6 +47,8 @@ class ZombieAI extends Component
 		lastScene = false;
 		
 		scentInterval = new Interval(dropCrumb, 5); 
+
+		targetMap = _tilemap;
 	}
 	
 	function dropCrumb() 
@@ -74,7 +76,7 @@ class ZombieAI extends Component
 		position = entity.getComponent(Position);
 		velocity = entity.getComponent(Velocity);
 		blc = entity.getComponent(AnimatedRender);
-		targetMap = entity.getComponent(TileCollision).targetTilemap;
+		//targetMap = entity.getComponent(TileCollision).targetTilemap;
 		
 	}
 	
